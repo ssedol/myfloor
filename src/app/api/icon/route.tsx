@@ -3,12 +3,10 @@ import { NextRequest } from "next/server";
 import fs from "fs";
 import path from "path";
 
-function getFont(): Buffer {
-  const fontPath = path.join(
-    process.cwd(),
-    "node_modules/pretendard/dist/public/static/Pretendard-Bold.otf"
-  );
-  return fs.readFileSync(fontPath);
+function getLogoDataUri(): string {
+  const logoPath = path.join(process.cwd(), "public/logo.png");
+  const data = fs.readFileSync(logoPath);
+  return `data:image/png;base64,${data.toString("base64")}`;
 }
 
 export function GET(req: NextRequest) {
@@ -18,9 +16,10 @@ export function GET(req: NextRequest) {
     Math.max(16, parseInt(searchParams.get("size") ?? "192"))
   );
 
-  const fontData = getFont();
-  const r = size * 0.2;
-  const textSize = size * 0.36;
+  const logoDataUri = getLogoDataUri();
+  const padding = size * 0.18;
+  const logoW = size - padding * 2;
+  const logoH = Math.round(logoW * (72 / 260));
 
   return new ImageResponse(
     (
@@ -28,51 +27,22 @@ export function GET(req: NextRequest) {
         style={{
           width: size,
           height: size,
-          background: "linear-gradient(145deg, #9BBF97 0%, #6B9166 100%)",
-          borderRadius: r,
+          background: "#FFFFFF",
+          borderRadius: size * 0.2,
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: 0,
         }}
       >
-        <div
-          style={{
-            color: "rgba(255,255,255,0.75)",
-            fontSize: textSize * 0.42,
-            fontFamily: "Pretendard",
-            fontWeight: 700,
-            lineHeight: 1,
-            marginBottom: size * 0.02,
-          }}
-        >
-          몇
-        </div>
-        <div
-          style={{
-            color: "white",
-            fontSize: textSize,
-            fontFamily: "Pretendard",
-            fontWeight: 700,
-            lineHeight: 1,
-          }}
-        >
-          층
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={logoDataUri}
+          width={logoW}
+          height={logoH}
+          alt="viLLiv"
+        />
       </div>
     ),
-    {
-      width: size,
-      height: size,
-      fonts: [
-        {
-          name: "Pretendard",
-          data: fontData,
-          weight: 700,
-          style: "normal",
-        },
-      ],
-    }
+    { width: size, height: size }
   );
 }
