@@ -4,8 +4,8 @@
   "description": "주차 층수를 기억해드립니다",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F7F3EE",
-  "theme_color": "#8FAF8B",
+  "background_color": "#F5F3EF",
+  "theme_color": "#9BC72E",
   "lang": "ko",
   "icons": [
     {

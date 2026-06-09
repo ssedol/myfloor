@@ -4,13 +4,13 @@
   --font-pretendard: "Pretendard Variable", "Pretendard", -apple-system,
     BlinkMacSystemFont, system-ui, Roboto, sans-serif;
 
-  --color-app-bg: #f7f3ee;
-  --color-surface: #ede8e0;
-  --color-primary: #8faf8b;
-  --color-primary-dark: #6b9166;
-  --color-main: #2c2c2c;
-  --color-sub: #8c8680;
-  --color-divider: #d9d2c8;
+  --color-app-bg: #f5f3ef;
+  --color-surface: #eceae4;
+  --color-primary: #9bc72e;
+  --color-primary-dark: #7ea024;
+  --color-main: #40342e;
+  --color-sub: #8b7b72;
+  --color-divider: #d5cec6;
 }
 
 * {
