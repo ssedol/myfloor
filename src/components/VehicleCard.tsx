@@ -63,21 +63,21 @@ export default function VehicleCard({
   }
 
   return (
-    <div className="bg-surface rounded-3xl p-5 border border-divider">
+    <div className="bg-main rounded-3xl p-5">
       <div className="flex items-center justify-between mb-1">
-        <span className="text-main font-semibold text-base">{vehicle.name}</span>
+        <span className="text-white font-semibold text-base">{vehicle.name}</span>
         <div className="flex gap-2">
           <button
             onClick={onRename}
-            className="text-sub p-1.5 rounded-xl active:bg-divider transition-colors"
+            className="text-white/40 p-1.5 rounded-xl active:bg-white/10 transition-colors"
             aria-label="이름 변경"
           >
             <EditIcon />
           </button>
           <button
             onClick={handleDeleteTap}
-            className={`p-1.5 rounded-xl active:bg-divider transition-colors ${
-              confirmDelete ? "text-red-400" : "text-sub"
+            className={`p-1.5 rounded-xl active:bg-white/10 transition-colors ${
+              confirmDelete ? "text-red-400" : "text-white/40"
             }`}
             aria-label={confirmDelete ? "한 번 더 누르면 삭제" : "차량 삭제"}
           >
@@ -96,12 +96,12 @@ export default function VehicleCard({
             <span className="text-6xl font-bold text-primary leading-none">
               {vehicle.floor}
             </span>
-            <span className="text-sub text-xs mt-3">
+            <span className="text-white/40 text-xs mt-3">
               마지막 저장: {formatUpdatedAt(vehicle.updatedAt)}
             </span>
           </>
         ) : (
-          <span className="text-3xl font-medium text-sub">미저장</span>
+          <span className="text-3xl font-medium text-white/30">미저장</span>
         )}
       </button>
 
