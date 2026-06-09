@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import {
   getVehicles,
   addVehicle,
@@ -63,8 +64,15 @@ export default function Home() {
   return (
     <div className="max-w-md mx-auto px-5">
       <header className="pt-14 pb-8">
-        <p className="text-sub text-sm mb-1">몇층</p>
-        <h1 className="text-main text-2xl font-bold">{APARTMENT_CONFIG.name}</h1>
+        <Image
+          src={APARTMENT_CONFIG.logo}
+          alt={APARTMENT_CONFIG.name}
+          width={130}
+          height={36}
+          priority
+          className="mb-1"
+        />
+        <p className="text-sub text-sm">몇층</p>
       </header>
 
       <main>
