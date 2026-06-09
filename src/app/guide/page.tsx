@@ -137,6 +137,14 @@ export default function GuidePage() {
   return (
     <>
       <style>{`
+        * { box-sizing: border-box; }
+        body { overflow-x: hidden; }
+        .guide-wrap { max-width: 760px; margin: 0 auto; padding: 36px 24px; }
+        .guide-cols { display: flex; gap: 16px; align-items: flex-start; }
+        @media (max-width: 600px) {
+          .guide-wrap { padding: 24px 16px; }
+          .guide-cols { flex-direction: column; }
+        }
         @media print {
           .no-print { display: none !important; }
           body { background: #fff !important; }
@@ -144,8 +152,7 @@ export default function GuidePage() {
         }
       `}</style>
 
-      <div style={{
-        maxWidth: 760, margin: "0 auto", padding: "36px 24px",
+      <div className="guide-wrap" style={{
         fontFamily: '"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif',
       }}>
         {/* Header */}
@@ -179,7 +186,7 @@ export default function GuidePage() {
         </div>
 
         {/* Two columns */}
-        <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+        <div className="guide-cols">
           <OSCard
             os="ios"
             steps={[
