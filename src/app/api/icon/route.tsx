@@ -17,7 +17,7 @@ export function GET(req: NextRequest) {
   );
 
   const logoDataUri = getLogoDataUri();
-  const padding = size * 0.18;
+  const padding = size * 0.25;
   const logoW = size - padding * 2;
   const logoH = Math.round(logoW * (72 / 260));
 
@@ -28,7 +28,6 @@ export function GET(req: NextRequest) {
           width: size,
           height: size,
           background: "#FFFFFF",
-          borderRadius: size * 0.2,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
