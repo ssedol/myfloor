@@ -1,65 +1,131 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import {
+  getVehicles,
+  addVehicle,
+  updateFloor,
+  renameVehicle,
+  deleteVehicle,
+  Vehicle,
+} from "@/lib/storage";
+import { APARTMENT_CONFIG } from "@/config/apartment";
+import VehicleCard from "@/components/VehicleCard";
+import FloorSelector from "@/components/FloorSelector";
+import VehicleFormModal from "@/components/VehicleFormModal";
+import Toast from "@/components/Toast";
 
 export default function Home() {
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [floorTarget, setFloorTarget] = useState<Vehicle | null>(null);
+  const [formTarget, setFormTarget] = useState<{ vehicle?: Vehicle } | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
+
+  useEffect(() => {
+    setVehicles(getVehicles());
+  }, []);
+
+  function showToast(message: string) {
+    setToast(message);
+    if (navigator.vibrate) navigator.vibrate(100);
+  }
+
+  function handleAdd(name: string) {
+    const vehicle = addVehicle(name);
+    setVehicles(getVehicles());
+    setFormTarget(null);
+    showToast(`${vehicle.name} 등록됨`);
+  }
+
+  function handleRename(vehicle: Vehicle, name: string) {
+    renameVehicle(vehicle.id, name);
+    setVehicles(getVehicles());
+    setFormTarget(null);
+  }
+
+  function handleFloorSelect(floor: string) {
+    if (!floorTarget) return;
+    updateFloor(floorTarget.id, floor);
+    setVehicles(getVehicles());
+    showToast(`${floorTarget.name} → ${floor} 저장됨`);
+    setFloorTarget(null);
+  }
+
+  function handleDelete(id: string) {
+    const vehicle = vehicles.find((v) => v.id === id);
+    deleteVehicle(id);
+    setVehicles(getVehicles());
+    if (vehicle) showToast(`${vehicle.name} 삭제됨`);
+  }
+
+  const dismissToast = useCallback(() => setToast(null), []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="max-w-md mx-auto px-5">
+      <header className="pt-14 pb-8">
+        <p className="text-sub text-sm mb-1">몇층</p>
+        <h1 className="text-main text-2xl font-bold">{APARTMENT_CONFIG.name}</h1>
+      </header>
+
+      <main>
+        {vehicles.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 text-center">
+            <div className="text-5xl mb-5">🚗</div>
+            <p className="text-main font-semibold mb-2">등록된 차량이 없습니다</p>
+            <p className="text-sub text-sm mb-8">
+              차량을 추가해 주차 층수를 기억하세요
+            </p>
+            <button
+              onClick={() => setFormTarget({})}
+              className="px-8 py-4 bg-primary text-white text-sm font-semibold rounded-2xl active:bg-primary-dark transition-colors"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+              차량 추가하기
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-4 pb-10">
+            {vehicles.map((v) => (
+              <VehicleCard
+                key={v.id}
+                vehicle={v}
+                onFloorTap={() => setFloorTarget(v)}
+                onDelete={() => handleDelete(v.id)}
+                onRename={() => setFormTarget({ vehicle: v })}
+              />
+            ))}
+            {vehicles.length < APARTMENT_CONFIG.maxVehicles && (
+              <button
+                onClick={() => setFormTarget({})}
+                className="w-full py-5 border-2 border-dashed border-divider rounded-3xl text-sub text-sm font-medium active:border-primary active:text-primary transition-colors"
+              >
+                + 차량 추가
+              </button>
+            )}
+          </div>
+        )}
       </main>
+
+      {floorTarget && (
+        <FloorSelector
+          currentFloor={floorTarget.floor}
+          onSelect={handleFloorSelect}
+          onClose={() => setFloorTarget(null)}
+        />
+      )}
+
+      {formTarget !== null && (
+        <VehicleFormModal
+          vehicle={formTarget.vehicle}
+          onSubmit={
+            formTarget.vehicle
+              ? (name) => handleRename(formTarget.vehicle!, name)
+              : handleAdd
+          }
+          onClose={() => setFormTarget(null)}
+        />
+      )}
+
+      {toast && <Toast message={toast} onDismiss={dismissToast} />}
     </div>
   );
 }
