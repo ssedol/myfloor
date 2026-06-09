@@ -67,12 +67,10 @@ export default function Home() {
         <Image
           src={APARTMENT_CONFIG.logo}
           alt={APARTMENT_CONFIG.name}
-          width={130}
-          height={36}
+          width={90}
+          height={25}
           priority
-          className="mb-1"
         />
-        <p className="text-sub text-sm">몇층</p>
       </header>
 
       <main>
