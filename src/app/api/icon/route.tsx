@@ -29,7 +29,7 @@ export function GET(req: NextRequest) {
       >
         <span
           style={{
-            color: "#9BC72E",
+            color: "#FFFFFF",
             fontSize: size * 0.32,
             fontFamily: "Pretendard",
             fontWeight: 700,
