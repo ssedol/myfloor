@@ -13,16 +13,7 @@ interface Props {
 
 function EditIcon() {
   return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 18 18"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M13 2.5l2.5 2.5L6 14.5H3.5V12L13 2.5z" />
     </svg>
   );
@@ -30,27 +21,22 @@ function EditIcon() {
 
 function TrashIcon() {
   return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 18 18"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M2 5h14M6 5V4h6v1M7 8v6M11 8v6M3 5l1 10h10l1-10" />
     </svg>
   );
 }
 
-export default function VehicleCard({
-  vehicle,
-  onFloorTap,
-  onDelete,
-  onRename,
-}: Props) {
+function ShareIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M13 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM5 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM13 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+      <path d="M7 8.5l4-2M7 9.5l4 2" />
+    </svg>
+  );
+}
+
+export default function VehicleCard({ vehicle, onFloorTap, onDelete, onRename }: Props) {
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   function handleDeleteTap() {
@@ -62,11 +48,32 @@ export default function VehicleCard({
     onDelete();
   }
 
+  async function handleShare() {
+    if (!vehicle.floor) return;
+    const url = `${window.location.origin}/park?floor=${vehicle.floor}`;
+    const text = `${vehicle.name} ${vehicle.floor}에 주차했어요 🚗\n아래 링크로 위치를 저장하세요`;
+
+    if (navigator.share) {
+      await navigator.share({ title: "몇층", text, url }).catch(() => {});
+    } else {
+      await navigator.clipboard.writeText(`${text}\n${url}`);
+    }
+  }
+
   return (
     <div className="bg-main rounded-3xl p-5">
       <div className="flex items-center justify-between mb-1">
         <span className="text-white font-semibold text-base">{vehicle.name}</span>
         <div className="flex gap-2">
+          {vehicle.floor && (
+            <button
+              onClick={handleShare}
+              className="text-white/40 p-1.5 rounded-xl active:bg-white/10 transition-colors"
+              aria-label="공유"
+            >
+              <ShareIcon />
+            </button>
+          )}
           <button
             onClick={onRename}
             className="text-white/40 p-1.5 rounded-xl active:bg-white/10 transition-colors"
