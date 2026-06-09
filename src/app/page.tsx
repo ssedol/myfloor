@@ -67,8 +67,8 @@ export default function Home() {
         <Image
           src={APARTMENT_CONFIG.logo}
           alt={APARTMENT_CONFIG.name}
-          width={90}
-          height={25}
+          width={100}
+          height={30}
           priority
         />
       </header>
