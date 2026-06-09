@@ -2,7 +2,7 @@
 
 export const dynamic = "force-static";
 
-const APP_URL = "myfloor-delta.vercel.app";
+const APP_URL = "myfloor.website";
 
 const BROWN = "#40342E";
 const GREEN = "#9BC72E";
