@@ -71,7 +71,7 @@ export default function Home() {
   const dismissToast = useCallback(() => setToast(null), []);
 
   return (
-    <div className="max-w-md mx-auto px-5 pb-[100px]">
+    <div className="max-w-md mx-auto px-5">
       <header className="pt-14 pb-8" />
 
       <main>
@@ -134,10 +134,8 @@ export default function Home() {
 
       {toast && <Toast message={toast} onDismiss={dismissToast} />}
 
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-30 h-[100px] overflow-hidden pointer-events-none">
-        <div className="pointer-events-auto">
-          <AdBanner />
-        </div>
+      <div className="pb-6">
+        <AdBanner />
       </div>
     </div>
   );
