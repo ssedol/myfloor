@@ -163,8 +163,6 @@ export default function GuidePage() {
             marginBottom: 14,
           }}>
             <span style={{ color: GREEN, fontSize: 18, fontWeight: 800, letterSpacing: "-0.02em" }}>몇층</span>
-            <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 12 }}>|</span>
-            <span style={{ color: "rgba(255,255,255,0.65)", fontSize: 12, fontWeight: 500 }}>빌리브 어바인시티</span>
           </div>
 
           <h1 style={{ fontSize: 24, fontWeight: 800, color: BROWN, marginBottom: 8, letterSpacing: "-0.03em" }}>
