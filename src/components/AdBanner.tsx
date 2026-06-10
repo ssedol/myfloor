@@ -11,23 +11,12 @@ declare global {
 export const AD_CLIENT = "ca-pub-4773298245322018";
 export const AD_SLOT = "2167430117";
 
-const IS_AD_READY = AD_SLOT !== "XXXXXXXXXX";
-
 export default function AdBanner() {
   useEffect(() => {
-    if (!IS_AD_READY) return;
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch {}
   }, []);
-
-  if (!IS_AD_READY) {
-    return (
-      <div className="flex items-center justify-center h-[100px] bg-surface border-t border-divider">
-        <span className="text-sub text-xs">광고 영역</span>
-      </div>
-    );
-  }
 
   return (
     <ins
