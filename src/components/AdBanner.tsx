@@ -9,7 +9,7 @@ declare global {
 }
 
 export const AD_CLIENT = "ca-pub-4773298245322018";
-export const AD_SLOT = "XXXXXXXXXX"; // 실제 슬롯으로 교체
+export const AD_SLOT = "2167430117";
 
 const IS_AD_READY = AD_SLOT !== "XXXXXXXXXX";
 
