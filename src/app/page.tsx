@@ -62,6 +62,7 @@ export default function Home() {
 
   return (
     <div className="max-w-md mx-auto px-5">
+      <header className="pt-14 pb-8" />
 
       <main>
         {vehicles.length === 0 ? (
