@@ -62,9 +62,6 @@ export default function Home() {
 
   return (
     <div className="max-w-md mx-auto px-5">
-      <header className="pt-14 pb-8">
-        <h1 className="text-main text-2xl font-bold">{APARTMENT_CONFIG.name}</h1>
-      </header>
 
       <main>
         {vehicles.length === 0 ? (
