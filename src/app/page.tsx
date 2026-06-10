@@ -134,8 +134,10 @@ export default function Home() {
 
       {toast && <Toast message={toast} onDismiss={dismissToast} />}
 
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-30">
-        <AdBanner />
+      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-30 h-[100px] overflow-hidden pointer-events-none">
+        <div className="pointer-events-auto">
+          <AdBanner />
+        </div>
       </div>
     </div>
   );
