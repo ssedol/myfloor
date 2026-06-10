@@ -8,8 +8,7 @@ declare global {
   }
 }
 
-export const AD_CLIENT = "ca-pub-4773298245322018";
-export const AD_SLOT = "2167430117";
+import { AD_CLIENT, AD_SLOT } from "@/config/adsense";
 
 export default function AdBanner() {
   useEffect(() => {

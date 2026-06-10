@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
-import { AD_CLIENT } from "@/components/AdBanner";
+import { AD_CLIENT } from "@/config/adsense";
 import "./globals.css";
 
 export const metadata: Metadata = {
