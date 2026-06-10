@@ -134,9 +134,11 @@ export default function Home() {
 
       {toast && <Toast message={toast} onDismiss={dismissToast} />}
 
-      <div className="pb-6">
-        <AdBanner />
-      </div>
+      {vehicles.length > 0 && (
+        <div className="pb-6">
+          <AdBanner />
+        </div>
+      )}
     </div>
   );
 }
