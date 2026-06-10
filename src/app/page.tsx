@@ -7,13 +7,17 @@ import {
   updateFloor,
   renameVehicle,
   deleteVehicle,
+  getSeenPatchId,
+  markPatchSeen,
   Vehicle,
 } from "@/lib/storage";
+import { getLatestPatch } from "@/config/patches";
 import { APARTMENT_CONFIG } from "@/config/apartment";
 import VehicleCard from "@/components/VehicleCard";
 import FloorSelector from "@/components/FloorSelector";
 import VehicleFormModal from "@/components/VehicleFormModal";
 import Toast from "@/components/Toast";
+import AdBanner from "@/components/AdBanner";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -23,6 +27,12 @@ export default function Home() {
 
   useEffect(() => {
     setVehicles(getVehicles());
+
+    const latest = getLatestPatch();
+    if (latest && getSeenPatchId() !== latest.id) {
+      markPatchSeen(latest.id);
+      showToast(latest.message);
+    }
   }, []);
 
   function showToast(message: string) {
@@ -61,7 +71,7 @@ export default function Home() {
   const dismissToast = useCallback(() => setToast(null), []);
 
   return (
-    <div className="max-w-md mx-auto px-5">
+    <div className="max-w-md mx-auto px-5 pb-[100px]">
       <header className="pt-14 pb-8" />
 
       <main>
@@ -123,6 +133,10 @@ export default function Home() {
       )}
 
       {toast && <Toast message={toast} onDismiss={dismissToast} />}
+
+      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-30">
+        <AdBanner />
+      </div>
     </div>
   );
 }

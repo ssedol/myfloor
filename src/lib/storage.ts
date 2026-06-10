@@ -1,4 +1,5 @@
 const STORAGE_KEY = "myfloor_data";
+const SEEN_PATCH_KEY = "myfloor_seen_patch";
 
 export interface Vehicle {
   id: string;
@@ -64,4 +65,12 @@ export function deleteVehicle(id: string): void {
   const data = read();
   data.vehicles = data.vehicles.filter((v) => v.id !== id);
   write(data);
+}
+
+export function getSeenPatchId(): string | null {
+  return localStorage.getItem(SEEN_PATCH_KEY);
+}
+
+export function markPatchSeen(id: string): void {
+  localStorage.setItem(SEEN_PATCH_KEY, id);
 }
