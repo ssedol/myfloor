@@ -76,7 +76,7 @@ export default function Home() {
 
       <main>
         {vehicles.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-center">
+          <div className="flex flex-col items-center py-16 text-center">
             <div className="text-5xl mb-5">🚗</div>
             <p className="text-main font-semibold mb-2">등록된 차량이 없습니다</p>
             <p className="text-sub text-sm mb-8">
@@ -88,6 +88,26 @@ export default function Home() {
             >
               차량 추가하기
             </button>
+
+            <div className="w-full mt-12 text-left space-y-3">
+              <p className="text-sub text-xs font-semibold tracking-wide mb-4 text-center">이렇게 사용하세요</p>
+              {[
+                { icon: "1", text: "차량 등록 후 층수를 선택해 저장하세요" },
+                { icon: "2", text: "NFC 스티커를 태그하면 층수가 자동으로 저장됩니다" },
+                { icon: "3", text: "공유 버튼으로 가족에게 주차 위치를 전송하세요" },
+              ].map(({ icon, text }) => (
+                <div key={icon} className="flex items-start gap-3 bg-surface rounded-2xl px-4 py-3">
+                  <span className="w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                    {icon}
+                  </span>
+                  <p className="text-main text-sm leading-snug">{text}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="w-full mt-4">
+              <AdBanner />
+            </div>
           </div>
         ) : (
           <div className="space-y-4 pb-10">
