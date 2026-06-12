@@ -152,10 +152,10 @@ export default function Home() {
 
       {toast && <Toast message={toast} onDismiss={dismissToast} />}
 
-      <div className="pb-2">
+      <FaqSection />
+      <div className="pb-6">
         <AdBanner />
       </div>
-      <FaqSection />
     </div>
   );
 }
