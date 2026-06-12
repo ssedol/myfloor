@@ -18,6 +18,7 @@ import FloorSelector from "@/components/FloorSelector";
 import VehicleFormModal from "@/components/VehicleFormModal";
 import Toast from "@/components/Toast";
 import AdBanner from "@/components/AdBanner";
+import FaqSection from "@/components/FaqSection";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -105,9 +106,6 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="w-full mt-4">
-              <AdBanner />
-            </div>
           </div>
         ) : (
           <div className="space-y-4 pb-10">
@@ -154,11 +152,10 @@ export default function Home() {
 
       {toast && <Toast message={toast} onDismiss={dismissToast} />}
 
-      {vehicles.length > 0 && (
-        <div className="pb-6">
-          <AdBanner />
-        </div>
-      )}
+      <div className="pb-2">
+        <AdBanner />
+      </div>
+      <FaqSection />
     </div>
   );
 }
