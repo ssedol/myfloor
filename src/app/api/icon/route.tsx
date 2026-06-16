@@ -1,19 +1,13 @@
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
-import fs from "fs";
-import path from "path";
 
-function getFont(): Buffer {
-  return fs.readFileSync(
-    path.join(process.cwd(), "node_modules/pretendard/dist/public/static/Pretendard-Bold.otf")
-  );
-}
-
-export function GET(req: NextRequest) {
+export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const size = Math.min(512, Math.max(16, parseInt(searchParams.get("size") ?? "192")));
 
-  const fontData = getFont();
+  const fontData = await fetch(
+    "https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/public/static/Pretendard-Bold.otf"
+  ).then((r) => r.arrayBuffer());
 
   return new ImageResponse(
     (

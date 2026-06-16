@@ -24,6 +24,9 @@
 /public/workbox-*.js
 /public/workbox-*.js.map
 
+# copied font (superseded by public/logo.png approach)
+/public/Pretendard-Bold.otf
+
 # production
 /build
 
