@@ -3,6 +3,8 @@ import { NextRequest } from "next/server";
 import fs from "fs";
 import path from "path";
 
+export const runtime = "nodejs";
+
 function getLogoDataUri(): string {
   const logoPath = path.join(process.cwd(), "public/logo.png");
   const data = fs.readFileSync(logoPath);
