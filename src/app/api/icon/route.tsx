@@ -3,17 +3,23 @@ import { NextRequest } from "next/server";
 import fs from "fs";
 import path from "path";
 
-function getFont(): Buffer {
-  return fs.readFileSync(
-    path.join(process.cwd(), "node_modules/pretendard/dist/public/static/Pretendard-Bold.otf")
-  );
+function getLogoDataUri(): string {
+  const logoPath = path.join(process.cwd(), "public/logo.png");
+  const data = fs.readFileSync(logoPath);
+  return `data:image/png;base64,${data.toString("base64")}`;
 }
 
 export function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const size = Math.min(512, Math.max(16, parseInt(searchParams.get("size") ?? "192")));
+  const size = Math.min(
+    512,
+    Math.max(16, parseInt(searchParams.get("size") ?? "192"))
+  );
 
-  const fontData = getFont();
+  const logoDataUri = getLogoDataUri();
+  const padding = size * 0.25;
+  const logoW = size - padding * 2;
+  const logoH = Math.round(logoW * (72 / 260));
 
   return new ImageResponse(
     (
@@ -21,30 +27,21 @@ export function GET(req: NextRequest) {
         style={{
           width: size,
           height: size,
-          background: "#40342E",
+          background: "#FFFFFF",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <span
-          style={{
-            color: "#FFFFFF",
-            fontSize: size * 0.32,
-            fontFamily: "Pretendard",
-            fontWeight: 700,
-            letterSpacing: "-0.02em",
-            lineHeight: 1,
-          }}
-        >
-          몇층
-        </span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={logoDataUri}
+          width={logoW}
+          height={logoH}
+          alt="viLLiv"
+        />
       </div>
     ),
-    {
-      width: size,
-      height: size,
-      fonts: [{ name: "Pretendard", data: fontData, weight: 700, style: "normal" }],
-    }
+    { width: size, height: size }
   );
 }
