@@ -46,6 +46,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# android signing
+myfloor-twa/key.properties
+myfloor-twa/android.keystore
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

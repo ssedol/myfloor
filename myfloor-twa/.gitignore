@@ -1,0 +1,11 @@
+.gradle/
+app/build/
+build/
+reports/
+
+*.apk
+*.aab
+*.idsig
+
+key.properties
+android.keystore
