@@ -17,11 +17,11 @@
   "maskableIconUrl": "https://myfloor.website/api/icon?size=512",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
-    "path": "C:\\project\\myfloor\\myfloor-twa\\android.keystore",
+    "path": "C:\\repository\\myfloor\\myfloor-twa\\android.keystore",
     "alias": "android"
   },
-  "appVersionName": "1",
-  "appVersionCode": 1,
+  "appVersionName": "3",
+  "appVersionCode": 3,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://myfloor.website/manifest.json",
@@ -43,5 +43,5 @@
   "fileHandlers": [],
   "launchHandlerClientMode": "",
   "displayOverride": [],
-  "appVersion": "1"
+  "appVersion": "3"
 }
