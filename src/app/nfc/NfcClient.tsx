@@ -23,7 +23,7 @@ export default function NfcClient({ floor }: { floor: string | null }) {
   const [state, setState] = useState<State>({ status: "loading" });
 
   useEffect(() => {
-    if (!floor || !ALL_FLOORS.includes(floor)) {
+    if (!floor || !(ALL_FLOORS as readonly string[]).includes(floor)) {
       setState({ status: "invalid" });
       setTimeout(() => router.replace("/"), 1500);
       return;
