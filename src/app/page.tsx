@@ -73,36 +73,36 @@ export default function Home() {
   const dismissToast = useCallback(() => setToast(null), []);
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto min-h-[100dvh] flex flex-col">
       <KakaoAd />
 
-      <div className="px-5">
-        <header className="pt-2" />
+      <div className="px-5 flex flex-col flex-1">
+        <header className="pt-3 pb-2" />
 
         <main>
           {vehicles.length === 0 ? (
-            <div className="flex flex-col items-center py-6 text-center">
-              <div className="text-5xl mb-3">🚗</div>
+            <div className="flex flex-col items-center py-4 text-center">
+              <div className="text-4xl mb-2">🚗</div>
               <p className="text-main font-semibold mb-1">등록된 차량이 없습니다</p>
-              <p className="text-sub text-sm mb-5">
+              <p className="text-sub text-sm mb-4">
                 차량을 추가해 주차 층수를 기억하세요
               </p>
               <button
                 onClick={() => setFormTarget({})}
-                className="px-8 py-4 bg-primary text-white text-sm font-semibold rounded-2xl active:bg-primary-dark transition-colors"
+                className="px-8 py-3.5 bg-primary text-white text-sm font-semibold rounded-2xl active:bg-primary-dark transition-colors"
               >
                 차량 추가하기
               </button>
 
-              <div className="w-full mt-5 text-left space-y-2">
-                <p className="text-sub text-xs font-semibold tracking-wide mb-3 text-center">이렇게 사용하세요</p>
+              <div className="w-full mt-4 text-left space-y-2">
+                <p className="text-sub text-xs font-semibold tracking-wide mb-2 text-center">이렇게 사용하세요</p>
                 {[
                   { icon: "1", text: "차량 등록 후 층수를 선택해 저장하세요" },
                   { icon: "2", text: "NFC 스티커를 태그하면 층수가 자동으로 저장됩니다" },
                   { icon: "3", text: "공유 버튼으로 가족에게 주차 위치를 전송하세요" },
                 ].map(({ icon, text }) => (
-                  <div key={icon} className="flex items-start gap-3 bg-surface rounded-2xl px-4 py-3">
-                    <span className="w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div key={icon} className="flex items-start gap-3 bg-surface rounded-2xl px-4 py-2.5">
+                    <span className="w-5 h-5 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
                       {icon}
                     </span>
                     <p className="text-main text-sm leading-snug">{text}</p>
@@ -124,7 +124,7 @@ export default function Home() {
               {vehicles.length < APARTMENT_CONFIG.maxVehicles && (
                 <button
                   onClick={() => setFormTarget({})}
-                  className="w-full py-4 border-2 border-dashed border-divider rounded-3xl text-sub text-sm font-medium active:border-primary active:text-primary transition-colors"
+                  className="w-full py-3.5 border-2 border-dashed border-divider rounded-3xl text-sub text-sm font-medium active:border-primary active:text-primary transition-colors"
                 >
                   + 차량 추가
                 </button>
@@ -133,9 +133,10 @@ export default function Home() {
           )}
         </main>
 
-        <CoupangAd />
-
-        <FaqSection />
+        <div className="mt-auto pt-3">
+          <CoupangAd />
+          <FaqSection />
+        </div>
       </div>
 
       {floorTarget && (

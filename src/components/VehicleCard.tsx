@@ -61,9 +61,9 @@ export default function VehicleCard({ vehicle, onFloorTap, onDelete, onRename }:
   }
 
   return (
-    <div className="bg-main rounded-3xl p-5">
+    <div className="bg-main rounded-3xl p-4">
       {/* 행 1: 이름 + 아이콘 */}
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-1">
         <span className="text-white font-semibold text-base">{vehicle.name}</span>
         <div className="flex gap-2">
           {vehicle.floor && (
@@ -102,7 +102,7 @@ export default function VehicleCard({ vehicle, onFloorTap, onDelete, onRename }:
       >
         {vehicle.floor ? (
           <>
-            <span className="text-5xl font-bold text-primary leading-none">
+            <span className="text-4xl font-bold text-primary leading-none">
               {vehicle.floor}
             </span>
             <span className="text-white/40 text-xs text-right leading-snug">
@@ -110,7 +110,7 @@ export default function VehicleCard({ vehicle, onFloorTap, onDelete, onRename }:
             </span>
           </>
         ) : (
-          <span className="text-3xl font-medium text-white/30">미저장</span>
+          <span className="text-2xl font-medium text-white/30">미저장</span>
         )}
       </button>
 
