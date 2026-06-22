@@ -36,7 +36,9 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-app-bg min-h-screen font-pretendard antialiased">
-        {children}
+        <div className="overflow-x-hidden">
+          {children}
+        </div>
         <Analytics />
       </body>
     </html>
