@@ -76,7 +76,9 @@ export default function Home() {
     <div className="max-w-md mx-auto">
       <KakaoAd />
 
-      <div className="px-5 pt-3">
+      <div className="px-5">
+        <header className="pt-4 pb-3" />
+
         <main>
           {vehicles.length === 0 ? (
             <div className="flex flex-col items-center py-6 text-center">
@@ -109,7 +111,7 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            <div className="space-y-2 pb-4">
+            <div className="space-y-3">
               {vehicles.map((v) => (
                 <VehicleCard
                   key={v.id}
@@ -131,9 +133,7 @@ export default function Home() {
           )}
         </main>
 
-        <div className="pb-4">
-          <CoupangAd />
-        </div>
+        <CoupangAd />
 
         <FaqSection />
       </div>
