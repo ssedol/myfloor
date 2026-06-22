@@ -13,6 +13,11 @@
   --color-divider: #d5cec6;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 * {
   -webkit-tap-highlight-color: transparent;
 }
