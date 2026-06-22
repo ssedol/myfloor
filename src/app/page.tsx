@@ -111,7 +111,7 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-3 pb-4">
+            <div className="space-y-3 pb-4">
               {vehicles.map((v) => (
                 <VehicleCard
                   key={v.id}
@@ -124,7 +124,7 @@ export default function Home() {
               {vehicles.length < APARTMENT_CONFIG.maxVehicles && (
                 <button
                   onClick={() => setFormTarget({})}
-                  className="py-4 border-2 border-dashed border-divider rounded-3xl text-sub text-sm font-medium active:border-primary active:text-primary transition-colors"
+                  className="w-full py-4 border-2 border-dashed border-divider rounded-3xl text-sub text-sm font-medium active:border-primary active:text-primary transition-colors"
                 >
                   + 차량 추가
                 </button>

@@ -61,14 +61,15 @@ export default function VehicleCard({ vehicle, onFloorTap, onDelete, onRename }:
   }
 
   return (
-    <div className="bg-main rounded-3xl p-4">
-      <div className="flex items-center justify-between mb-1">
-        <span className="text-white font-semibold text-sm truncate mr-1">{vehicle.name}</span>
-        <div className="flex gap-1 flex-shrink-0">
+    <div className="bg-main rounded-3xl p-5">
+      {/* 행 1: 이름 + 아이콘 */}
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-white font-semibold text-base">{vehicle.name}</span>
+        <div className="flex gap-2">
           {vehicle.floor && (
             <button
               onClick={handleShare}
-              className="text-white/40 p-1 rounded-xl active:bg-white/10 transition-colors"
+              className="text-white/40 p-1.5 rounded-xl active:bg-white/10 transition-colors"
               aria-label="공유"
             >
               <ShareIcon />
@@ -76,14 +77,14 @@ export default function VehicleCard({ vehicle, onFloorTap, onDelete, onRename }:
           )}
           <button
             onClick={onRename}
-            className="text-white/40 p-1 rounded-xl active:bg-white/10 transition-colors"
+            className="text-white/40 p-1.5 rounded-xl active:bg-white/10 transition-colors"
             aria-label="이름 변경"
           >
             <EditIcon />
           </button>
           <button
             onClick={handleDeleteTap}
-            className={`p-1 rounded-xl active:bg-white/10 transition-colors ${
+            className={`p-1.5 rounded-xl active:bg-white/10 transition-colors ${
               confirmDelete ? "text-red-400" : "text-white/40"
             }`}
             aria-label={confirmDelete ? "한 번 더 누르면 삭제" : "차량 삭제"}
@@ -93,9 +94,10 @@ export default function VehicleCard({ vehicle, onFloorTap, onDelete, onRename }:
         </div>
       </div>
 
+      {/* 행 2: 층수 + 타임스탬프 */}
       <button
         onClick={onFloorTap}
-        className="w-full py-4 flex flex-col items-center active:opacity-70 transition-opacity"
+        className="w-full flex items-center justify-between active:opacity-70 transition-opacity"
         aria-label="층수 변경"
       >
         {vehicle.floor ? (
@@ -103,17 +105,17 @@ export default function VehicleCard({ vehicle, onFloorTap, onDelete, onRename }:
             <span className="text-5xl font-bold text-primary leading-none">
               {vehicle.floor}
             </span>
-            <span className="text-white/40 text-xs mt-2 text-center leading-tight">
-              마지막 저장: {formatUpdatedAt(vehicle.updatedAt)}
+            <span className="text-white/40 text-xs text-right leading-snug">
+              마지막 저장<br />{formatUpdatedAt(vehicle.updatedAt)}
             </span>
           </>
         ) : (
-          <span className="text-2xl font-medium text-white/30">미저장</span>
+          <span className="text-3xl font-medium text-white/30">미저장</span>
         )}
       </button>
 
       {confirmDelete && (
-        <p className="text-center text-xs text-red-400 -mt-2 pb-1">
+        <p className="text-center text-xs text-red-400 mt-2">
           한 번 더 누르면 삭제됩니다
         </p>
       )}
