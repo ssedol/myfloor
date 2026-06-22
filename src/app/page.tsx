@@ -77,7 +77,7 @@ export default function Home() {
       <KakaoAd />
 
       <div className="px-5">
-        <header className="pt-4 pb-3" />
+        <header className="pt-2" />
 
         <main>
           {vehicles.length === 0 ? (

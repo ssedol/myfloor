@@ -70,7 +70,7 @@ export default function FaqSection() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="mt-2 pb-8">
+    <div className="mt-2 pb-2">
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-center gap-2 py-2 text-sub text-xs font-medium active:opacity-70 transition-opacity"
