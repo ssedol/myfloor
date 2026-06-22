@@ -63,7 +63,7 @@ export default function VehicleCard({ vehicle, onFloorTap, onDelete, onRename }:
   return (
     <div className="bg-main rounded-3xl p-5">
       {/* 행 1: 이름 + 아이콘 */}
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-2">
         <span className="text-white font-semibold text-base">{vehicle.name}</span>
         <div className="flex gap-2">
           {vehicle.floor && (

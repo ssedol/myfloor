@@ -111,7 +111,7 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {vehicles.map((v) => (
                 <VehicleCard
                   key={v.id}
