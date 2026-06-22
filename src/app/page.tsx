@@ -18,6 +18,7 @@ import FloorSelector from "@/components/FloorSelector";
 import VehicleFormModal from "@/components/VehicleFormModal";
 import Toast from "@/components/Toast";
 import CoupangAd from "@/components/CoupangAd";
+import KakaoAd from "@/components/KakaoAd";
 import FaqSection from "@/components/FaqSection";
 
 export default function Home() {
@@ -153,8 +154,9 @@ export default function Home() {
       {toast && <Toast message={toast} onDismiss={dismissToast} />}
 
       <FaqSection />
-      <div className="pb-6">
+      <div className="pb-6 flex flex-col gap-4">
         <CoupangAd />
+        <KakaoAd />
       </div>
     </div>
   );
