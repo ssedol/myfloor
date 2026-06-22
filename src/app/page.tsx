@@ -17,7 +17,7 @@ import VehicleCard from "@/components/VehicleCard";
 import FloorSelector from "@/components/FloorSelector";
 import VehicleFormModal from "@/components/VehicleFormModal";
 import Toast from "@/components/Toast";
-import AdBanner from "@/components/AdBanner";
+import CoupangAd from "@/components/CoupangAd";
 import FaqSection from "@/components/FaqSection";
 
 export default function Home() {
@@ -154,7 +154,7 @@ export default function Home() {
 
       <FaqSection />
       <div className="pb-6">
-        <AdBanner />
+        <CoupangAd />
       </div>
     </div>
   );

@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
-import { AD_CLIENT } from "@/config/adsense";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -30,7 +28,6 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <meta name="google-adsense-account" content="ca-pub-4773298245322018" />
         <link
           rel="stylesheet"
           as="style"
@@ -41,12 +38,6 @@ export default function RootLayout({
       <body className="bg-app-bg min-h-screen font-pretendard antialiased">
         {children}
         <Analytics />
-        <Script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT}`}
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );
