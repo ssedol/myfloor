@@ -1,4 +1,4 @@
-import { redis, ALARM_KEY, type ParkingAlarm } from "@/lib/redis";
+import { redis, ALARM_KEY, parseAlarm, type ParkingAlarm } from "@/lib/redis";
 import { sendPush } from "@/lib/webpush";
 
 export const runtime = "nodejs";
@@ -12,19 +12,19 @@ export async function GET(req: Request) {
   const now = Date.now();
 
   // triggerAt <= now 인 알람 전부 가져오기 (ZRANGE ... BYSCORE)
-  const due = (await redis.zrange(ALARM_KEY, 0, now, { byScore: true })) as string[];
+  const due = (await redis.zrange(ALARM_KEY, 0, now, { byScore: true })) as unknown[];
 
   if (!due.length) {
     return Response.json({ sent: 0 });
   }
 
   let sent = 0;
-  const toRemove: string[] = [];
+  const toRemove: unknown[] = [];
 
   for (const item of due) {
     let alarm: ParkingAlarm;
     try {
-      alarm = JSON.parse(item);
+      alarm = parseAlarm(item);
     } catch {
       toRemove.push(item); // 잘못된 형식은 그냥 삭제
       continue;
