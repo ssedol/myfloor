@@ -157,23 +157,30 @@ export default function FloorSelector({ currentFloor, onSelect, onClose }: Props
 
             {/* 전기차 충전 알림 */}
             {alarmMode ? (
-              <div className="grid grid-cols-2 gap-3 mb-3">
-                {ALARM_OPTIONS.map(({ type, emoji, label, desc }) => (
-                  <button
-                    key={type}
-                    onClick={() => setSelectedAlarm(selectedAlarm === type ? null : type)}
-                    className={`py-3 rounded-2xl text-sm transition-colors ${
-                      selectedAlarm === type
-                        ? "bg-primary text-white"
-                        : "bg-surface text-main active:bg-primary/20"
-                    }`}
-                  >
-                    <div className="font-semibold">{emoji} {label}</div>
-                    <div className={`text-xs mt-0.5 ${selectedAlarm === type ? "text-white/70" : "text-sub"}`}>
-                      {desc}
-                    </div>
-                  </button>
-                ))}
+              <div className="mb-3">
+                <div className="grid grid-cols-2 gap-3">
+                  {ALARM_OPTIONS.map(({ type, emoji, label, desc }) => (
+                    <button
+                      key={type}
+                      onClick={() => setSelectedAlarm(selectedAlarm === type ? null : type)}
+                      className={`py-3 rounded-2xl text-sm transition-colors ${
+                        selectedAlarm === type
+                          ? "bg-primary text-white"
+                          : "bg-surface text-main active:bg-primary/20"
+                      }`}
+                    >
+                      <div className="font-semibold">{emoji} {label}</div>
+                      <div className={`text-xs mt-0.5 ${selectedAlarm === type ? "text-white/70" : "text-sub"}`}>
+                        {desc}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+                <p className="text-sub text-xs text-center mt-2 leading-snug">
+                  홈 화면에 설치된 앱에서만 알림이 발송돼요
+                  <br />
+                  <span className="text-sub/70">iOS: Safari → 공유 → 홈 화면에 추가</span>
+                </p>
               </div>
             ) : (
               <button

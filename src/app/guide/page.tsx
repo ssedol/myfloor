@@ -206,7 +206,7 @@ export default function GuidePage() {
             <StepRow
               n={3}
               title="전기차 충전 알림도 받아요"
-              desc="층수 저장 후 충전 유형을 선택하면 시간 맞춰 알려드려요. 완속은 13시간, 급속은 45분 후 알림이 와요."
+              desc="층수 저장 후 충전 유형을 선택하면 시간 맞춰 알려드려요. 완속은 13시간, 급속은 45분 후 알림이 와요. 홈 화면에 설치된 앱에서만 작동해요 (iOS: Safari → 공유 → 홈 화면에 추가)."
               visual={
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   <div

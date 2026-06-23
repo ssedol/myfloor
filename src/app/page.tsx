@@ -28,6 +28,7 @@ import CoupangAd from "@/components/CoupangAd";
 import KakaoAd from "@/components/KakaoAd";
 import FaqSection from "@/components/FaqSection";
 import AlarmInfoPopup from "@/components/AlarmInfoPopup";
+import InstallPrompt from "@/components/InstallPrompt";
 import GuideLink from "@/components/GuideLink";
 
 export default function Home() {
@@ -277,6 +278,7 @@ export default function Home() {
         />
       )}
 
+      <InstallPrompt />
       {toast && <Toast message={toast} onDismiss={dismissToast} />}
     </div>
   );
