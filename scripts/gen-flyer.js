@@ -79,17 +79,19 @@ function nfcIllustration(cx, topY) {
       opacity="${1 - i * 0.3}"/>`
   ).join("");
 
-  // NFC 스티커 영역 (점선 카드)
+  // NFC 스티커 영역 (점선 원)
+  const r = 68;
+  const sCy = stY + r;
   const sticker = `
-    <rect x="${cx - stW/2}" y="${stY}" width="${stW}" height="${stH}" rx="22"
-      fill="white" stroke="${C.primary}" stroke-width="9" stroke-dasharray="22 17"/>
-    <rect x="${cx-26}" y="${stY + stH/2 - 24}" width="52" height="48" rx="8"
-      fill="none" stroke="${C.primaryDark}" stroke-width="6" opacity="0.55"/>
-    <line x1="${cx-26}" y1="${stY+stH/2}" x2="${cx+26}" y2="${stY+stH/2}"
-      stroke="${C.primaryDark}" stroke-width="4" opacity="0.4"/>
-    <line x1="${cx}" y1="${stY+stH/2-24}" x2="${cx}" y2="${stY+stH/2+24}"
-      stroke="${C.primaryDark}" stroke-width="4" opacity="0.4"/>
-    <text x="${cx}" y="${stY+stH+44}" text-anchor="middle"
+    <circle cx="${cx}" cy="${sCy}" r="${r}"
+      fill="white" stroke="${C.primary}" stroke-width="9" stroke-dasharray="20 16"/>
+    <rect x="${cx-20}" y="${sCy-19}" width="40" height="38" rx="6"
+      fill="none" stroke="${C.primaryDark}" stroke-width="5" opacity="0.55"/>
+    <line x1="${cx-20}" y1="${sCy}" x2="${cx+20}" y2="${sCy}"
+      stroke="${C.primaryDark}" stroke-width="3.5" opacity="0.4"/>
+    <line x1="${cx}" y1="${sCy-19}" x2="${cx}" y2="${sCy+19}"
+      stroke="${C.primaryDark}" stroke-width="3.5" opacity="0.4"/>
+    <text x="${cx}" y="${sCy + r + 44}" text-anchor="middle"
       font-family="${FONT}" font-size="34" font-weight="700" fill="${C.primaryDark}">NFC 스티커</text>`;
 
   return phone + signalArcs + sticker;
