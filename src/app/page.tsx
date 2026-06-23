@@ -15,6 +15,7 @@ import {
   getAllAlarms,
   clearAlarm,
   clearExpiredAlarms,
+  setAlarm,
   type StoredAlarm,
 } from "@/lib/alarmStorage";
 import { getLatestPatch } from "@/config/patches";
@@ -26,7 +27,6 @@ import Toast from "@/components/Toast";
 import CoupangAd from "@/components/CoupangAd";
 import KakaoAd from "@/components/KakaoAd";
 import FaqSection from "@/components/FaqSection";
-import AlarmModal from "@/components/AlarmModal";
 import AlarmInfoPopup from "@/components/AlarmInfoPopup";
 import GuideLink from "@/components/GuideLink";
 
@@ -35,7 +35,6 @@ export default function Home() {
   const [floorTarget, setFloorTarget] = useState<Vehicle | null>(null);
   const [formTarget, setFormTarget] = useState<{ vehicle?: Vehicle } | null>(null);
   const [toast, setToast] = useState<string | null>(null);
-  const [alarmTarget, setAlarmTarget] = useState<{ vehicle: Vehicle; floor: string } | null>(null);
   const [alarms, setAlarms] = useState<Record<string, StoredAlarm>>({});
   const [alarmInfoVehicleId, setAlarmInfoVehicleId] = useState<string | null>(null);
 
@@ -69,20 +68,63 @@ export default function Home() {
     setFormTarget(null);
   }
 
-  function handleFloorSelect(floor: string) {
+  async function handleFloorSelect(floor: string, alarmType?: "slow" | "fast") {
     if (!floorTarget) return;
     const vehicle = floorTarget;
     updateFloor(vehicle.id, floor);
     setVehicles(getVehicles());
     showToast(`${vehicle.name} → ${floor} 저장됨`);
     setFloorTarget(null);
-    if ("Notification" in window && "serviceWorker" in navigator) {
-      setAlarmTarget({ vehicle, floor });
-    }
-  }
 
-  function handleAlarmSet(alarm: StoredAlarm) {
-    setAlarms((prev) => ({ ...prev, [alarm.vehicleId]: alarm }));
+    if (!alarmType || !("Notification" in window) || !("serviceWorker" in navigator)) return;
+
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission !== "granted") {
+        showToast("알림 권한이 필요해요. 설정에서 허용해주세요.");
+        return;
+      }
+
+      const reg = await navigator.serviceWorker.ready;
+      const existing = await reg.pushManager.getSubscription();
+      const sub = existing ?? (await reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
+      }));
+
+      const subJson = sub.toJSON() as {
+        endpoint: string;
+        keys: { p256dh: string; auth: string };
+      };
+
+      const res = await fetch("/api/push/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          subscription: subJson,
+          vehicleId: vehicle.id,
+          vehicleName: vehicle.name,
+          floor,
+          type: alarmType,
+        }),
+      });
+
+      if (!res.ok) throw new Error("서버 오류");
+      const { triggerAt } = await res.json();
+
+      const alarm: StoredAlarm = {
+        vehicleId: vehicle.id,
+        vehicleName: vehicle.name,
+        floor,
+        type: alarmType,
+        triggerAt,
+      };
+      setAlarm(alarm);
+      setAlarms((prev) => ({ ...prev, [vehicle.id]: alarm }));
+    } catch (e) {
+      console.error(e);
+      showToast("알림 설정에 실패했어요.");
+    }
   }
 
   async function handleAlarmCancel(vehicleId: string) {
@@ -103,7 +145,6 @@ export default function Home() {
   function handleDelete(id: string) {
     const vehicle = vehicles.find((v) => v.id === id);
     deleteVehicle(id);
-    // 차량 삭제 시 알람도 함께 제거
     if (alarms[id]) {
       clearAlarm(id);
       setAlarms((prev) => { const n = { ...prev }; delete n[id]; return n; });
@@ -225,15 +266,6 @@ export default function Home() {
               : handleAdd
           }
           onClose={() => setFormTarget(null)}
-        />
-      )}
-
-      {alarmTarget && (
-        <AlarmModal
-          vehicle={alarmTarget.vehicle}
-          floor={alarmTarget.floor}
-          onClose={() => setAlarmTarget(null)}
-          onAlarmSet={handleAlarmSet}
         />
       )}
 

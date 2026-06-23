@@ -5,7 +5,7 @@ import { APARTMENT_CONFIG } from "@/config/apartment";
 
 interface Props {
   currentFloor: string | null;
-  onSelect: (floor: string) => void;
+  onSelect: (floor: string, alarmType?: "slow" | "fast") => void;
   onClose: () => void;
 }
 
@@ -41,12 +41,19 @@ function FloorGrid({
   );
 }
 
+const ALARM_OPTIONS = [
+  { type: "slow" as const, emoji: "🔌", label: "완속충전", desc: "13시간 후 알림" },
+  { type: "fast" as const, emoji: "⚡", label: "급속충전", desc: "45분 후 알림" },
+];
+
 export default function FloorSelector({ currentFloor, onSelect, onClose }: Props) {
   const [directMode, setDirectMode] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [pendingFloor, setPendingFloor] = useState<string | null>(null);
   const [locationMode, setLocationMode] = useState(false);
   const [locationValue, setLocationValue] = useState("");
+  const [alarmMode, setAlarmMode] = useState(false);
+  const [selectedAlarm, setSelectedAlarm] = useState<"slow" | "fast" | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
 
@@ -54,26 +61,28 @@ export default function FloorSelector({ currentFloor, onSelect, onClose }: Props
     if (directMode) inputRef.current?.focus();
   }, [directMode]);
 
-  // 세부 위치 추가 버튼을 눌렀을 때만 포커스
   useEffect(() => {
     if (locationMode) locationRef.current?.focus();
   }, [locationMode]);
-
-  function handleDirectConfirm() {
-    const val = inputValue.trim();
-    if (val) onSelect(val);
-  }
 
   function handleFloorPick(floor: string) {
     setPendingFloor(floor);
     setLocationValue("");
     setLocationMode(false);
+    setAlarmMode(false);
+    setSelectedAlarm(null);
   }
 
-  function handleLocationSave() {
+  function handleSave() {
     if (!pendingFloor) return;
     const loc = locationValue.trim();
-    onSelect(loc ? `${pendingFloor} · ${loc}` : pendingFloor);
+    const floor = loc ? `${pendingFloor} · ${loc}` : pendingFloor;
+    onSelect(floor, selectedAlarm ?? undefined);
+  }
+
+  function handleDirectConfirm() {
+    const val = inputValue.trim();
+    if (val) onSelect(val);
   }
 
   return (
@@ -115,43 +124,63 @@ export default function FloorSelector({ currentFloor, onSelect, onClose }: Props
           <>
             <div className="text-center mb-6">
               <div className="text-4xl font-bold text-primary mb-1">{pendingFloor}</div>
-              <p className="text-sub text-sm">세부 위치를 추가할 수 있어요 (선택사항)</p>
+              <p className="text-sub text-sm">충전 알림과 세부 위치를 추가할 수 있어요 (선택사항)</p>
             </div>
 
-            {/* 저장: 세부 위치 없이 바로 저장 */}
+            {/* 저장 */}
             <button
-              onClick={() => onSelect(pendingFloor)}
-              className="w-full py-4 rounded-2xl bg-primary text-white font-semibold text-base mb-3"
+              onClick={handleSave}
+              className="w-full py-4 rounded-2xl bg-primary text-white font-semibold text-base mb-4"
             >
               저장
             </button>
 
-            {/* 세부 위치 추가 — 버튼 누를 때만 input 노출 */}
+            {/* 세부 위치 */}
             {locationMode ? (
-              <>
-                <input
-                  ref={locationRef}
-                  type="text"
-                  value={locationValue}
-                  onChange={(e) => setLocationValue(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleLocationSave()}
-                  placeholder="예: A-12, 기둥 34번, 엘리베이터 앞"
-                  className="w-full bg-surface rounded-2xl px-4 py-4 text-main text-base outline-none placeholder:text-sub/50 mb-3"
-                />
-                <button
-                  onClick={handleLocationSave}
-                  disabled={!locationValue.trim()}
-                  className="w-full py-4 rounded-2xl border border-divider text-main font-semibold text-sm mb-3 disabled:opacity-30"
-                >
-                  세부 위치 포함 저장
-                </button>
-              </>
+              <input
+                ref={locationRef}
+                type="text"
+                value={locationValue}
+                onChange={(e) => setLocationValue(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSave()}
+                placeholder="예: A-12, 기둥 34번, 엘리베이터 앞"
+                className="w-full bg-surface rounded-2xl px-4 py-4 text-main text-base outline-none placeholder:text-sub/50 mb-3"
+              />
             ) : (
               <button
                 onClick={() => setLocationMode(true)}
                 className="w-full py-4 rounded-2xl border border-divider text-sub text-sm mb-3"
               >
                 + 세부 위치 추가
+              </button>
+            )}
+
+            {/* 전기차 충전 알림 */}
+            {alarmMode ? (
+              <div className="grid grid-cols-2 gap-3 mb-3">
+                {ALARM_OPTIONS.map(({ type, emoji, label, desc }) => (
+                  <button
+                    key={type}
+                    onClick={() => setSelectedAlarm(selectedAlarm === type ? null : type)}
+                    className={`py-3 rounded-2xl text-sm transition-colors ${
+                      selectedAlarm === type
+                        ? "bg-primary text-white"
+                        : "bg-surface text-main active:bg-primary/20"
+                    }`}
+                  >
+                    <div className="font-semibold">{emoji} {label}</div>
+                    <div className={`text-xs mt-0.5 ${selectedAlarm === type ? "text-white/70" : "text-sub"}`}>
+                      {desc}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <button
+                onClick={() => setAlarmMode(true)}
+                className="w-full py-4 rounded-2xl border border-divider text-sub text-sm mb-3"
+              >
+                ⚡ 전기차 충전 알림 설정
               </button>
             )}
 
