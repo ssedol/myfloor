@@ -7,6 +7,8 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
+const STORAGE_KEY = "install_prompt_date";
+
 function isStandalone() {
   return (
     window.matchMedia("(display-mode: standalone)").matches ||
@@ -18,6 +20,14 @@ function isIOS() {
   return /iPhone|iPad|iPod/.test(navigator.userAgent);
 }
 
+function shownToday(): boolean {
+  return localStorage.getItem(STORAGE_KEY) === new Date().toLocaleDateString("ko-KR");
+}
+
+function markShownToday() {
+  localStorage.setItem(STORAGE_KEY, new Date().toLocaleDateString("ko-KR"));
+}
+
 export default function InstallPrompt() {
   const [show, setShow] = useState(false);
   const [ios, setIos] = useState(false);
@@ -25,14 +35,14 @@ export default function InstallPrompt() {
 
   useEffect(() => {
     if (isStandalone()) return;
-    if (sessionStorage.getItem("install_shown")) return;
+    if (shownToday()) return;
 
     const iosDevice = isIOS();
     setIos(iosDevice);
 
     if (iosDevice) {
       const t = setTimeout(() => {
-        sessionStorage.setItem("install_shown", "1");
+        markShownToday();
         setShow(true);
       }, 3000);
       return () => clearTimeout(t);
@@ -41,7 +51,7 @@ export default function InstallPrompt() {
         e.preventDefault();
         deferredPrompt.current = e as BeforeInstallPromptEvent;
         setTimeout(() => {
-          sessionStorage.setItem("install_shown", "1");
+          markShownToday();
           setShow(true);
         }, 3000);
       };
