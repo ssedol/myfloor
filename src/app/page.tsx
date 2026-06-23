@@ -102,8 +102,7 @@ export default function Home() {
                 <p className="text-sub text-xs font-semibold tracking-wide mb-2 text-center">이렇게 사용하세요</p>
                 {[
                   { icon: "1", text: "차량 등록 후 층수를 선택해 저장하세요" },
-                  { icon: "2", text: "NFC 스티커를 태그하면 층수가 자동으로 저장됩니다" },
-                  { icon: "3", text: "공유 버튼으로 가족에게 주차 위치를 전송하세요" },
+                  { icon: "2", text: "공유 버튼으로 가족에게 주차 위치를 전송하세요" },
                 ].map(({ icon, text }) => (
                   <div key={icon} className="flex items-start gap-3 bg-surface rounded-2xl px-4 py-2.5">
                     <span className="w-5 h-5 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -112,6 +111,21 @@ export default function Home() {
                     <p className="text-main text-sm leading-snug">{text}</p>
                   </div>
                 ))}
+
+                <div className="flex items-start gap-3 bg-primary/10 border border-primary/30 rounded-2xl px-4 py-2.5 mt-3">
+                  <span className="text-base flex-shrink-0 mt-0.5">📲</span>
+                  <div>
+                    <p className="text-main text-sm font-semibold leading-snug">
+                      NFC 태그 · QR로 자동 저장
+                      <span className="ml-1.5 align-middle text-[10px] font-bold text-primary-dark bg-primary/20 rounded-full px-1.5 py-0.5">
+                        유료
+                      </span>
+                    </p>
+                    <p className="text-sub text-xs leading-snug mt-0.5">
+                      층마다 부착된 NFC 스티커를 태그하거나 QR을 스캔하면 층수가 자동으로 저장돼요. 아파트별 추가 기능입니다.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           ) : (
