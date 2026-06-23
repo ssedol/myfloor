@@ -54,26 +54,45 @@ function esc(s) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-// 휴대폰 실루엣 (뒷면 태그용). cx,cy 중심, 높이 h, 회전 rot(도)
-function phoneIcon(cx, cy, h, rot, color) {
-  const w = h * 0.5;
-  const rx = w * 0.2;
-  const sw = w * 0.7, sh = h * 0.12; // 카메라바
-  return `<g transform="rotate(${rot} ${cx} ${cy})">
-    <rect x="${cx - w / 2}" y="${cy - h / 2}" width="${w}" height="${h}" rx="${rx}" fill="${color}"/>
-    <rect x="${cx - sw / 2}" y="${cy - h / 2 + h * 0.08}" width="${sw}" height="${sh}" rx="${sh / 2}" fill="#FFFFFF" opacity="0.85"/>
-    <circle cx="${cx}" cy="${cy + h * 0.3}" r="${w * 0.12}" fill="#FFFFFF" opacity="0.85"/>
-  </g>`;
-}
+// NFC 일러스트: 폰 + 신호파 + 스티커 영역
+// cx: 칼럼 중심 x, topY: 일러스트 시작 y
+function nfcIllustration(cx, topY) {
+  const phoneCy = topY + 100;   // 폰 중심 y
+  const waveY   = topY + 218;   // 신호파 기준선 y
+  const stY     = topY + 232;   // 스티커 영역 상단 y
+  const stW = 256, stH = 110;
 
-// 접촉식 전파 아치 n개. (ax,ay)에서 우상향으로 퍼짐
-function waves(ax, ay, color) {
-  return [42, 74, 106]
-    .map(
-      (r) =>
-        `<path d="M ${ax - r * 0.35} ${ay - r * 0.62} A ${r} ${r} 0 0 1 ${ax + r * 0.62} ${ay + r * 0.35}" fill="none" stroke="${color}" stroke-width="12" stroke-linecap="round"/>`
-    )
-    .join("");
+  // 폰 (세로 세움, 앞면, -10° 약간 기울임)
+  const phone = `
+    <g transform="rotate(-10, ${cx}, ${phoneCy})">
+      <rect x="${cx-42}" y="${phoneCy-84}" width="84" height="168" rx="16" fill="${C.textMain}"/>
+      <rect x="${cx-34}" y="${phoneCy-72}" width="68" height="132" rx="9" fill="white" opacity="0.07"/>
+      <rect x="${cx-21}" y="${phoneCy-80}" width="42" height="10" rx="5" fill="#2C2420"/>
+      <circle cx="${cx+18}" cy="${phoneCy-75}" r="4" fill="#40342E" opacity="0.6"/>
+      <rect x="${cx-17}" y="${phoneCy+64}" width="34" height="6" rx="3" fill="white" opacity="0.38"/>
+    </g>`;
+
+  // 신호파 3개 (아래→위로 퍼지는 ∩ 아치, 결제 단말기 NFC 아이콘 스타일)
+  const signalArcs = [52, 84, 116].map((r, i) =>
+    `<path d="M ${cx-r} ${waveY} A ${r} ${r} 0 0 1 ${cx+r} ${waveY}"
+      fill="none" stroke="${C.primary}" stroke-width="14" stroke-linecap="round"
+      opacity="${1 - i * 0.3}"/>`
+  ).join("");
+
+  // NFC 스티커 영역 (점선 카드)
+  const sticker = `
+    <rect x="${cx - stW/2}" y="${stY}" width="${stW}" height="${stH}" rx="22"
+      fill="white" stroke="${C.primary}" stroke-width="9" stroke-dasharray="22 17"/>
+    <rect x="${cx-26}" y="${stY + stH/2 - 24}" width="52" height="48" rx="8"
+      fill="none" stroke="${C.primaryDark}" stroke-width="6" opacity="0.55"/>
+    <line x1="${cx-26}" y1="${stY+stH/2}" x2="${cx+26}" y2="${stY+stH/2}"
+      stroke="${C.primaryDark}" stroke-width="4" opacity="0.4"/>
+    <line x1="${cx}" y1="${stY+stH/2-24}" x2="${cx}" y2="${stY+stH/2+24}"
+      stroke="${C.primaryDark}" stroke-width="4" opacity="0.4"/>
+    <text x="${cx}" y="${stY+stH+44}" text-anchor="middle"
+      font-family="${FONT}" font-size="34" font-weight="700" fill="${C.primaryDark}">NFC 스티커</text>`;
+
+  return phone + signalArcs + sticker;
 }
 
 async function buildSvg(floor) {
@@ -85,18 +104,9 @@ async function buildSvg(floor) {
     errorCorrectionLevel: "M",
   });
 
-  const cxL = 468; // 좌측 칼럼 중심 (NFC)
+  const cxL = 468;  // 좌측 칼럼 중심 (NFC)
   const cxR = 1280; // 우측 칼럼 중심 (QR)
-  const vy = 1500; // 시각요소 중심 y
-
-  // NFC 부착영역: 점선 원 + 접촉식 아치 + 라벨, 우상단에 폰 태그 힌트
-  const nfcR = 172;
-  const nfcArcs = [50, 84, 118]
-    .map(
-      (r) =>
-        `<path d="M ${cxL} ${vy - r * 0.7} A ${r} ${r} 0 0 1 ${cxL} ${vy + r * 0.7}" fill="none" stroke="${C.primaryDark}" stroke-width="15" stroke-linecap="round"/>`
-    )
-    .join("");
+  const qrCy = 1490; // QR 이미지 중심 y
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <rect width="${W}" height="${H}" fill="${C.bg}"/>
@@ -108,9 +118,7 @@ async function buildSvg(floor) {
   <!-- 층 배지 카드 -->
   <rect x="90" y="320" width="1568" height="440" rx="56" fill="${C.primary}"/>
   <text x="${CX}" y="445" text-anchor="middle" font-family="${FONT}" font-size="50" font-weight="600" fill="#FFFFFF" opacity="0.92">지금 여기는</text>
-  <text x="${CX}" y="668" text-anchor="middle" font-family="${FONT}" font-size="240" font-weight="800" fill="#FFFFFF" letter-spacing="4">${esc(
-    floor
-  )}</text>
+  <text x="${CX}" y="668" text-anchor="middle" font-family="${FONT}" font-size="240" font-weight="800" fill="#FFFFFF" letter-spacing="4">${esc(floor)}</text>
   <text x="${CX}" y="735" text-anchor="middle" font-family="${FONT}" font-size="46" font-weight="600" fill="#FFFFFF" opacity="0.92">주차구역</text>
 
   <!-- 안내 제목 -->
@@ -118,41 +126,39 @@ async function buildSvg(floor) {
 
   <!-- ===== 좌측: NFC ===== -->
   <rect x="90" y="930" width="756" height="1108" rx="48" fill="${C.surface}"/>
-  <rect x="${cxL - 96}" y="980" width="192" height="58" rx="29" fill="${C.primary}"/>
+  <rect x="${cxL-96}" y="980" width="192" height="58" rx="29" fill="${C.primary}"/>
   <text x="${cxL}" y="1019" text-anchor="middle" font-family="${FONT}" font-size="34" font-weight="800" fill="#FFFFFF">방법 1</text>
-  <text x="${cxL}" y="1130" text-anchor="middle" font-family="${FONT}" font-size="52" font-weight="800" fill="${C.textMain}">폰을 갖다 대세요</text>
-  <text x="${cxL}" y="1188" text-anchor="middle" font-family="${FONT}" font-size="34" fill="${C.textSub}">안드로이드 · NFC</text>
+  <text x="${cxL}" y="1118" text-anchor="middle" font-family="${FONT}" font-size="52" font-weight="800" fill="${C.textMain}">폰을 갖다 대세요</text>
+  <text x="${cxL}" y="1172" text-anchor="middle" font-family="${FONT}" font-size="34" fill="${C.textSub}">안드로이드 · NFC</text>
 
-  <!-- NFC 스티커 부착 영역 (점선 원) -->
-  <circle cx="${cxL}" cy="${vy}" r="${nfcR}" fill="#FFFFFF" stroke="${C.primary}" stroke-width="9" stroke-dasharray="26 22"/>
-  ${nfcArcs}
-  <circle cx="${cxL - 38}" cy="${vy}" r="17" fill="${C.primaryDark}"/>
-  <text x="${cxL}" y="${vy + nfcR - 34}" text-anchor="middle" font-family="${FONT}" font-size="30" font-weight="700" fill="${C.textSub}">NFC 스티커</text>
-  <!-- 폰 태그 힌트 (우상단) -->
-  ${phoneIcon(cxL + 150, vy - 150, 150, 24, C.textMain)}
-  ${waves(cxL + 70, vy - 78, C.primaryDark)}
+  ${nfcIllustration(cxL, 1214)}
 
-  <text x="${cxL}" y="1758" text-anchor="middle" font-family="${FONT}" font-size="40" fill="${C.textMain}">원 안에 휴대폰 뒷면을</text>
-  <text x="${cxL}" y="1812" text-anchor="middle" font-family="${FONT}" font-size="40" font-weight="700" fill="${C.textMain}">살짝 갖다 대세요</text>
+  <text x="${cxL}" y="1772" text-anchor="middle" font-family="${FONT}" font-size="40" fill="${C.textMain}">휴대폰 뒷면을 스티커에</text>
+  <text x="${cxL}" y="1826" text-anchor="middle" font-family="${FONT}" font-size="40" font-weight="700" fill="${C.textMain}">살짝 갖다 대세요</text>
 
   <!-- ===== 우측: QR ===== -->
   <rect x="902" y="930" width="756" height="1108" rx="48" fill="${C.surface}"/>
-  <rect x="${cxR - 96}" y="980" width="192" height="58" rx="29" fill="${C.primaryDark}"/>
+  <rect x="${cxR-96}" y="980" width="192" height="58" rx="29" fill="${C.primaryDark}"/>
   <text x="${cxR}" y="1019" text-anchor="middle" font-family="${FONT}" font-size="34" font-weight="800" fill="#FFFFFF">방법 2</text>
-  <text x="${cxR}" y="1130" text-anchor="middle" font-family="${FONT}" font-size="52" font-weight="800" fill="${C.textMain}">카메라로 찍으세요</text>
-  <text x="${cxR}" y="1188" text-anchor="middle" font-family="${FONT}" font-size="34" fill="${C.textSub}">아이폰 · QR 스캔</text>
+  <text x="${cxR}" y="1118" text-anchor="middle" font-family="${FONT}" font-size="52" font-weight="800" fill="${C.textMain}">카메라로 찍으세요</text>
+  <text x="${cxR}" y="1172" text-anchor="middle" font-family="${FONT}" font-size="34" fill="${C.textSub}">아이폰 · QR 스캔</text>
 
-  <rect x="${cxR - 178}" y="${vy - 178}" width="356" height="356" rx="28" fill="#FFFFFF" stroke="${C.border}" stroke-width="4"/>
-  <image href="${qrDataUrl}" x="${cxR - 150}" y="${vy - 150}" width="300" height="300"/>
+  <!-- QR 코드 -->
+  <rect x="${cxR-196}" y="${qrCy-196}" width="392" height="392" rx="32" fill="#FFFFFF" stroke="${C.border}" stroke-width="4"/>
+  <image href="${qrDataUrl}" x="${cxR-166}" y="${qrCy-166}" width="332" height="332"/>
 
-  <text x="${cxR}" y="1758" text-anchor="middle" font-family="${FONT}" font-size="40" fill="${C.textMain}">폰 카메라 앱으로</text>
-  <text x="${cxR}" y="1812" text-anchor="middle" font-family="${FONT}" font-size="40" font-weight="700" fill="${C.textMain}">QR을 비추세요</text>
+  <!-- 카메라 조준 모서리 장식 -->
+  <path d="M ${cxR-196} ${qrCy-140} L ${cxR-196} ${qrCy-196} L ${cxR-140} ${qrCy-196}" fill="none" stroke="${C.primaryDark}" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M ${cxR+140} ${qrCy-196} L ${cxR+196} ${qrCy-196} L ${cxR+196} ${qrCy-140}" fill="none" stroke="${C.primaryDark}" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M ${cxR-196} ${qrCy+140} L ${cxR-196} ${qrCy+196} L ${cxR-140} ${qrCy+196}" fill="none" stroke="${C.primaryDark}" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M ${cxR+140} ${qrCy+196} L ${cxR+196} ${qrCy+196} L ${cxR+196} ${qrCy+140}" fill="none" stroke="${C.primaryDark}" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="${cxR}" y="1772" text-anchor="middle" font-family="${FONT}" font-size="40" fill="${C.textMain}">폰 카메라 앱으로</text>
+  <text x="${cxR}" y="1826" text-anchor="middle" font-family="${FONT}" font-size="40" font-weight="700" fill="${C.textMain}">QR을 비추세요</text>
 
   <!-- 결과 스트립 -->
   <rect x="90" y="2118" width="1568" height="122" rx="61" fill="${C.tint}"/>
-  <text x="${CX}" y="2197" text-anchor="middle" font-family="${FONT}" font-size="50" font-weight="700" fill="${C.primaryDark}">→ ${esc(
-    floor
-  )} 주차구역이 자동으로 저장돼요</text>
+  <text x="${CX}" y="2197" text-anchor="middle" font-family="${FONT}" font-size="50" font-weight="700" fill="${C.primaryDark}">→ ${esc(floor)} 주차구역이 자동으로 저장돼요</text>
 
   <!-- 푸터 -->
   <text x="${CX}" y="2400" text-anchor="middle" font-family="${FONT}" font-size="38" fill="${C.textSub}">처음이신가요?  myfloor.website 에서 차량을 먼저 등록하세요</text>
