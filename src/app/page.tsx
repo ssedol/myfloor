@@ -77,7 +77,13 @@ export default function Home() {
     showToast(`${vehicle.name} → ${floor} 저장됨`);
     setFloorTarget(null);
 
-    if (!alarmType || !("Notification" in window) || !("serviceWorker" in navigator)) return;
+    // 알람 선택 없이 주차 위치만 재등록 시 기존 알람 자동 취소
+    if (!alarmType) {
+      if (alarms[vehicle.id]) handleAlarmCancel(vehicle.id);
+      return;
+    }
+
+    if (!("Notification" in window) || !("serviceWorker" in navigator)) return;
 
     try {
       const permission = await Notification.requestPermission();
