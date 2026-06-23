@@ -40,11 +40,17 @@ const FAQS = [
         q: "아이폰과 안드로이드 모두 사용할 수 있나요?",
         a: "네, 스마트폰 기종에 상관없이 사용 가능합니다. Safari(아이폰) 또는 Chrome(안드로이드)에서 myfloor.website 에 접속하면 됩니다.",
       },
+      {
+        q: "기능 추가 요청이나 버그 문의는 어디서 하나요?",
+        a: "카카오톡 오픈채팅으로 문의해 주세요 → open.kakao.com/o/sj3lSPAi",
+        link: "https://open.kakao.com/o/sj3lSPAi",
+        linkLabel: "오픈채팅 바로가기",
+      },
     ],
   },
 ];
 
-function FaqItem({ q, a }: { q: string; a: string }) {
+function FaqItem({ q, a, link, linkLabel }: { q: string; a: string; link?: string; linkLabel?: string }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="bg-surface rounded-2xl overflow-hidden mb-2">
@@ -56,7 +62,19 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         <span className={`text-primary text-lg font-light flex-shrink-0 transition-transform ${open ? "rotate-45" : ""}`}>﹢</span>
       </button>
       {open && (
-        <p className="px-4 pb-4 text-sub text-sm leading-relaxed">{a}</p>
+        <div className="px-4 pb-4">
+          <p className="text-sub text-sm leading-relaxed">{a}</p>
+          {link && (
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-2 px-4 py-2 bg-primary text-white text-xs font-semibold rounded-xl active:opacity-70"
+            >
+              {linkLabel}
+            </a>
+          )}
+        </div>
       )}
     </div>
   );
