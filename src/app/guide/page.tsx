@@ -147,15 +147,14 @@ export default function GuidePage() {
           <div style={{ background: BROWN, padding: "28px 24px 26px", textAlign: "center" }}>
             <div
               style={{
-                display: "inline-block",
-                color: GREEN,
-                fontSize: 22,
-                fontWeight: 800,
-                letterSpacing: "-0.03em",
+                display: "inline-flex",
+                alignItems: "baseline",
+                gap: 6,
                 marginBottom: 12,
               }}
             >
-              몇층
+              <span style={{ color: GREEN, fontSize: 22, fontWeight: 800, letterSpacing: "-0.03em" }}>몇층</span>
+              <span style={{ color: "rgba(255,255,255,0.45)", fontSize: 13, fontWeight: 500 }}>에 주차했지...?</span>
             </div>
             <h1
               style={{
