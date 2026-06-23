@@ -152,7 +152,7 @@ export default function Home() {
         </main>
 
         <div className="mt-auto pt-3">
-          <p className="text-center text-sub text-xs mb-2">아래 광고를 통해 아무 물건을 구입해주시면 운영에 큰 도움이 돼요 😊</p>
+          <p className="text-center text-sub text-xs mb-2">아래 광고를 통해 구매를 하시면 운영에 도움이 됩니다 😊</p>
           <CoupangAd />
           <FaqSection />
         </div>
