@@ -45,6 +45,7 @@ export default function FloorSelector({ currentFloor, onSelect, onClose }: Props
   const [directMode, setDirectMode] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [pendingFloor, setPendingFloor] = useState<string | null>(null);
+  const [locationMode, setLocationMode] = useState(false);
   const [locationValue, setLocationValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
@@ -53,9 +54,10 @@ export default function FloorSelector({ currentFloor, onSelect, onClose }: Props
     if (directMode) inputRef.current?.focus();
   }, [directMode]);
 
+  // 세부 위치 추가 버튼을 눌렀을 때만 포커스
   useEffect(() => {
-    if (pendingFloor) locationRef.current?.focus();
-  }, [pendingFloor]);
+    if (locationMode) locationRef.current?.focus();
+  }, [locationMode]);
 
   function handleDirectConfirm() {
     const val = inputValue.trim();
@@ -65,6 +67,7 @@ export default function FloorSelector({ currentFloor, onSelect, onClose }: Props
   function handleFloorPick(floor: string) {
     setPendingFloor(floor);
     setLocationValue("");
+    setLocationMode(false);
   }
 
   function handleLocationSave() {
@@ -114,27 +117,44 @@ export default function FloorSelector({ currentFloor, onSelect, onClose }: Props
               <div className="text-4xl font-bold text-primary mb-1">{pendingFloor}</div>
               <p className="text-sub text-sm">세부 위치를 추가할 수 있어요 (선택사항)</p>
             </div>
-            <input
-              ref={locationRef}
-              type="text"
-              value={locationValue}
-              onChange={(e) => setLocationValue(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleLocationSave()}
-              placeholder="예: A-12, 기둥 34번, 엘리베이터 앞"
-              className="w-full bg-surface rounded-2xl px-4 py-4 text-main text-base outline-none placeholder:text-sub/50 mb-4"
-            />
+
+            {/* 저장: 세부 위치 없이 바로 저장 */}
             <button
-              onClick={handleLocationSave}
+              onClick={() => onSelect(pendingFloor)}
               className="w-full py-4 rounded-2xl bg-primary text-white font-semibold text-base mb-3"
             >
               저장
             </button>
-            <button
-              onClick={() => onSelect(pendingFloor)}
-              className="w-full py-4 rounded-2xl border border-divider text-sub text-sm mb-3"
-            >
-              세부 위치 없이 저장
-            </button>
+
+            {/* 세부 위치 추가 — 버튼 누를 때만 input 노출 */}
+            {locationMode ? (
+              <>
+                <input
+                  ref={locationRef}
+                  type="text"
+                  value={locationValue}
+                  onChange={(e) => setLocationValue(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleLocationSave()}
+                  placeholder="예: A-12, 기둥 34번, 엘리베이터 앞"
+                  className="w-full bg-surface rounded-2xl px-4 py-4 text-main text-base outline-none placeholder:text-sub/50 mb-3"
+                />
+                <button
+                  onClick={handleLocationSave}
+                  disabled={!locationValue.trim()}
+                  className="w-full py-4 rounded-2xl border border-divider text-main font-semibold text-sm mb-3 disabled:opacity-30"
+                >
+                  세부 위치 포함 저장
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setLocationMode(true)}
+                className="w-full py-4 rounded-2xl border border-divider text-sub text-sm mb-3"
+              >
+                + 세부 위치 추가
+              </button>
+            )}
+
             <button
               onClick={() => setPendingFloor(null)}
               className="w-full py-3 text-sub text-sm"
