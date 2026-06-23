@@ -20,6 +20,7 @@ import Toast from "@/components/Toast";
 import CoupangAd from "@/components/CoupangAd";
 import KakaoAd from "@/components/KakaoAd";
 import FaqSection from "@/components/FaqSection";
+import AlarmModal from "@/components/AlarmModal";
 import GuideLink from "@/components/GuideLink";
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
   const [floorTarget, setFloorTarget] = useState<Vehicle | null>(null);
   const [formTarget, setFormTarget] = useState<{ vehicle?: Vehicle } | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const [alarmTarget, setAlarmTarget] = useState<{ vehicle: Vehicle; floor: string } | null>(null);
 
   useEffect(() => {
     setVehicles(getVehicles());
@@ -58,10 +60,15 @@ export default function Home() {
 
   function handleFloorSelect(floor: string) {
     if (!floorTarget) return;
-    updateFloor(floorTarget.id, floor);
+    const vehicle = floorTarget;
+    updateFloor(vehicle.id, floor);
     setVehicles(getVehicles());
-    showToast(`${floorTarget.name} → ${floor} 저장됨`);
+    showToast(`${vehicle.name} → ${floor} 저장됨`);
     setFloorTarget(null);
+    // 전기차 충전 알림 설정 제안
+    if ("Notification" in window && "serviceWorker" in navigator) {
+      setAlarmTarget({ vehicle, floor });
+    }
   }
 
   function handleDelete(id: string) {
@@ -175,6 +182,14 @@ export default function Home() {
               : handleAdd
           }
           onClose={() => setFormTarget(null)}
+        />
+      )}
+
+      {alarmTarget && (
+        <AlarmModal
+          vehicle={alarmTarget.vehicle}
+          floor={alarmTarget.floor}
+          onClose={() => setAlarmTarget(null)}
         />
       )}
 
