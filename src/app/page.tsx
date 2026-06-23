@@ -20,6 +20,7 @@ import Toast from "@/components/Toast";
 import CoupangAd from "@/components/CoupangAd";
 import KakaoAd from "@/components/KakaoAd";
 import FaqSection from "@/components/FaqSection";
+import GuideLink from "@/components/GuideLink";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -78,6 +79,8 @@ export default function Home() {
 
       <div className="px-5 flex flex-col flex-1">
         <header className="pt-3 pb-2" />
+
+        <GuideLink />
 
         <main>
           {vehicles.length === 0 ? (
