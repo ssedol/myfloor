@@ -75,6 +75,7 @@ export default function Home() {
 
   return (
     <div className="max-w-md mx-auto min-h-[100dvh] flex flex-col">
+      <p className="text-center text-sub text-xs py-1.5 bg-app-bg">무료 서비스는 광고로 운영돼요 🙏</p>
       <KakaoAd />
 
       <div className="px-5 flex flex-col flex-1">
@@ -137,6 +138,7 @@ export default function Home() {
         </main>
 
         <div className="mt-auto pt-3">
+          <p className="text-center text-sub text-xs mb-2">아래 상품 구경하면 운영에 큰 도움이 돼요 😊</p>
           <CoupangAd />
           <FaqSection />
         </div>
