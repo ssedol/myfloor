@@ -11,6 +11,12 @@ import {
   markPatchSeen,
   Vehicle,
 } from "@/lib/storage";
+import {
+  getAllAlarms,
+  clearAlarm,
+  clearExpiredAlarms,
+  type StoredAlarm,
+} from "@/lib/alarmStorage";
 import { getLatestPatch } from "@/config/patches";
 import { APARTMENT_CONFIG } from "@/config/apartment";
 import VehicleCard from "@/components/VehicleCard";
@@ -21,6 +27,7 @@ import CoupangAd from "@/components/CoupangAd";
 import KakaoAd from "@/components/KakaoAd";
 import FaqSection from "@/components/FaqSection";
 import AlarmModal from "@/components/AlarmModal";
+import AlarmInfoPopup from "@/components/AlarmInfoPopup";
 import GuideLink from "@/components/GuideLink";
 
 export default function Home() {
@@ -29,9 +36,13 @@ export default function Home() {
   const [formTarget, setFormTarget] = useState<{ vehicle?: Vehicle } | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [alarmTarget, setAlarmTarget] = useState<{ vehicle: Vehicle; floor: string } | null>(null);
+  const [alarms, setAlarms] = useState<Record<string, StoredAlarm>>({});
+  const [alarmInfoVehicleId, setAlarmInfoVehicleId] = useState<string | null>(null);
 
   useEffect(() => {
     setVehicles(getVehicles());
+    clearExpiredAlarms();
+    setAlarms(getAllAlarms());
 
     const latest = getLatestPatch();
     if (latest && getSeenPatchId() !== latest.id) {
@@ -65,20 +76,50 @@ export default function Home() {
     setVehicles(getVehicles());
     showToast(`${vehicle.name} → ${floor} 저장됨`);
     setFloorTarget(null);
-    // 전기차 충전 알림 설정 제안
     if ("Notification" in window && "serviceWorker" in navigator) {
       setAlarmTarget({ vehicle, floor });
     }
   }
 
+  function handleAlarmSet(alarm: StoredAlarm) {
+    setAlarms((prev) => ({ ...prev, [alarm.vehicleId]: alarm }));
+  }
+
+  async function handleAlarmCancel(vehicleId: string) {
+    clearAlarm(vehicleId);
+    setAlarms((prev) => {
+      const next = { ...prev };
+      delete next[vehicleId];
+      return next;
+    });
+    setAlarmInfoVehicleId(null);
+    fetch("/api/push/subscribe", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ vehicleId }),
+    }).catch(console.error);
+  }
+
   function handleDelete(id: string) {
     const vehicle = vehicles.find((v) => v.id === id);
     deleteVehicle(id);
+    // 차량 삭제 시 알람도 함께 제거
+    if (alarms[id]) {
+      clearAlarm(id);
+      setAlarms((prev) => { const n = { ...prev }; delete n[id]; return n; });
+      fetch("/api/push/subscribe", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ vehicleId: id }),
+      }).catch(console.error);
+    }
     setVehicles(getVehicles());
     if (vehicle) showToast(`${vehicle.name} 삭제됨`);
   }
 
   const dismissToast = useCallback(() => setToast(null), []);
+
+  const alarmInfoTarget = alarmInfoVehicleId ? alarms[alarmInfoVehicleId] ?? null : null;
 
   return (
     <div className="max-w-md mx-auto min-h-[100dvh] flex flex-col">
@@ -141,7 +182,9 @@ export default function Home() {
                 <VehicleCard
                   key={v.id}
                   vehicle={v}
+                  alarm={alarms[v.id] ?? null}
                   onFloorTap={() => setFloorTarget(v)}
+                  onAlarmTap={() => setAlarmInfoVehicleId(v.id)}
                   onDelete={() => handleDelete(v.id)}
                   onRename={() => setFormTarget({ vehicle: v })}
                 />
@@ -190,6 +233,15 @@ export default function Home() {
           vehicle={alarmTarget.vehicle}
           floor={alarmTarget.floor}
           onClose={() => setAlarmTarget(null)}
+          onAlarmSet={handleAlarmSet}
+        />
+      )}
+
+      {alarmInfoTarget && (
+        <AlarmInfoPopup
+          alarm={alarmInfoTarget}
+          onCancel={() => handleAlarmCancel(alarmInfoTarget.vehicleId)}
+          onClose={() => setAlarmInfoVehicleId(null)}
         />
       )}
 

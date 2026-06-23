@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { Vehicle } from "@/lib/storage";
 import { formatUpdatedAt } from "@/lib/utils";
+import type { StoredAlarm } from "@/lib/alarmStorage";
 
 interface Props {
   vehicle: Vehicle;
+  alarm: StoredAlarm | null;
   onFloorTap: () => void;
+  onAlarmTap: () => void;
   onDelete: () => void;
   onRename: () => void;
 }
@@ -36,7 +39,16 @@ function ShareIcon() {
   );
 }
 
-export default function VehicleCard({ vehicle, onFloorTap, onDelete, onRename }: Props) {
+function BellIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 2a5 5 0 0 1 5 5v3l1.5 2H2.5L4 10V7a5 5 0 0 1 5-5z" />
+      <path d="M7.5 14a1.5 1.5 0 0 0 3 0" />
+    </svg>
+  );
+}
+
+export default function VehicleCard({ vehicle, alarm, onFloorTap, onAlarmTap, onDelete, onRename }: Props) {
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   function handleDeleteTap() {
@@ -66,6 +78,15 @@ export default function VehicleCard({ vehicle, onFloorTap, onDelete, onRename }:
       <div className="flex items-center justify-between mb-1">
         <span className="text-white font-semibold text-base">{vehicle.name}</span>
         <div className="flex gap-2">
+          {alarm && (
+            <button
+              onClick={onAlarmTap}
+              className="text-primary p-1.5 rounded-xl active:bg-white/10 transition-colors"
+              aria-label="알림 정보"
+            >
+              <BellIcon />
+            </button>
+          )}
           {vehicle.floor && (
             <button
               onClick={handleShare}

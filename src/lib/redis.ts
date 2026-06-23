@@ -8,6 +8,7 @@ export const redis = new Redis({
 
 export interface ParkingAlarm {
   id: string;
+  vehicleId: string;
   subscription: {
     endpoint: string;
     keys: { p256dh: string; auth: string };

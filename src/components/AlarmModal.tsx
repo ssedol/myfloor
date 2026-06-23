@@ -2,16 +2,18 @@
 
 import { useState } from "react";
 import type { Vehicle } from "@/lib/storage";
+import { setAlarm, type StoredAlarm } from "@/lib/alarmStorage";
 
 interface Props {
   vehicle: Vehicle;
   floor: string;
   onClose: () => void;
+  onAlarmSet: (alarm: StoredAlarm) => void;
 }
 
 type AlarmType = "none" | "slow" | "fast";
 
-export default function AlarmModal({ vehicle, floor, onClose }: Props) {
+export default function AlarmModal({ vehicle, floor, onClose, onAlarmSet }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -51,6 +53,7 @@ export default function AlarmModal({ vehicle, floor, onClose }: Props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           subscription: subJson,
+          vehicleId: vehicle.id,
           vehicleName: vehicle.name,
           floor,
           type,
@@ -59,6 +62,17 @@ export default function AlarmModal({ vehicle, floor, onClose }: Props) {
 
       if (!res.ok) throw new Error("서버 오류");
 
+      const { triggerAt } = await res.json();
+
+      const alarm: StoredAlarm = {
+        vehicleId: vehicle.id,
+        vehicleName: vehicle.name,
+        floor,
+        type,
+        triggerAt,
+      };
+      setAlarm(alarm);
+      onAlarmSet(alarm);
       onClose();
     } catch (e) {
       console.error(e);
@@ -69,7 +83,7 @@ export default function AlarmModal({ vehicle, floor, onClose }: Props) {
 
   const options: { type: AlarmType; label: string; desc: string; emoji: string }[] = [
     { type: "slow", label: "완속충전", desc: "13시간 후 알림", emoji: "🔌" },
-    { type: "fast", label: "급속충전", desc: "45분 후 알림 (1h 기준 - 15분)", emoji: "⚡" },
+    { type: "fast", label: "급속충전", desc: "45분 후 알림 (1h - 15분)", emoji: "⚡" },
     { type: "none", label: "알림 없음", desc: "이번엔 넘어갈게요", emoji: "✕" },
   ];
 
@@ -84,9 +98,7 @@ export default function AlarmModal({ vehicle, floor, onClose }: Props) {
 
         <div className="text-center mb-5">
           <p className="text-main font-bold text-lg">⏰ 충전 알림 설정</p>
-          <p className="text-sub text-sm mt-1">
-            {vehicle.name} · {floor}
-          </p>
+          <p className="text-sub text-sm mt-1">{vehicle.name} · {floor}</p>
         </div>
 
         {loading ? (
