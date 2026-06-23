@@ -3,12 +3,34 @@
 //        node scripts/gen-flyer.js all        모든 층 일괄 생성
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 const QRCode = require("qrcode");
 const sharp = require("sharp");
 const { PDFDocument } = require("pdf-lib");
 
 const SITE = "https://myfloor.website";
 const OUT = path.join(__dirname, "..", "flyers");
+
+// .env.local에서 NFC_TAG_SECRET 로드 (서버 검증과 동일 키로 서명)
+(function loadEnv() {
+  if (process.env.NFC_TAG_SECRET) return;
+  try {
+    const env = fs.readFileSync(path.join(__dirname, "..", ".env.local"), "utf8");
+    const m = env.match(/^NFC_TAG_SECRET=(.+)$/m);
+    if (m) process.env.NFC_TAG_SECRET = m[1].trim();
+  } catch {}
+})();
+
+const SECRET = process.env.NFC_TAG_SECRET;
+if (!SECRET) {
+  console.error("NFC_TAG_SECRET이 없습니다 (.env.local 확인). 서명 없이 만들면 서버에서 거부됩니다.");
+  process.exit(1);
+}
+
+// 서버 src/lib/tagToken.ts의 signFloor와 동일한 로직
+function signFloor(floor) {
+  return crypto.createHmac("sha256", SECRET).update(floor).digest("base64url").slice(0, 16);
+}
 
 // 브랜드 컬러 (apartment.ts theme)
 const C = {
@@ -33,7 +55,7 @@ function esc(s) {
 }
 
 async function buildSvg(floor) {
-  const url = `${SITE}/nfc?floor=${floor}`;
+  const url = `${SITE}/nfc?floor=${floor}&sig=${signFloor(floor)}`;
   const qrDataUrl = await QRCode.toDataURL(url, {
     margin: 1,
     width: 560,
