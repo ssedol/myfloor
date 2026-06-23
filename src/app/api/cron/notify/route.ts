@@ -19,18 +19,31 @@ export async function GET(req: Request) {
   }
 
   let sent = 0;
+  const toRemove: string[] = [];
+
   for (const item of due) {
+    let alarm: ParkingAlarm;
     try {
-      const alarm: ParkingAlarm = JSON.parse(item);
-      await sendPush(alarm);
-      sent++;
+      alarm = JSON.parse(item);
+    } catch {
+      toRemove.push(item); // 잘못된 형식은 그냥 삭제
+      continue;
+    }
+
+    try {
+      const ok = await sendPush(alarm);
+      // 성공(true) 또는 영구 실패(false, 410/404) 모두 삭제 대상
+      toRemove.push(item);
+      if (ok) sent++;
     } catch (e) {
+      // 일시적 오류 — 삭제하지 않고 다음 크론 실행 시 재시도
       console.error("notify error", e);
     }
   }
 
-  // 발송 완료 항목 삭제 (score 범위로 삭제)
-  await redis.zremrangebyscore(ALARM_KEY, 0, now);
+  if (toRemove.length) {
+    await redis.zrem(ALARM_KEY, ...toRemove);
+  }
 
   return Response.json({ sent });
 }

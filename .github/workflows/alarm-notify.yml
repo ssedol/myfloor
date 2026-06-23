@@ -11,7 +11,12 @@ jobs:
     steps:
       - name: 만기 알람 발송
         run: |
-          curl -s -X GET https://myfloor.website/api/cron/notify \
+          HTTP_CODE=$(curl -s -o /tmp/body.txt -w "%{http_code}" -X GET https://myfloor.website/api/cron/notify \
             -H "Authorization: Bearer ${{ secrets.ALARM_CRON_SECRET }}" \
-            -w "\nHTTP %{http_code}" \
-            --max-time 30
+            --max-time 30)
+          echo "HTTP $HTTP_CODE"
+          cat /tmp/body.txt
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "크론 엔드포인트 오류: HTTP $HTTP_CODE"
+            exit 1
+          fi
