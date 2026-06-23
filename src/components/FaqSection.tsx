@@ -46,6 +46,12 @@ const FAQS = [
         link: "https://open.kakao.com/o/sj3lSPAi",
         linkLabel: "오픈채팅 바로가기",
       },
+      {
+        q: "아파트 층별 NFC·QR 설치 문의는 어디서 하나요?",
+        a: "입주민 또는 관리사무소에서 층별 NFC·QR 설치를 원하시면 카카오톡 오픈채팅으로 문의해 주세요.",
+        link: "https://open.kakao.com/o/sj3lSPAi",
+        linkLabel: "설치 문의하기",
+      },
     ],
   },
 ];
