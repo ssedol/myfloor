@@ -118,9 +118,9 @@ async function buildSvg(floor) {
   <text x="${CX}" y="258" text-anchor="middle" font-family="${FONT}" font-size="44" fill="${C.textSub}">주차한 층수, 한 번에 기억하세요</text>
 
   <!-- 층 배지 카드 -->
-  <rect x="90" y="320" width="1568" height="440" rx="56" fill="${C.primary}"/>
+  <rect x="90" y="320" width="1568" height="440" rx="56" fill="${C.textMain}"/>
   <text x="${CX}" y="445" text-anchor="middle" font-family="${FONT}" font-size="50" font-weight="600" fill="#FFFFFF" opacity="0.92">지금 여기는</text>
-  <text x="${CX}" y="668" text-anchor="middle" font-family="${FONT}" font-size="240" font-weight="800" fill="#FFFFFF" letter-spacing="4">${esc(floor)}</text>
+  <text x="${CX}" y="668" text-anchor="middle" font-family="${FONT}" font-size="240" font-weight="800" fill="${C.primary}" letter-spacing="4">${esc(floor)}</text>
   <text x="${CX}" y="735" text-anchor="middle" font-family="${FONT}" font-size="46" font-weight="600" fill="#FFFFFF" opacity="0.92">주차구역</text>
 
   <!-- 안내 제목 -->
