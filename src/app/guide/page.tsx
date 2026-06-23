@@ -207,7 +207,6 @@ export default function GuidePage() {
               n={3}
               title="가족과 공유해요"
               desc="공유 버튼을 누르면 카카오톡으로 위치 전송. 받은 사람도 한 번에 확인해요."
-              last
               visual={
                 <div
                   style={{
@@ -243,12 +242,62 @@ export default function GuidePage() {
                 </div>
               }
             />
+            <StepRow
+              n={4}
+              title="전기차 충전 알림도 받아요"
+              desc="층수 저장 후 충전 유형을 선택하면 시간 맞춰 알려드려요. 완속은 13시간, 급속은 45분 후 알림이 와요."
+              last
+              visual={
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  <div
+                    style={{
+                      background: BG,
+                      borderRadius: 14,
+                      padding: "10px 14px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <span style={{ color: GREEN, fontSize: 28, fontWeight: 800, lineHeight: 1 }}>B3</span>
+                    <span style={{ fontSize: 12, color: SUB }}>충전 알림 설정</span>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                    <div
+                      style={{
+                        background: BROWN,
+                        borderRadius: 12,
+                        padding: "10px 8px",
+                        textAlign: "center",
+                        color: WHITE,
+                      }}
+                    >
+                      <div style={{ fontSize: 13, fontWeight: 700 }}>🔌 완속충전</div>
+                      <div style={{ fontSize: 11, opacity: 0.65, marginTop: 3 }}>13시간 후 알림</div>
+                    </div>
+                    <div
+                      style={{
+                        background: SURFACE,
+                        borderRadius: 12,
+                        padding: "10px 8px",
+                        textAlign: "center",
+                        color: BROWN,
+                      }}
+                    >
+                      <div style={{ fontSize: 13, fontWeight: 700 }}>⚡ 급속충전</div>
+                      <div style={{ fontSize: 11, color: SUB, marginTop: 3 }}>45분 후 알림</div>
+                    </div>
+                  </div>
+                </div>
+              }
+            />
 
             {/* 특징 칩 */}
             <div style={{ display: "flex", gap: 8, marginTop: 24 }}>
               <FeatureChip icon="💾" label="앱 닫아도 저장 유지" />
               <FeatureChip icon="👨‍👩‍👧" label="가족과 위치 공유" />
-              <FeatureChip icon="✨" label="가입 없이 무료" />
+              <FeatureChip icon="⚡" label="충전 알림" />
+              <FeatureChip icon="✨" label="무료" />
             </div>
 
             {/* 마무리 */}
