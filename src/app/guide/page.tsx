@@ -205,48 +205,8 @@ export default function GuidePage() {
             />
             <StepRow
               n={3}
-              title="가족과 공유해요"
-              desc="공유 버튼을 누르면 카카오톡으로 위치 전송. 받은 사람도 한 번에 확인해요."
-              visual={
-                <div
-                  style={{
-                    background: BG,
-                    borderRadius: 14,
-                    padding: "12px 14px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 10,
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 32,
-                      height: 32,
-                      borderRadius: 10,
-                      background: GREEN,
-                      color: WHITE,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: 15,
-                      flexShrink: 0,
-                    }}
-                  >
-                    ↗
-                  </div>
-                  <div style={{ fontSize: 13, color: BROWN, lineHeight: 1.4 }}>
-                    <b>테슬라 B3</b>에 주차했어요 🚗
-                    <br />
-                    <span style={{ color: SUB, fontSize: 12 }}>링크로 위치를 저장하세요</span>
-                  </div>
-                </div>
-              }
-            />
-            <StepRow
-              n={4}
               title="전기차 충전 알림도 받아요"
               desc="층수 저장 후 충전 유형을 선택하면 시간 맞춰 알려드려요. 완속은 13시간, 급속은 45분 후 알림이 와요."
-              last
               visual={
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   <div
@@ -287,6 +247,46 @@ export default function GuidePage() {
                       <div style={{ fontSize: 13, fontWeight: 700 }}>⚡ 급속충전</div>
                       <div style={{ fontSize: 11, color: SUB, marginTop: 3 }}>45분 후 알림</div>
                     </div>
+                  </div>
+                </div>
+              }
+            />
+            <StepRow
+              n={4}
+              title="가족과 공유해요"
+              desc="공유 버튼을 누르면 카카오톡으로 위치 전송. 받은 사람도 한 번에 확인해요."
+              last
+              visual={
+                <div
+                  style={{
+                    background: BG,
+                    borderRadius: 14,
+                    padding: "12px 14px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: 10,
+                      background: GREEN,
+                      color: WHITE,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 15,
+                      flexShrink: 0,
+                    }}
+                  >
+                    ↗
+                  </div>
+                  <div style={{ fontSize: 13, color: BROWN, lineHeight: 1.4 }}>
+                    <b>테슬라 B3</b>에 주차했어요 🚗
+                    <br />
+                    <span style={{ color: SUB, fontSize: 12 }}>링크로 위치를 저장하세요</span>
                   </div>
                 </div>
               }
