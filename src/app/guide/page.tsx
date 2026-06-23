@@ -2,133 +2,119 @@
 
 export const dynamic = "force-static";
 
-const APP_URL = "myfloor.website";
-
 const BROWN = "#40342E";
 const GREEN = "#9BC72E";
 const BG = "#F5F3EF";
 const SURFACE = "#ECEAE4";
 const SUB = "#8B7B72";
 const DIVIDER = "#D5CEC6";
+const WHITE = "#FFFFFF";
 
-function StepNum({ n }: { n: number }) {
+/* 실제 앱의 차량 카드를 그대로 축소한 미니 목업 (디자인 통일감) */
+function MiniCard({
+  name,
+  floor,
+  empty,
+}: {
+  name: string;
+  floor?: string;
+  empty?: boolean;
+}) {
   return (
-    <div style={{
-      width: 32, height: 32, borderRadius: 16,
-      background: GREEN, color: "#fff",
-      fontWeight: 700, fontSize: 15,
-      display: "flex", alignItems: "center", justifyContent: "center",
-      flexShrink: 0,
-    }}>
-      {n}
-    </div>
-  );
-}
-
-function Step({ n, text, sub }: { n: number; text: string; sub?: string }) {
-  return (
-    <div style={{ display: "flex", gap: 12, marginBottom: 14, alignItems: "flex-start" }}>
-      <StepNum n={n} />
-      <div style={{ paddingTop: 5 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, color: BROWN, lineHeight: 1.4 }}>{text}</div>
-        {sub && <div style={{ fontSize: 12, color: SUB, marginTop: 2, lineHeight: 1.4 }}>{sub}</div>}
-      </div>
-    </div>
-  );
-}
-
-function BarMockup({ os }: { os: "ios" | "android" }) {
-  return (
-    <div style={{
-      border: `1.5px solid ${DIVIDER}`, borderRadius: 14,
-      overflow: "hidden", background: "#fff",
-    }}>
-      <div style={{
-        background: os === "ios" ? BG : "#3C4043",
-        padding: "6px 10px",
-        display: "flex", alignItems: "center", gap: 6,
-        fontSize: 11,
-        color: os === "ios" ? BROWN : "#fff",
-      }}>
-        {os === "ios" ? (
-          <>
-            <span style={{ opacity: 0.4, fontSize: 13 }}>‹</span>
-            <div style={{ flex: 1, background: "#E5E5EA", borderRadius: 6, padding: "3px 8px", color: "#333", textAlign: "center" }}>
-              {APP_URL}
-            </div>
-            <span style={{ fontSize: 14, opacity: 0.6 }}>⬆</span>
-          </>
-        ) : (
-          <>
-            <div style={{ flex: 1, background: "#fff", borderRadius: 20, padding: "3px 10px", color: "#333", textAlign: "center" }}>
-              {APP_URL}
-            </div>
-            <span style={{ fontWeight: 700, letterSpacing: 1 }}>⋮</span>
-          </>
-        )}
-      </div>
-      <div style={{ padding: "14px 12px", textAlign: "center" }}>
-        {os === "ios" ? (
-          <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-            <div style={{ fontSize: 11, color: SUB }}>하단 가운데 공유 버튼 탭</div>
-            <div style={{
-              background: SURFACE, borderRadius: 10, padding: "8px 16px",
-              display: "flex", alignItems: "center", gap: 8,
-              fontSize: 13, fontWeight: 600, color: BROWN,
-            }}>
-              <span style={{ fontSize: 18 }}>⬆</span> 공유
-            </div>
-          </div>
-        ) : (
-          <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-            <div style={{ fontSize: 11, color: SUB }}>메뉴(⋮) → 홈 화면에 추가</div>
-            <div style={{
-              background: SURFACE, borderRadius: 10, padding: "8px 16px",
-              display: "flex", alignItems: "center", gap: 8,
-              fontSize: 13, fontWeight: 600, color: BROWN,
-            }}>
-              <span style={{ fontSize: 18 }}>⊕</span> 홈 화면에 추가
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function OSCard({ os, steps }: { os: "ios" | "android"; steps: { text: string; sub?: string }[] }) {
-  const isIOS = os === "ios";
-  return (
-    <div style={{
-      background: BG, borderRadius: 20, padding: "22px 18px",
-      flex: 1,
-    }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-        <div style={{
-          width: 42, height: 42, borderRadius: 12,
-          background: isIOS ? "#1C1C1E" : "#4285F4",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: 20,
-        }}>
-          {isIOS ? "🍎" : "🤖"}
-        </div>
-        <div>
-          <div style={{ fontWeight: 700, fontSize: 16, color: BROWN }}>
-            {isIOS ? "아이폰 (iPhone)" : "안드로이드"}
-          </div>
-          <div style={{ fontSize: 11, color: SUB }}>
-            {isIOS ? "Safari 브라우저 사용" : "Chrome 브라우저 사용"}
-          </div>
+    <div
+      style={{
+        background: BROWN,
+        borderRadius: 18,
+        padding: "12px 14px",
+        width: "100%",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+        <span style={{ color: WHITE, fontWeight: 600, fontSize: 13 }}>{name}</span>
+        <div style={{ display: "flex", gap: 6, opacity: 0.4 }}>
+          <span style={{ color: WHITE, fontSize: 11 }}>↗</span>
+          <span style={{ color: WHITE, fontSize: 11 }}>✎</span>
+          <span style={{ color: WHITE, fontSize: 11 }}>🗑</span>
         </div>
       </div>
+      {empty ? (
+        <div style={{ color: "rgba(255,255,255,0.3)", fontSize: 22, fontWeight: 600, padding: "4px 0" }}>
+          미저장
+        </div>
+      ) : (
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+          <span style={{ color: GREEN, fontSize: 34, fontWeight: 800, lineHeight: 1 }}>{floor}</span>
+          <span style={{ color: "rgba(255,255,255,0.4)", fontSize: 10, textAlign: "right", lineHeight: 1.3 }}>
+            마지막 저장
+            <br />
+            오늘 오후 3:44
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
 
-      <BarMockup os={os} />
-
-      <div style={{ marginTop: 18 }}>
-        {steps.map((s, i) => (
-          <Step key={i} n={i + 1} text={s.text} sub={s.sub} />
-        ))}
+function StepRow({
+  n,
+  title,
+  desc,
+  visual,
+  last,
+}: {
+  n: number;
+  title: string;
+  desc: string;
+  visual: React.ReactNode;
+  last?: boolean;
+}) {
+  return (
+    <div style={{ display: "flex", gap: 14, alignItems: "stretch" }}>
+      {/* 타임라인 */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div
+          style={{
+            width: 30,
+            height: 30,
+            borderRadius: 15,
+            background: GREEN,
+            color: WHITE,
+            fontWeight: 800,
+            fontSize: 14,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+        >
+          {n}
+        </div>
+        {!last && <div style={{ width: 2, flex: 1, background: DIVIDER, marginTop: 4 }} />}
       </div>
+
+      {/* 본문 */}
+      <div style={{ flex: 1, paddingBottom: last ? 0 : 22 }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: BROWN, marginBottom: 3 }}>{title}</div>
+        <div style={{ fontSize: 13, color: SUB, lineHeight: 1.5, marginBottom: 10 }}>{desc}</div>
+        <div>{visual}</div>
+      </div>
+    </div>
+  );
+}
+
+function FeatureChip({ icon, label }: { icon: string; label: string }) {
+  return (
+    <div
+      style={{
+        flex: 1,
+        background: BG,
+        borderRadius: 14,
+        padding: "12px 8px",
+        textAlign: "center",
+      }}
+    >
+      <div style={{ fontSize: 20, marginBottom: 5 }}>{icon}</div>
+      <div style={{ fontSize: 11, fontWeight: 600, color: BROWN, lineHeight: 1.3 }}>{label}</div>
     </div>
   );
 }
@@ -138,104 +124,150 @@ export default function GuidePage() {
     <>
       <style>{`
         * { box-sizing: border-box; }
-        body { overflow-x: hidden; }
-        .guide-wrap { max-width: 760px; margin: 0 auto; padding: 36px 24px; }
-        .guide-cols { display: flex; gap: 16px; align-items: flex-start; }
-        @media (max-width: 600px) {
-          .guide-wrap { padding: 24px 16px; }
-          .guide-cols { flex-direction: column; }
-        }
-        @media print {
-          .no-print { display: none !important; }
-          body { background: #fff !important; }
-          @page { margin: 10mm; }
-        }
+        body { background: ${SURFACE}; overflow-x: hidden; }
+        .poster-wrap { max-width: 440px; margin: 0 auto; padding: 28px 16px 40px; }
       `}</style>
 
-      <div className="guide-wrap" style={{
-        fontFamily: '"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif',
-      }}>
-        {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: 32 }}>
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 10,
-            background: BROWN, borderRadius: 14, padding: "8px 18px",
-            marginBottom: 14,
-          }}>
-            <span style={{ color: GREEN, fontSize: 18, fontWeight: 800, letterSpacing: "-0.02em" }}>몇층</span>
-          </div>
-
-          <h1 style={{ fontSize: 24, fontWeight: 800, color: BROWN, marginBottom: 8, letterSpacing: "-0.03em" }}>
-            📱 홈 화면에 추가하는 방법
-          </h1>
-          <p style={{ color: SUB, fontSize: 14 }}>
-            아래 주소로 접속 후 스마트폰 기종에 맞게 따라해 주세요
-          </p>
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            background: SURFACE, border: `1.5px solid ${DIVIDER}`,
-            borderRadius: 12, padding: "10px 20px",
-            marginTop: 12,
-            fontSize: 15, fontWeight: 700, color: BROWN,
-            letterSpacing: "0.01em",
-          }}>
-            🌐&nbsp; {APP_URL}
-          </div>
-        </div>
-
-        {/* Two columns */}
-        <div className="guide-cols">
-          <OSCard
-            os="ios"
-            steps={[
-              { text: `Safari로 ${APP_URL} 접속`, sub: "Chrome 등 다른 브라우저는 설치 불가" },
-              { text: "화면 하단 가운데 공유 버튼(⬆) 탭" },
-              { text: "스크롤 내려 '홈 화면에 추가' 선택" },
-              { text: "우측 상단 '추가' 탭 → 완료!" },
-            ]}
-          />
-          <OSCard
-            os="android"
-            steps={[
-              { text: `Chrome으로 ${APP_URL} 접속` },
-              { text: "우측 상단 메뉴 버튼(⋮) 탭" },
-              { text: "'홈 화면에 추가' 또는 '앱 설치' 선택", sub: "배너가 자동으로 뜨는 경우도 있어요" },
-              { text: "'추가' 탭 → 완료!" },
-            ]}
-          />
-        </div>
-
-        {/* Tip */}
-        <div style={{
-          marginTop: 24, padding: "14px 18px",
-          background: BG, border: `1px solid ${DIVIDER}`,
-          borderRadius: 14, display: "flex", alignItems: "flex-start", gap: 10,
-        }}>
-          <span style={{ fontSize: 18, flexShrink: 0 }}>💡</span>
-          <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: BROWN, marginBottom: 3 }}>
-              앱 아이콘이 생기면
+      <div
+        className="poster-wrap"
+        style={{
+          fontFamily: '"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif',
+        }}
+      >
+        {/* 한 장의 포스터 카드 */}
+        <div
+          style={{
+            background: WHITE,
+            borderRadius: 28,
+            overflow: "hidden",
+            boxShadow: "0 12px 40px rgba(64,52,46,0.12)",
+          }}
+        >
+          {/* 헤더 밴드 */}
+          <div style={{ background: BROWN, padding: "28px 24px 26px", textAlign: "center" }}>
+            <div
+              style={{
+                display: "inline-block",
+                color: GREEN,
+                fontSize: 22,
+                fontWeight: 800,
+                letterSpacing: "-0.03em",
+                marginBottom: 12,
+              }}
+            >
+              몇층
             </div>
-            <div style={{ fontSize: 13, color: SUB, lineHeight: 1.6 }}>
-              주차 후 NFC 스티커를 태그하면 층수가 자동으로 저장됩니다.
-              주차 위치를 가족과 공유하려면 카드의 공유 버튼을 이용하세요.
+            <h1
+              style={{
+                fontSize: 22,
+                fontWeight: 800,
+                color: WHITE,
+                margin: 0,
+                lineHeight: 1.35,
+                letterSpacing: "-0.03em",
+              }}
+            >
+              주차한 층,
+              <br />
+              다시는 헤매지 마세요
+            </h1>
+            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 13, marginTop: 10, lineHeight: 1.5 }}>
+              차 세운 층을 한 번 탭으로 저장하는
+              <br />
+              가장 간단한 방법
+            </p>
+          </div>
+
+          {/* 본문 */}
+          <div style={{ padding: "26px 22px 28px" }}>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 700,
+                color: GREEN,
+                letterSpacing: "0.08em",
+                marginBottom: 18,
+              }}
+            >
+              HOW TO USE · 이렇게 사용해요
+            </div>
+
+            <StepRow
+              n={1}
+              title="차량을 등록해요"
+              desc="차 이름만 입력하면 끝. 가족 차량까지 최대 3대 등록할 수 있어요."
+              visual={<MiniCard name="테슬라" empty />}
+            />
+            <StepRow
+              n={2}
+              title="주차한 층을 저장해요"
+              desc="카드를 탭하고 층수를 고르면 저장 완료. 앱을 닫아도 그대로 남아있어요."
+              visual={<MiniCard name="테슬라" floor="B3" />}
+            />
+            <StepRow
+              n={3}
+              title="가족과 공유해요"
+              desc="공유 버튼을 누르면 카카오톡으로 위치 전송. 받은 사람도 한 번에 확인해요."
+              last
+              visual={
+                <div
+                  style={{
+                    background: BG,
+                    borderRadius: 14,
+                    padding: "12px 14px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: 10,
+                      background: GREEN,
+                      color: WHITE,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 15,
+                      flexShrink: 0,
+                    }}
+                  >
+                    ↗
+                  </div>
+                  <div style={{ fontSize: 13, color: BROWN, lineHeight: 1.4 }}>
+                    <b>테슬라 B3</b>에 주차했어요 🚗
+                    <br />
+                    <span style={{ color: SUB, fontSize: 12 }}>링크로 위치를 저장하세요</span>
+                  </div>
+                </div>
+              }
+            />
+
+            {/* 특징 칩 */}
+            <div style={{ display: "flex", gap: 8, marginTop: 24 }}>
+              <FeatureChip icon="💾" label="앱 닫아도 저장 유지" />
+              <FeatureChip icon="👨‍👩‍👧" label="가족과 위치 공유" />
+              <FeatureChip icon="✨" label="가입 없이 무료" />
+            </div>
+
+            {/* 마무리 */}
+            <div
+              style={{
+                marginTop: 22,
+                paddingTop: 18,
+                borderTop: `1px solid ${DIVIDER}`,
+                textAlign: "center",
+              }}
+            >
+              <p style={{ fontSize: 13, color: SUB, lineHeight: 1.6, margin: 0 }}>
+                홈 화면에 추가해두면
+                <br />
+                매번 더 빠르게 열 수 있어요 📱
+              </p>
             </div>
           </div>
-        </div>
-
-        {/* Print button */}
-        <div className="no-print" style={{ textAlign: "center", marginTop: 24 }}>
-          <button
-            onClick={() => window.print()}
-            style={{
-              background: BROWN, color: "#fff",
-              border: "none", borderRadius: 12,
-              padding: "12px 28px",
-              fontSize: 14, fontWeight: 600, cursor: "pointer",
-            }}
-          >
-            🖨️ 인쇄 / PDF 저장
-          </button>
         </div>
       </div>
     </>
