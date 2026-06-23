@@ -1,0 +1,17 @@
+name: 주차 알림 발송
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 만기 알람 발송
+        run: |
+          curl -s -X GET https://myfloor.website/api/cron/notify \
+            -H "Authorization: Bearer ${{ secrets.ALARM_CRON_SECRET }}" \
+            -w "\nHTTP %{http_code}" \
+            --max-time 30

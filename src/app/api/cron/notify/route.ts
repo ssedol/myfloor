@@ -4,9 +4,8 @@ import { sendPush } from "@/lib/webpush";
 export const runtime = "nodejs";
 
 export async function GET(req: Request) {
-  // Vercel Cron 인증
   const auth = req.headers.get("authorization");
-  if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (auth !== `Bearer ${process.env.ALARM_CRON_SECRET}`) {
     return new Response("Unauthorized", { status: 401 });
   }
 
