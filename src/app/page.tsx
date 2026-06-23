@@ -197,8 +197,9 @@ export default function Home() {
               <div className="w-full mt-4 text-left space-y-2">
                 <p className="text-sub text-xs font-semibold tracking-wide mb-2 text-center">이렇게 사용하세요</p>
                 {[
-                  { icon: "1", text: "차량 등록 후 층수를 선택해 저장하세요" },
-                  { icon: "2", text: "공유 버튼으로 가족에게 주차 위치를 전송하세요" },
+                  { icon: "1", text: "차량 등록 후 주차 층수를 선택해 저장하세요" },
+                  { icon: "2", text: "전기차라면 충전 알림을 설정해 시간 맞춰 알림 받으세요" },
+                  { icon: "3", text: "공유 버튼으로 가족에게 주차 위치를 전송하세요" },
                 ].map(({ icon, text }) => (
                   <div key={icon} className="flex items-start gap-3 bg-surface rounded-2xl px-4 py-2.5">
                     <span className="w-5 h-5 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -250,7 +251,7 @@ export default function Home() {
         </main>
 
         <div className="mt-auto pt-3">
-          <p className="text-center text-sub text-xs mb-2">아래 광고를 통해 구매를 하시면 운영에 도움이 됩니다 😊</p>
+          <p className="text-center text-sub text-xs mb-2">아래 광고를 통해 구매를 하시면 운영에 도움이 됩니다</p>
           <CoupangAd />
           <FaqSection />
         </div>
