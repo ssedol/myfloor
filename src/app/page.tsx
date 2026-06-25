@@ -277,6 +277,7 @@ export default function Home() {
         <div className="mt-auto pt-3">
           <FaqSection />
           <KakaoAd unit="DAN-Rfsmw2Cumar7lRX2" width={320} height={50} />
+          <KakaoAd unit="DAN-09tPLZP1Xguff6vO" width={320} height={100} />
           <KakaoAd unit="DAN-BLLpd0keTfix1qLH" width={320} height={480} />
         </div>
       </div>

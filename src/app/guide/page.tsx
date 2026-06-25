@@ -354,6 +354,7 @@ export default function GuidePage() {
       </div>
       <div style={{ maxWidth: 440, margin: "0 auto", padding: "0 16px 24px" }}>
         <KakaoAd unit="DAN-Dhyb259IAundNvL3" width={320} height={480} />
+        <KakaoAd unit="DAN-JwOmuArA1LxX5DZJ" width={320} height={100} />
       </div>
     </>
   );
