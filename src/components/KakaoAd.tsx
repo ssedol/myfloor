@@ -8,16 +8,28 @@ interface Props {
   height: number;
 }
 
+let loadTimer: ReturnType<typeof setTimeout> | null = null;
+
+function scheduleScriptLoad() {
+  if (loadTimer) clearTimeout(loadTimer);
+  loadTimer = setTimeout(() => {
+    loadTimer = null;
+    const existing = document.querySelector("script[data-kakao-ad]");
+    if (existing) existing.remove();
+    const script = document.createElement("script");
+    script.src = "//t1.kakaocdn.net/kas/static/ba.min.js";
+    script.async = true;
+    script.setAttribute("data-kakao-ad", "true");
+    document.body.appendChild(script);
+  }, 0);
+}
+
 export default function KakaoAd({ unit, width, height }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "//t1.kakaocdn.net/kas/static/ba.min.js";
-    script.async = true;
-    containerRef.current?.appendChild(script);
-    return () => { script.remove(); };
-  }, [unit]);
+    scheduleScriptLoad();
+  }, []);
 
   return (
     <div ref={containerRef} className="w-full">
