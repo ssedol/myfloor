@@ -25,7 +25,8 @@ const FAQS = [
       },
       {
         q: "데이터가 사라졌어요",
-        a: "주차 정보는 기기 내 브라우저에 저장됩니다. 브라우저 데이터를 초기화하거나 다른 기기에서 접속하면 기존 데이터가 보이지 않을 수 있습니다. 중요한 정보는 공유 기능으로 백업해두세요.",
+        a: "주차 정보는 접속한 브라우저에 저장됩니다. 카카오톡·인스타그램 등 내부 브라우저로 링크를 열면 기기의 일반 브라우저와 저장 공간이 달라 데이터가 보이지 않을 수 있습니다. 브라우저를 바꾸거나 앱을 재설치해도 데이터가 사라질 수 있습니다.",
+        highlight: "📲 홈 화면에 설치하거나 Safari·Chrome으로 직접 접속해야 데이터가 안전하게 유지돼요. 내부 브라우저 사용은 피해주세요.",
       },
     ],
   },
@@ -56,7 +57,7 @@ const FAQS = [
   },
 ];
 
-function FaqItem({ q, a, link, linkLabel }: { q: string; a: string; link?: string; linkLabel?: string }) {
+function FaqItem({ q, a, link, linkLabel, highlight }: { q: string; a: string; link?: string; linkLabel?: string; highlight?: string }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="bg-surface rounded-2xl overflow-hidden mb-2">
@@ -70,6 +71,11 @@ function FaqItem({ q, a, link, linkLabel }: { q: string; a: string; link?: strin
       {open && (
         <div className="px-4 pb-4">
           <p className="text-sub text-sm leading-relaxed">{a}</p>
+          {highlight && (
+            <div className="mt-2.5 px-3 py-2.5 bg-primary/10 border border-primary/30 rounded-xl">
+              <p className="text-primary-dark text-xs font-semibold leading-relaxed">{highlight}</p>
+            </div>
+          )}
           {link && (
             <a
               href={link}
