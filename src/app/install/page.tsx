@@ -344,7 +344,7 @@ export default function InstallPage() {
         </div>
 
         <div style={{ marginTop: 16 }}>
-          <KakaoAd unit="DAN-oYPaMtfocTonepcI" width={320} height={480} />
+          <KakaoAd unit="DAN-oYPaMtfocTonepcI" width={320} height={50} />
           <KakaoAd unit="DAN-FtUdPgq37o1OxLht" width={320} height={100} />
           <KakaoAd unit="DAN-9slwEqjwC1yDXbJL" width={320} height={480} />
         </div>
