@@ -176,7 +176,7 @@ export default function Home() {
         <GuideLink />
 
         <a
-          href="/install"
+          href="/install?from=main"
           className="flex items-center justify-between bg-surface rounded-2xl px-4 py-3 mb-3 active:opacity-70 transition-opacity"
         >
           <div className="flex items-center gap-3">

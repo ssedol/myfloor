@@ -1,4 +1,6 @@
-export const dynamic = "force-static";
+"use client";
+
+import { useSearchParams } from "next/navigation";
 
 const BROWN = "#40342E";
 const GREEN = "#9BC72E";
@@ -115,6 +117,11 @@ function OSSection({
 }
 
 export default function InstallPage() {
+  const searchParams = useSearchParams();
+  const from = searchParams.get("from");
+  const backHref = from === "main" ? "/" : "/guide";
+  const backLabel = from === "main" ? "← 메인으로 돌아가기" : "← 사용 가이드로 돌아가기";
+
   return (
     <>
       <style>{`
@@ -313,7 +320,7 @@ export default function InstallPage() {
         {/* 뒤로가기 */}
         <div style={{ textAlign: "center", marginTop: 20 }}>
           <a
-            href="/guide"
+            href={backHref}
             style={{
               fontSize: 13,
               color: SUB,
@@ -323,7 +330,7 @@ export default function InstallPage() {
               gap: 4,
             }}
           >
-            ← 사용 가이드로 돌아가기
+            {backLabel}
           </a>
         </div>
       </div>

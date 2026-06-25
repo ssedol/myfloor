@@ -195,7 +195,7 @@ export default function GuidePage() {
 
             {/* 사전준비 링크 */}
             <a
-              href="/install"
+              href="/install?from=guide"
               style={{ textDecoration: "none", display: "block", marginBottom: 20 }}
             >
               <div
