@@ -24,7 +24,6 @@ import VehicleCard from "@/components/VehicleCard";
 import FloorSelector from "@/components/FloorSelector";
 import VehicleFormModal from "@/components/VehicleFormModal";
 import Toast from "@/components/Toast";
-import CoupangAd from "@/components/CoupangAd";
 import KakaoAd from "@/components/KakaoAd";
 import FaqSection from "@/components/FaqSection";
 import AlarmInfoPopup from "@/components/AlarmInfoPopup";
@@ -251,9 +250,9 @@ export default function Home() {
         </main>
 
         <div className="mt-auto pt-3">
-          <p className="text-center text-sub text-xs mb-2">아래 광고를 통해 구매를 하시면 운영에 도움이 됩니다</p>
-          <CoupangAd />
+          <KakaoAd />
           <FaqSection />
+          <KakaoAd />
         </div>
       </div>
 

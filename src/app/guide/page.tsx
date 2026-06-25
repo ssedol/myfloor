@@ -2,6 +2,8 @@
 
 export const dynamic = "force-static";
 
+import KakaoAd from "@/components/KakaoAd";
+
 const BROWN = "#40342E";
 const GREEN = "#9BC72E";
 const BG = "#F5F3EF";
@@ -317,6 +319,9 @@ export default function GuidePage() {
             </div>
           </div>
         </div>
+      </div>
+      <div style={{ maxWidth: 440, margin: "0 auto", padding: "0 16px 24px" }}>
+        <KakaoAd />
       </div>
     </>
   );
