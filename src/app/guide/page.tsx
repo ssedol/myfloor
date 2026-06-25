@@ -136,20 +136,6 @@ export default function GuidePage() {
           fontFamily: '"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif',
         }}
       >
-        <a
-          href="/"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 4,
-            fontSize: 13,
-            color: SUB,
-            textDecoration: "none",
-            marginBottom: 16,
-          }}
-        >
-          ← 메인으로
-        </a>
         {/* 한 장의 포스터 카드 */}
         <div
           style={{
@@ -367,6 +353,14 @@ export default function GuidePage() {
         </div>
       </div>
       <div style={{ maxWidth: 440, margin: "0 auto", padding: "0 16px 24px" }}>
+        <div style={{ textAlign: "center", marginBottom: 16 }}>
+          <a
+            href="/"
+            style={{ fontSize: 13, color: SUB, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}
+          >
+            ← 메인으로 돌아가기
+          </a>
+        </div>
         <KakaoAd unit="DAN-Dhyb259IAundNvL3" width={320} height={50} />
         <KakaoAd unit="DAN-JwOmuArA1LxX5DZJ" width={320} height={100} />
         <KakaoAd unit="DAN-Oc5pL3jNKiN9BTff" width={320} height={480} />
