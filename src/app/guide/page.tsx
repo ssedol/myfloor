@@ -353,14 +353,26 @@ export default function GuidePage() {
         </div>
       </div>
       <div style={{ maxWidth: 440, margin: "0 auto", padding: "0 16px 24px" }}>
-        <div style={{ textAlign: "center", marginBottom: 16 }}>
-          <a
-            href="/"
-            style={{ fontSize: 13, color: SUB, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}
-          >
-            ← 메인으로 돌아가기
-          </a>
-        </div>
+        <a
+          href="/"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 4,
+            fontSize: 14,
+            fontWeight: 600,
+            color: BROWN,
+            textDecoration: "none",
+            background: WHITE,
+            border: `1px solid ${DIVIDER}`,
+            borderRadius: 14,
+            padding: "13px 0",
+            marginBottom: 16,
+          }}
+        >
+          ← 메인으로 돌아가기
+        </a>
         <div style={{ border: `1px solid ${DIVIDER}`, borderRadius: 16, overflow: "hidden" }}>
           <p style={{ textAlign: "center", fontSize: 10, color: SUB, padding: "4px 0", background: "#ECEAE4", borderBottom: `1px solid ${DIVIDER}`, margin: 0 }}>광고</p>
           <KakaoAd unit="DAN-Dhyb259IAundNvL3" width={320} height={50} />

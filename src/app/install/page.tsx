@@ -127,12 +127,18 @@ function BackLink() {
     <a
       href={backHref}
       style={{
-        fontSize: 13,
-        color: SUB,
-        textDecoration: "none",
-        display: "inline-flex",
+        display: "flex",
         alignItems: "center",
+        justifyContent: "center",
         gap: 4,
+        fontSize: 14,
+        fontWeight: 600,
+        color: BROWN,
+        textDecoration: "none",
+        background: WHITE,
+        border: `1px solid ${DIVIDER}`,
+        borderRadius: 14,
+        padding: "13px 0",
       }}
     >
       {backLabel}
@@ -337,8 +343,8 @@ export default function InstallPage() {
         </div>
 
         {/* 뒤로가기 */}
-        <div style={{ textAlign: "center", marginTop: 20 }}>
-          <Suspense fallback={<a href="/guide" style={{ fontSize: 13, color: SUB, textDecoration: "none" }}>← 돌아가기</a>}>
+        <div style={{ marginTop: 20 }}>
+          <Suspense fallback={null}>
             <BackLink />
           </Suspense>
         </div>
