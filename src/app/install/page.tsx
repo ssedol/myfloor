@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import KakaoAd from "@/components/KakaoAd";
 
 const BROWN = "#40342E";
 const GREEN = "#9BC72E";
@@ -340,6 +341,10 @@ export default function InstallPage() {
           <Suspense fallback={<a href="/guide" style={{ fontSize: 13, color: SUB, textDecoration: "none" }}>← 돌아가기</a>}>
             <BackLink />
           </Suspense>
+        </div>
+
+        <div style={{ marginTop: 16 }}>
+          <KakaoAd unit="DAN-oYPaMtfocTonepcI" width={320} height={480} />
         </div>
       </div>
     </>
