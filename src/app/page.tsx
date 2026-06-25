@@ -170,8 +170,6 @@ export default function Home() {
 
   return (
     <div className="max-w-md mx-auto min-h-[100dvh] flex flex-col">
-      <p className="text-center text-sub text-xs py-1.5 bg-app-bg">무료 서비스는 광고로 운영돼요 🙏</p>
-
       <div className="px-5 flex flex-col flex-1">
         <header className="pt-3 pb-2" />
 
