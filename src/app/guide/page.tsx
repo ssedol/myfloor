@@ -136,6 +136,20 @@ export default function GuidePage() {
           fontFamily: '"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif',
         }}
       >
+        <a
+          href="/"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 4,
+            fontSize: 13,
+            color: SUB,
+            textDecoration: "none",
+            marginBottom: 16,
+          }}
+        >
+          ← 메인으로
+        </a>
         {/* 한 장의 포스터 카드 */}
         <div
           style={{
