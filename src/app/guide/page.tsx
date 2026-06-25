@@ -193,6 +193,38 @@ export default function GuidePage() {
               HOW TO USE · 이렇게 사용해요
             </div>
 
+            {/* 사전준비 링크 */}
+            <a
+              href="/install"
+              style={{ textDecoration: "none", display: "block", marginBottom: 20 }}
+            >
+              <div
+                style={{
+                  background: BG,
+                  borderRadius: 16,
+                  padding: "14px 16px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 10,
+                  border: `1.5px solid ${DIVIDER}`,
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <span style={{ fontSize: 24, flexShrink: 0 }}>📲</span>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: BROWN, marginBottom: 2 }}>
+                      사전준비 · 홈 화면 설치
+                    </div>
+                    <div style={{ fontSize: 11, color: SUB, lineHeight: 1.4 }}>
+                      충전 알림은 홈 화면에 설치된 앱에서만 작동해요
+                    </div>
+                  </div>
+                </div>
+                <span style={{ color: SUB, fontSize: 16, flexShrink: 0 }}>›</span>
+              </div>
+            </a>
+
             <StepRow
               n={1}
               title="차량을 등록해요"
