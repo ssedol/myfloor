@@ -361,9 +361,12 @@ export default function GuidePage() {
             ← 메인으로 돌아가기
           </a>
         </div>
-        <KakaoAd unit="DAN-Dhyb259IAundNvL3" width={320} height={50} />
-        <KakaoAd unit="DAN-JwOmuArA1LxX5DZJ" width={320} height={100} />
-        <KakaoAd unit="DAN-Oc5pL3jNKiN9BTff" width={320} height={480} />
+        <div style={{ border: `1px solid ${DIVIDER}`, borderRadius: 16, overflow: "hidden" }}>
+          <p style={{ textAlign: "center", fontSize: 10, color: SUB, padding: "4px 0", background: "#ECEAE4", borderBottom: `1px solid ${DIVIDER}`, margin: 0 }}>광고</p>
+          <KakaoAd unit="DAN-Dhyb259IAundNvL3" width={320} height={50} />
+          <KakaoAd unit="DAN-JwOmuArA1LxX5DZJ" width={320} height={100} />
+          <KakaoAd unit="DAN-Oc5pL3jNKiN9BTff" width={320} height={480} />
+        </div>
       </div>
     </>
   );

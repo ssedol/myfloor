@@ -343,7 +343,8 @@ export default function InstallPage() {
           </Suspense>
         </div>
 
-        <div style={{ marginTop: 16 }}>
+        <div style={{ marginTop: 16, border: `1px solid ${DIVIDER}`, borderRadius: 16, overflow: "hidden" }}>
+          <p style={{ textAlign: "center", fontSize: 10, color: SUB, padding: "4px 0", background: "#ECEAE4", borderBottom: `1px solid ${DIVIDER}`, margin: 0 }}>광고</p>
           <KakaoAd unit="DAN-oYPaMtfocTonepcI" width={320} height={50} />
           <KakaoAd unit="DAN-FtUdPgq37o1OxLht" width={320} height={100} />
           <KakaoAd unit="DAN-9slwEqjwC1yDXbJL" width={320} height={480} />
