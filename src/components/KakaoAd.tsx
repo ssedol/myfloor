@@ -1,7 +1,5 @@
 "use client";
 
-import Script from "next/script";
-
 interface Props {
   unit: string;
   width: number;
@@ -17,10 +15,6 @@ export default function KakaoAd({ unit, width, height }: Props) {
         data-ad-unit={unit}
         data-ad-width={String(width)}
         data-ad-height={String(height)}
-      />
-      <Script
-        src="//t1.kakaocdn.net/kas/static/ba.min.js"
-        strategy="afterInteractive"
       />
     </div>
   );

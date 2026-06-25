@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -51,6 +52,10 @@ export default function RootLayout({
           {children}
         </div>
         <Analytics />
+        <Script
+          src="//t1.kakaocdn.net/kas/static/ba.min.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
