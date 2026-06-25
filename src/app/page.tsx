@@ -28,7 +28,7 @@ import KakaoAd from "@/components/KakaoAd";
 import FaqSection from "@/components/FaqSection";
 import AlarmInfoPopup from "@/components/AlarmInfoPopup";
 import InstallPrompt from "@/components/InstallPrompt";
-import Link from "next/link";
+import GuideLink from "@/components/GuideLink";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -173,35 +173,25 @@ export default function Home() {
       <div className="px-5 flex flex-col flex-1">
         <header className="pt-3 pb-2" />
 
-        <div className="grid grid-cols-2 gap-2 mb-3">
-          <Link
-            href="/guide"
-            className="flex flex-col items-center gap-2 bg-surface rounded-2xl px-3 py-3 active:opacity-70 transition-opacity"
-          >
-            <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <circle cx="8" cy="5" r="1.5" fill="white" />
-                <rect x="6.75" y="7.5" width="2.5" height="5" rx="1.25" fill="white" />
-              </svg>
-            </div>
-            <div className="text-center">
-              <p className="text-main text-xs font-semibold leading-tight">사용 가이드</p>
-              <p className="text-sub text-[11px] mt-0.5">처음 오셨나요?</p>
-            </div>
-          </Link>
-          <a
-            href="/install?from=main"
-            className="flex flex-col items-center gap-2 bg-surface rounded-2xl px-3 py-3 active:opacity-70 transition-opacity"
-          >
-            <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-base leading-none">
+        <a
+          href="/install?from=main"
+          className="flex items-center justify-between bg-surface rounded-2xl px-4 py-3 mb-2 active:opacity-70 transition-opacity"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-base">
               📲
             </div>
-            <div className="text-center">
-              <p className="text-main text-xs font-semibold leading-tight">홈 화면 설치</p>
-              <p className="text-sub text-[11px] mt-0.5">알림 수신 필수</p>
+            <div>
+              <p className="text-main text-sm font-semibold leading-tight">홈 화면에 설치하셨나요?</p>
+              <p className="text-sub text-xs">충전 알림은 설치 후 이용 가능해요</p>
             </div>
-          </a>
-        </div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-sub flex-shrink-0">
+            <path d="M6 4l4 4-4 4" />
+          </svg>
+        </a>
+
+        <GuideLink />
 
         <main>
           {vehicles.length === 0 ? (
