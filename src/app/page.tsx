@@ -275,7 +275,9 @@ export default function Home() {
         </main>
 
         <div className="mt-auto pt-3">
-          <FaqSection />
+          <div className="rounded-2xl border border-divider overflow-hidden px-3 py-1">
+            <FaqSection />
+          </div>
           <div className="mt-3 rounded-2xl border border-divider overflow-hidden">
             <p className="text-center text-sub text-[10px] py-1 bg-surface border-b border-divider">광고</p>
             <KakaoAd unit="DAN-Rfsmw2Cumar7lRX2" width={320} height={50} />
