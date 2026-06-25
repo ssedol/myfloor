@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 const BROWN = "#40342E";
 const GREEN = "#9BC72E";
@@ -116,12 +117,29 @@ function OSSection({
   );
 }
 
-export default function InstallPage() {
+function BackLink() {
   const searchParams = useSearchParams();
   const from = searchParams.get("from");
   const backHref = from === "main" ? "/" : "/guide";
   const backLabel = from === "main" ? "← 메인으로 돌아가기" : "← 사용 가이드로 돌아가기";
+  return (
+    <a
+      href={backHref}
+      style={{
+        fontSize: 13,
+        color: SUB,
+        textDecoration: "none",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 4,
+      }}
+    >
+      {backLabel}
+    </a>
+  );
+}
 
+export default function InstallPage() {
   return (
     <>
       <style>{`
@@ -319,19 +337,9 @@ export default function InstallPage() {
 
         {/* 뒤로가기 */}
         <div style={{ textAlign: "center", marginTop: 20 }}>
-          <a
-            href={backHref}
-            style={{
-              fontSize: 13,
-              color: SUB,
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 4,
-            }}
-          >
-            {backLabel}
-          </a>
+          <Suspense fallback={<a href="/guide" style={{ fontSize: 13, color: SUB, textDecoration: "none" }}>← 돌아가기</a>}>
+            <BackLink />
+          </Suspense>
         </div>
       </div>
     </>
