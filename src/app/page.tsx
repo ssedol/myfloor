@@ -175,6 +175,24 @@ export default function Home() {
 
         <GuideLink />
 
+        <a
+          href="/install"
+          className="flex items-center justify-between bg-surface rounded-2xl px-4 py-3 mb-3 active:opacity-70 transition-opacity"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-base">
+              📲
+            </div>
+            <div>
+              <p className="text-main text-sm font-semibold leading-tight">홈 화면에 설치하셨나요?</p>
+              <p className="text-sub text-xs">충전 알림은 설치 후 이용 가능해요</p>
+            </div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-sub flex-shrink-0">
+            <path d="M6 4l4 4-4 4" />
+          </svg>
+        </a>
+
         <main>
           {vehicles.length === 0 ? (
             <div className="flex flex-col items-center py-4 text-center">
