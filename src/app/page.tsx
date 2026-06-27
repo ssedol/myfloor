@@ -29,6 +29,7 @@ import FaqSection from "@/components/FaqSection";
 import AlarmInfoPopup from "@/components/AlarmInfoPopup";
 import InstallPrompt from "@/components/InstallPrompt";
 import GuideLink from "@/components/GuideLink";
+import InAppBrowserGuide from "@/components/InAppBrowserGuide";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -170,6 +171,7 @@ export default function Home() {
 
   return (
     <div className="max-w-md mx-auto min-h-[100dvh] flex flex-col">
+      <InAppBrowserGuide />
       <div className="px-5 flex flex-col flex-1">
         <header className="pt-3 pb-2" />
 
