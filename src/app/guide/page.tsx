@@ -136,6 +136,11 @@ export default function GuidePage() {
           fontFamily: '"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif',
         }}
       >
+        <div style={{ border: `1px solid ${DIVIDER}`, borderRadius: 16, overflow: "hidden", marginBottom: 16 }}>
+          <p style={{ textAlign: "center", fontSize: 10, color: SUB, padding: "4px 0", background: "#ECEAE4", borderBottom: `1px solid ${DIVIDER}`, margin: 0 }}>광고</p>
+          <KakaoAd unit="DAN-Dhyb259IAundNvL3" width={320} height={50} />
+        </div>
+
         {/* 한 장의 포스터 카드 */}
         <div
           style={{
@@ -375,7 +380,6 @@ export default function GuidePage() {
         </a>
         <div style={{ border: `1px solid ${DIVIDER}`, borderRadius: 16, overflow: "hidden" }}>
           <p style={{ textAlign: "center", fontSize: 10, color: SUB, padding: "4px 0", background: "#ECEAE4", borderBottom: `1px solid ${DIVIDER}`, margin: 0 }}>광고</p>
-          <KakaoAd unit="DAN-Dhyb259IAundNvL3" width={320} height={50} />
           <KakaoAd unit="DAN-JwOmuArA1LxX5DZJ" width={320} height={100} />
           <KakaoAd unit="DAN-Oc5pL3jNKiN9BTff" width={320} height={480} />
         </div>

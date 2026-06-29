@@ -173,6 +173,11 @@ export default function Home() {
     <div className="max-w-md mx-auto min-h-[100dvh] flex flex-col">
       <InAppBrowserGuide />
       <div className="px-5 flex flex-col flex-1">
+        <div className="rounded-2xl border border-divider overflow-hidden mt-3">
+          <p className="text-center text-sub text-[10px] py-1 bg-surface border-b border-divider">광고</p>
+          <KakaoAd unit="DAN-Rfsmw2Cumar7lRX2" width={320} height={50} />
+        </div>
+
         <header className="pt-3 pb-2" />
 
         <a
@@ -272,7 +277,6 @@ export default function Home() {
           </div>
           <div className="mt-3 rounded-2xl border border-divider overflow-hidden">
             <p className="text-center text-sub text-[10px] py-1 bg-surface border-b border-divider">광고</p>
-            <KakaoAd unit="DAN-Rfsmw2Cumar7lRX2" width={320} height={50} />
             <KakaoAd unit="DAN-09tPLZP1Xguff6vO" width={320} height={100} />
             <KakaoAd unit="DAN-BLLpd0keTfix1qLH" width={320} height={480} />
           </div>
