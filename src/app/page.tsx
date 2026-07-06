@@ -28,7 +28,6 @@ import KakaoAd from "@/components/KakaoAd";
 import FaqSection from "@/components/FaqSection";
 import AlarmInfoPopup from "@/components/AlarmInfoPopup";
 import InstallPrompt from "@/components/InstallPrompt";
-import GuideLink from "@/components/GuideLink";
 import InAppBrowserGuide from "@/components/InAppBrowserGuide";
 
 export default function Home() {
@@ -180,25 +179,35 @@ export default function Home() {
 
         <header className="pt-3 pb-2" />
 
-        <a
-          href="/install?from=main"
-          className="flex items-center justify-between bg-surface rounded-2xl px-4 py-3 mb-2 active:opacity-70 transition-opacity"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-base">
+        <div className="grid grid-cols-2 gap-2 mb-1">
+          <a
+            href="/install?from=main"
+            className="flex items-center gap-2.5 bg-surface rounded-2xl px-3 py-3 active:opacity-70 transition-opacity"
+          >
+            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-base leading-none">
               📲
             </div>
-            <div>
-              <p className="text-main text-sm font-semibold leading-tight">홈 화면에 설치하셨나요?</p>
-              <p className="text-sub text-xs">충전 알림은 설치 후 이용 가능해요</p>
+            <div className="min-w-0">
+              <p className="text-main text-sm font-semibold leading-tight">홈 화면 설치</p>
+              <p className="text-sub text-[11px] leading-tight mt-0.5">알림 수신 필수</p>
             </div>
-          </div>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-sub flex-shrink-0">
-            <path d="M6 4l4 4-4 4" />
-          </svg>
-        </a>
-
-        <GuideLink />
+          </a>
+          <a
+            href="/guide"
+            className="flex items-center gap-2.5 bg-surface rounded-2xl px-3 py-3 active:opacity-70 transition-opacity"
+          >
+            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="5" r="1.5" fill="white" />
+                <rect x="6.75" y="7.5" width="2.5" height="5" rx="1.25" fill="white" />
+              </svg>
+            </div>
+            <div className="min-w-0">
+              <p className="text-main text-sm font-semibold leading-tight">사용 가이드</p>
+              <p className="text-sub text-[11px] leading-tight mt-0.5">처음 오셨나요?</p>
+            </div>
+          </a>
+        </div>
 
         <main>
           {vehicles.length === 0 ? (
