@@ -281,13 +281,13 @@ export default function Home() {
         </main>
 
         <div className="mt-auto pt-3">
-          <div className="rounded-2xl border border-divider overflow-hidden px-3 py-1">
-            <FaqSection />
-          </div>
-          <div className="mt-3 rounded-2xl border border-divider overflow-hidden">
+          <div className="rounded-2xl border border-divider overflow-hidden">
             <p className="text-center text-sub text-[10px] py-1 bg-surface border-b border-divider">광고</p>
             <KakaoAd unit="DAN-09tPLZP1Xguff6vO" width={320} height={100} />
             <KakaoAd unit="DAN-BLLpd0keTfix1qLH" width={320} height={480} />
+          </div>
+          <div className="mt-3 rounded-2xl border border-divider overflow-hidden px-3 py-1">
+            <FaqSection />
           </div>
         </div>
       </div>
