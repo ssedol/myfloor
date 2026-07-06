@@ -182,29 +182,29 @@ export default function Home() {
         <div className="grid grid-cols-2 gap-2 mb-1">
           <a
             href="/install?from=main"
-            className="flex items-center gap-2.5 bg-surface rounded-2xl px-3 py-3 active:opacity-70 transition-opacity"
+            className="flex items-center gap-2 bg-surface rounded-2xl px-2.5 py-2.5 active:opacity-70 transition-opacity"
           >
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-base leading-none">
+            <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-sm leading-none">
               📲
             </div>
             <div className="min-w-0">
-              <p className="text-main text-sm font-semibold leading-tight">홈 화면 설치</p>
-              <p className="text-sub text-[11px] leading-tight mt-0.5">알림 수신 필수</p>
+              <p className="text-main text-xs font-semibold leading-tight whitespace-nowrap">홈 화면 설치</p>
+              <p className="text-sub text-[10px] leading-tight mt-0.5 whitespace-nowrap">알림 수신 필수</p>
             </div>
           </a>
           <a
             href="/guide"
-            className="flex items-center gap-2.5 bg-surface rounded-2xl px-3 py-3 active:opacity-70 transition-opacity"
+            className="flex items-center gap-2 bg-surface rounded-2xl px-2.5 py-2.5 active:opacity-70 transition-opacity"
           >
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+            <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
                 <circle cx="8" cy="5" r="1.5" fill="white" />
                 <rect x="6.75" y="7.5" width="2.5" height="5" rx="1.25" fill="white" />
               </svg>
             </div>
             <div className="min-w-0">
-              <p className="text-main text-sm font-semibold leading-tight">사용 가이드</p>
-              <p className="text-sub text-[11px] leading-tight mt-0.5">처음 오셨나요?</p>
+              <p className="text-main text-xs font-semibold leading-tight whitespace-nowrap">사용 가이드</p>
+              <p className="text-sub text-[10px] leading-tight mt-0.5 whitespace-nowrap">처음 오셨나요?</p>
             </div>
           </a>
         </div>
