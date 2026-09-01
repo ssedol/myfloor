@@ -45,6 +45,11 @@ export default function RootLayout({
           crossOrigin="anonymous"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
         />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4773298245322018"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="bg-app-bg font-pretendard antialiased">
         <div className="overflow-x-hidden">
