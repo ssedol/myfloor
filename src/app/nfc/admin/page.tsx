@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { signFloor } from "@/lib/tagToken";
 import { APARTMENT_CONFIG } from "@/config/apartment";
+
+export const metadata: Metadata = {
+  // 태그 발급용 내부 도구 — 검색 색인 대상이 아니다.
+  robots: { index: false, follow: false },
+};
+
 
 const BASE_URL = "https://myfloor.website";
 

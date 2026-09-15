@@ -30,6 +30,29 @@ import AlarmInfoPopup from "@/components/AlarmInfoPopup";
 import InstallPrompt from "@/components/InstallPrompt";
 import InAppBrowserGuide from "@/components/InAppBrowserGuide";
 
+const READS = [
+  {
+    href: "/tips/find-car-in-parking-lot",
+    title: "차를 못 찾을 때",
+    desc: "5분 안에 찾는 순서",
+  },
+  {
+    href: "/tips/remember-parking-floor",
+    title: "층수 안 잊는 법",
+    desc: "습관 7가지",
+  },
+  {
+    href: "/tips/ev-charging-time",
+    title: "전기차 충전 시간",
+    desc: "완속·급속과 주차 매너",
+  },
+  {
+    href: "/tips/nfc-tag-parking",
+    title: "NFC 자동 저장",
+    desc: "스티커로 기록 없애기",
+  },
+];
+
 export default function Home() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [floorTarget, setFloorTarget] = useState<Vehicle | null>(null);
@@ -284,11 +307,23 @@ export default function Home() {
           <div className="rounded-2xl border border-divider overflow-hidden">
             <p className="text-center text-sub text-[10px] py-1 bg-surface border-b border-divider">광고</p>
             <KakaoAd unit="DAN-09tPLZP1Xguff6vO" width={320} height={100} />
-            <KakaoAd unit="DAN-BLLpd0keTfix1qLH" width={320} height={480} />
           </div>
           <div className="mt-3 rounded-2xl border border-divider overflow-hidden px-3 py-1">
             <FaqSection />
           </div>
+
+          <nav className="mt-3 grid grid-cols-2 gap-2" aria-label="주차 정보">
+            {READS.map(({ href, title, desc }) => (
+              <a
+                key={href}
+                href={href}
+                className="bg-surface rounded-2xl px-3 py-2.5 active:opacity-70 transition-opacity"
+              >
+                <p className="text-main text-xs font-semibold leading-snug">{title}</p>
+                <p className="text-sub text-[10px] leading-snug mt-0.5">{desc}</p>
+              </a>
+            ))}
+          </nav>
         </div>
       </div>
 
