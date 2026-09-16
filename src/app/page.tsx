@@ -29,29 +29,6 @@ import AlarmInfoPopup from "@/components/AlarmInfoPopup";
 import InstallPrompt from "@/components/InstallPrompt";
 import InAppBrowserGuide from "@/components/InAppBrowserGuide";
 
-const READS = [
-  {
-    href: "/tips/find-car-in-parking-lot",
-    title: "차를 못 찾을 때",
-    desc: "5분 안에 찾는 순서",
-  },
-  {
-    href: "/tips/remember-parking-floor",
-    title: "층수 안 잊는 법",
-    desc: "습관 7가지",
-  },
-  {
-    href: "/tips/ev-charging-time",
-    title: "전기차 충전 시간",
-    desc: "완속·급속과 주차 매너",
-  },
-  {
-    href: "/tips/nfc-tag-parking",
-    title: "NFC 자동 저장",
-    desc: "스티커로 기록 없애기",
-  },
-];
-
 export default function Home() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [floorTarget, setFloorTarget] = useState<Vehicle | null>(null);
@@ -311,18 +288,30 @@ export default function Home() {
             <FaqSection />
           </div>
 
-          <nav className="mt-3 grid grid-cols-2 gap-2" aria-label="주차 정보">
-            {READS.map(({ href, title, desc }) => (
-              <a
-                key={href}
-                href={href}
-                className="bg-surface rounded-2xl px-3 py-2.5 active:opacity-70 transition-opacity"
-              >
-                <p className="text-main text-xs font-semibold leading-snug">{title}</p>
-                <p className="text-sub text-[10px] leading-snug mt-0.5">{desc}</p>
-              </a>
-            ))}
-          </nav>
+          <a
+            href="/tips"
+            className="mt-3 flex items-center justify-between gap-3 bg-surface rounded-2xl px-4 py-3 active:opacity-70 transition-opacity"
+          >
+            <div className="min-w-0">
+              <p className="text-main text-xs font-semibold leading-snug">주차 정보</p>
+              <p className="text-sub text-[10px] leading-snug mt-0.5">
+                차 못 찾을 때, 전기차 충전, 주차 분쟁 대처 등
+              </p>
+            </div>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-sub flex-shrink-0"
+            >
+              <path d="M6 4l4 4-4 4" />
+            </svg>
+          </a>
         </div>
       </div>
 
