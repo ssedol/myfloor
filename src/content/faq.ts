@@ -12,7 +12,7 @@ export interface FaqGroup {
 }
 
 export { KAKAO_OPENCHAT } from "./contact";
-import { KAKAO_OPENCHAT } from "./contact";
+import { CONTACT_EMAIL, KAKAO_OPENCHAT } from "./contact";
 
 export const FAQS: FaqGroup[] = [
   {
@@ -106,13 +106,13 @@ export const FAQS: FaqGroup[] = [
       },
       {
         q: "기능 추가 요청이나 버그 문의는 어디서 하나요?",
-        a: "카카오톡 오픈채팅 또는 이메일(myfloor.contact@gmail.com)로 문의해 주세요. 개인이 운영하는 서비스라 답변이 하루 이틀 늦을 수 있습니다.",
+        a: `카카오톡 오픈채팅 또는 이메일(${CONTACT_EMAIL})로 문의해 주세요. 개인이 운영하는 서비스라 답변이 하루 이틀 늦을 수 있습니다.`,
         link: KAKAO_OPENCHAT,
         linkLabel: "오픈채팅 바로가기",
       },
       {
         q: "아파트 층별 NFC·QR 설치 문의는 어디서 하나요?",
-        a: "입주민 또는 관리사무소에서 층별 NFC·QR 설치를 원하시면 카카오톡 오픈채팅 또는 이메일(myfloor.contact@gmail.com)로 문의해 주세요. 층수만큼의 스티커와 층별 서명된 URL을 준비해 드립니다.",
+        a: `입주민 또는 관리사무소에서 층별 NFC·QR 설치를 원하시면 카카오톡 오픈채팅 또는 이메일(${CONTACT_EMAIL})로 문의해 주세요. 층수만큼의 스티커와 층별 서명된 URL을 준비해 드립니다.`,
         link: KAKAO_OPENCHAT,
         linkLabel: "설치 문의하기",
       },
