@@ -10,7 +10,14 @@ BASE="${1:-https://myfloor.website}"
 CLIENT="ca-pub-4773298245322018"
 UA="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 
-WITH_AD=(/ /guide /install /faq /tips /tips/find-car-in-parking-lot /tips/remember-parking-floor /tips/ev-charging-time /tips/nfc-tag-parking /about /privacy /terms)
+WITH_AD=(
+  / /guide /install /faq /tips /about /privacy /terms
+  /tips/find-car-in-parking-lot /tips/remember-parking-floor
+  /tips/ev-charging-time /tips/nfc-tag-parking
+  /tips/apartment-parking-conflict /tips/mechanical-parking-lot
+  /tips/beginner-parking-tips /tips/parking-damage-prevention
+  /tips/blackbox-parking-mode /tips/underground-parking-safety
+)
 NO_AD=(/park?floor=B3 /nfc?floor=B3 /nfc/admin)
 
 fail=0
@@ -56,6 +63,16 @@ for p in "${NO_AD[@]}"; do
     *)           v="확인 필요 — 페이지 응답 이상" ;;
   esac
   printf '%-34s %-8s %s\n' "$p" "$r" "$v"
+done
+
+echo
+echo "[ 연락처 노출 (전역 푸터) ]"
+for p in / /about /privacy; do
+  if curl -sS -L -m 20 -A "$UA" "$BASE$p" 2>/dev/null | grep -q "myfloor.website@gmail.com"; then
+    printf '%-34s %-8s %s\n' "$p" "있음" "정상"
+  else
+    printf '%-34s %-8s %s\n' "$p" "없음" "실패 — 이메일 미노출"; fail=1
+  fi
 done
 
 echo
