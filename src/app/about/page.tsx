@@ -82,7 +82,8 @@ export default function AboutPage() {
           rows={[
             ["서비스명", "몇층 (MyFloor)"],
             ["주소", "myfloor.website"],
-            ["형태", "개인이 만들어 무료로 운영하는 웹앱(PWA)"],
+            ["운영자", "겜스터"],
+            ["형태", "개인 개발자가 만들어 무료로 운영하는 웹앱(PWA)"],
             ["비용", "전액 무료. 결제 수단을 요구하지 않으며, 현재 화면에 광고도 없습니다."],
             ["지원 환경", "iOS Safari, Android Chrome 등 최신 모바일 브라우저"],
           ]}
@@ -91,8 +92,8 @@ export default function AboutPage() {
 
       <Section heading="문의하기">
         <p>
-          버그 제보, 기능 제안, NFC·QR 설치 문의를 받고 있습니다. 개인이 운영하는 서비스라 답변이
-          하루 이틀 늦을 수 있는 점 양해 부탁드립니다.
+          버그 제보, 기능 제안, NFC·QR 설치 문의를 받고 있습니다. 겜스터가 개인으로 운영하는
+          서비스라 답변이 하루 이틀 늦을 수 있는 점 양해 부탁드립니다.
         </p>
         <Bullets
           items={[
