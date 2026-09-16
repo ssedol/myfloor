@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import DocPage, { Section, Bullets, Callout, DataTable } from "@/components/DocPage";
+import { CONTACT_EMAIL, KAKAO_OPENCHAT } from "@/content/contact";
 
 export const metadata: Metadata = {
   title: "서비스 소개 및 문의 | 몇층",
@@ -90,17 +91,51 @@ export default function AboutPage() {
 
       <Section heading="문의하기">
         <p>
-          버그 제보, 기능 제안, NFC·QR 설치 문의는 모두 카카오톡 오픈채팅으로 받고 있습니다. 개인이
-          운영하는 서비스라 답변이 하루 이틀 늦을 수 있는 점 양해 부탁드립니다.
+          버그 제보, 기능 제안, NFC·QR 설치 문의를 받고 있습니다. 개인이 운영하는 서비스라 답변이
+          하루 이틀 늦을 수 있는 점 양해 부탁드립니다.
         </p>
-        <a
-          href="https://open.kakao.com/o/sj3lSPAi"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block mt-1 px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-xl active:opacity-70"
-        >
-          카카오톡 오픈채팅으로 문의하기
-        </a>
+        <Bullets
+          items={[
+            <>
+              이메일:{" "}
+              <a
+                key="mail"
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="text-main underline underline-offset-2"
+              >
+                {CONTACT_EMAIL}
+              </a>
+            </>,
+            <>
+              카카오톡:{" "}
+              <a
+                key="kakao"
+                href={KAKAO_OPENCHAT}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-main underline underline-offset-2"
+              >
+                오픈채팅 바로가기
+              </a>
+            </>,
+          ]}
+        />
+        <div className="flex flex-wrap gap-2 mt-1">
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="inline-block px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-xl active:opacity-70"
+          >
+            이메일로 문의하기
+          </a>
+          <a
+            href={KAKAO_OPENCHAT}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-5 py-2.5 border border-divider text-main text-sm font-semibold rounded-xl active:opacity-70"
+          >
+            카카오톡 오픈채팅
+          </a>
+        </div>
       </Section>
 
       <Section heading="더 읽어보기">

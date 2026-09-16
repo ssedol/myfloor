@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CONTACT_EMAIL, KAKAO_OPENCHAT } from "@/content/contact";
 
 const LINKS = [
   { href: "/about", label: "서비스 소개" },
@@ -36,7 +37,14 @@ export default function SiteFooter() {
         <p className="text-sub text-[11px] leading-relaxed mt-2">
           문의:{" "}
           <a
-            href="https://open.kakao.com/o/sj3lSPAi"
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="underline underline-offset-2"
+          >
+            {CONTACT_EMAIL}
+          </a>
+          {" · "}
+          <a
+            href={KAKAO_OPENCHAT}
             target="_blank"
             rel="noopener noreferrer"
             className="underline underline-offset-2"

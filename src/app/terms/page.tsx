@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import DocPage, { Section, Bullets, Callout } from "@/components/DocPage";
+import { CONTACT_EMAIL, KAKAO_OPENCHAT } from "@/content/contact";
 
 export const metadata: Metadata = {
   title: "이용약관 | 몇층",
@@ -135,17 +136,34 @@ export default function TermsPage() {
 
       <Section heading="제12조 (문의)">
         <p>
-          약관에 관한 문의는{" "}
-          <a
-            href="https://open.kakao.com/o/sj3lSPAi"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-main underline underline-offset-2"
-          >
-            카카오톡 오픈채팅
-          </a>
-          으로 연락해 주세요.
+          약관에 관한 문의는 아래로 연락해 주세요.
         </p>
+        <Bullets
+          items={[
+            <>
+              이메일:{" "}
+              <a
+                key="mail"
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="text-main underline underline-offset-2"
+              >
+                {CONTACT_EMAIL}
+              </a>
+            </>,
+            <>
+              카카오톡:{" "}
+              <a
+                key="kakao"
+                href={KAKAO_OPENCHAT}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-main underline underline-offset-2"
+              >
+                오픈채팅 바로가기
+              </a>
+            </>,
+          ]}
+        />
       </Section>
     </DocPage>
   );

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import DocPage, { Section, Sub, Bullets, Callout, DataTable } from "@/components/DocPage";
+import { CONTACT_EMAIL, KAKAO_OPENCHAT } from "@/content/contact";
 
 export const metadata: Metadata = {
   title: "개인정보처리방침 | 몇층",
@@ -195,17 +196,35 @@ export default function PrivacyPage() {
 
       <Section heading="9. 문의처">
         <p>
-          개인정보 처리에 관한 문의는{" "}
-          <a
-            href="https://open.kakao.com/o/sj3lSPAi"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-main underline underline-offset-2"
-          >
-            카카오톡 오픈채팅
-          </a>
-          으로 연락해 주시면 순차적으로 답변드립니다.
+          개인정보 처리에 관한 문의, 열람·삭제 요청은 아래로 연락해 주시면 순차적으로
+          답변드립니다.
         </p>
+        <Bullets
+          items={[
+            <>
+              이메일:{" "}
+              <a
+                key="mail"
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="text-main underline underline-offset-2"
+              >
+                {CONTACT_EMAIL}
+              </a>
+            </>,
+            <>
+              카카오톡:{" "}
+              <a
+                key="kakao"
+                href={KAKAO_OPENCHAT}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-main underline underline-offset-2"
+              >
+                오픈채팅 바로가기
+              </a>
+            </>,
+          ]}
+        />
       </Section>
     </DocPage>
   );
