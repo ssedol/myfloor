@@ -82,7 +82,7 @@ export default function AboutPage() {
             ["서비스명", "몇층 (MyFloor)"],
             ["주소", "myfloor.website"],
             ["형태", "개인이 만들어 무료로 운영하는 웹앱(PWA)"],
-            ["비용", "전액 무료. 운영비는 화면에 게재되는 광고로 충당합니다."],
+            ["비용", "전액 무료. 결제 수단을 요구하지 않으며, 현재 화면에 광고도 없습니다."],
             ["지원 환경", "iOS Safari, Android Chrome 등 최신 모바일 브라우저"],
           ]}
         />

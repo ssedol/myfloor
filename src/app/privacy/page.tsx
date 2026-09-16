@@ -4,7 +4,7 @@ import DocPage, { Section, Sub, Bullets, Callout, DataTable } from "@/components
 export const metadata: Metadata = {
   title: "개인정보처리방침 | 몇층",
   description:
-    "몇층(MyFloor)이 수집·이용하는 정보, 브라우저 로컬 저장 방식, 푸시 알림 구독 정보 처리, Google AdSense·카카오 애드핏 등 제3자 광고 쿠키 사용에 대한 안내입니다.",
+    "몇층(MyFloor)이 수집·이용하는 정보, 브라우저 로컬 저장 방식, 푸시 알림 구독 정보 처리, Google AdSense 스크립트의 쿠키 사용에 대한 안내입니다.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -77,8 +77,10 @@ export default function PrivacyPage() {
 
       <Section heading="2. 광고 및 쿠키">
         <p>
-          서비스는 무료로 운영되며, 운영 비용을 충당하기 위해 제3자 광고를 게재합니다. 광고 사업자는
-          광고를 표시하고 성과를 측정하는 과정에서 쿠키 또는 유사 기술을 사용할 수 있습니다.
+          <strong className="text-main">현재 서비스 화면에는 광고가 게재되지 않습니다.</strong> 다만
+          향후 광고 게재를 위해 Google AdSense 스크립트가 페이지에 로드되어 있으며, 이 스크립트는
+          쿠키 또는 유사 기술을 사용할 수 있습니다. 실제로 광고가 게재되기 시작하면 아래 내용이
+          그대로 적용됩니다.
         </p>
 
         <Sub heading="가. Google AdSense">
@@ -125,14 +127,7 @@ export default function PrivacyPage() {
           />
         </Sub>
 
-        <Sub heading="나. 카카오 애드핏 (Kakao AdFit)">
-          <p>
-            일부 영역에 카카오 애드핏 광고가 게재됩니다. 애드핏 역시 광고 노출·성과 측정을 위해 쿠키 등을
-            사용할 수 있으며, 처리 기준은 카카오의 개인정보처리방침을 따릅니다.
-          </p>
-        </Sub>
-
-        <Sub heading="다. 쿠키 거부 방법">
+        <Sub heading="나. 쿠키 거부 방법">
           <p>
             이용자는 사용 중인 브라우저의 설정(예: Chrome → 설정 → 개인정보 보호 및 보안 → 서드파티 쿠키)
             에서 쿠키 저장을 차단할 수 있습니다. 다만 쿠키를 차단해도 서비스의 핵심 기능(주차 층수 저장·조회)
@@ -151,8 +146,7 @@ export default function PrivacyPage() {
           rows={[
             ["Vercel Inc.", "웹 호스팅 및 접속 통계", "접속 로그, 익명 통계"],
             ["Upstash Inc.", "푸시 알림 예약 저장소", "푸시 구독 정보, 차량명, 층수 (알림 발송 후 삭제)"],
-            ["Google LLC", "AdSense 광고 게재", "광고 쿠키 기반 정보"],
-            ["카카오", "애드핏 광고 게재", "광고 쿠키 기반 정보"],
+            ["Google LLC", "AdSense 스크립트 로드 (광고 게재 예정)", "광고 쿠키 기반 정보"],
           ]}
         />
         <p>

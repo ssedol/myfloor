@@ -2,7 +2,6 @@
 
 export const dynamic = "force-static";
 
-import KakaoAd from "@/components/KakaoAd";
 
 const BROWN = "#40342E";
 const GREEN = "#9BC72E";
@@ -445,11 +444,6 @@ export default function GuidePage() {
             가장 안전합니다.
           </p>
         </section>
-
-        <div style={{ border: `1px solid ${DIVIDER}`, borderRadius: 16, overflow: "hidden" }}>
-          <p style={{ textAlign: "center", fontSize: 10, color: SUB, padding: "4px 0", background: "#ECEAE4", borderBottom: `1px solid ${DIVIDER}`, margin: 0 }}>광고</p>
-          <KakaoAd unit="DAN-JwOmuArA1LxX5DZJ" width={320} height={100} />
-        </div>
       </div>
     </>
   );

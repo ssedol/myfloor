@@ -24,7 +24,6 @@ import VehicleCard from "@/components/VehicleCard";
 import FloorSelector from "@/components/FloorSelector";
 import VehicleFormModal from "@/components/VehicleFormModal";
 import Toast from "@/components/Toast";
-import KakaoAd from "@/components/KakaoAd";
 import FaqSection from "@/components/FaqSection";
 import AlarmInfoPopup from "@/components/AlarmInfoPopup";
 import InstallPrompt from "@/components/InstallPrompt";
@@ -271,11 +270,12 @@ export default function Home() {
                     <p className="text-main text-sm font-semibold leading-snug">
                       NFC 태그 · QR로 자동 저장
                       <span className="ml-1.5 align-middle text-[10px] font-bold text-primary-dark bg-primary/20 rounded-full px-1.5 py-0.5">
-                        유료
+                        아파트 옵션
                       </span>
                     </p>
                     <p className="text-sub text-xs leading-snug mt-0.5">
-                      층마다 부착된 NFC 스티커를 태그하거나 QR을 스캔하면 층수가 자동으로 저장돼요. 아파트별 추가 기능입니다.
+                      층마다 부착된 NFC 스티커를 태그하거나 QR을 스캔하면 층수가 자동으로 저장돼요.
+                      단지에 태그가 설치된 경우에만 쓸 수 있고, 설치는 관리사무소를 통해 진행됩니다.
                     </p>
                   </div>
                 </div>
@@ -307,11 +307,7 @@ export default function Home() {
         </main>
 
         <div className="mt-auto pt-3">
-          <div className="rounded-2xl border border-divider overflow-hidden">
-            <p className="text-center text-sub text-[10px] py-1 bg-surface border-b border-divider">광고</p>
-            <KakaoAd unit="DAN-09tPLZP1Xguff6vO" width={320} height={100} />
-          </div>
-          <div className="mt-3 rounded-2xl border border-divider overflow-hidden px-3 py-1">
+          <div className="rounded-2xl border border-divider overflow-hidden px-3 py-1">
             <FaqSection />
           </div>
 
