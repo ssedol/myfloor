@@ -46,6 +46,33 @@ export const TIPS: TipMeta[] = [
     readMinutes: 6,
     updated: "2026-09-15",
   },
+  {
+    slug: "apartment-parking-conflict",
+    title: "아파트 주차 분쟁, 얼굴 붉히지 않고 푸는 법",
+    summary: "이중주차·선 넘기·문콕, 감정 싸움으로 번지기 전에",
+    description:
+      "아파트 지하주차장에서 가장 자주 생기는 이중주차, 주차선 침범, 문콕 분쟁을 감정 싸움으로 키우지 않고 처리하는 방법과, 쪽지·관리사무소·보험을 쓰는 순서를 정리했습니다.",
+    readMinutes: 5,
+    updated: "2026-09-16",
+  },
+  {
+    slug: "mechanical-parking-lot",
+    title: "기계식 주차장, 사고 없이 이용하는 법",
+    summary: "들어가기 전에 확인할 네 가지 숫자",
+    description:
+      "기계식 주차장에 차를 넣기 전 반드시 확인해야 할 전폭·전장·전고·중량 제한, 진입과 하차 절차, 흔한 사고 유형과 예방법, 사고가 났을 때 책임 소재를 확인하는 방법을 안내합니다.",
+    readMinutes: 5,
+    updated: "2026-09-16",
+  },
+  {
+    slug: "beginner-parking-tips",
+    title: "초보운전 주차 요령 — 후면주차와 평행주차",
+    summary: "감이 아니라 기준점으로 대는 방법",
+    description:
+      "초보 운전자가 후면주차와 평행주차를 감이 아닌 기준점으로 해내는 방법을 단계별로 설명합니다. 사이드미러 각도, 핸들을 꺾는 시점, 좁은 자리에서의 판단 기준까지 다룹니다.",
+    readMinutes: 6,
+    updated: "2026-09-16",
+  },
 ];
 
 export function getTip(slug: string): TipMeta | undefined {

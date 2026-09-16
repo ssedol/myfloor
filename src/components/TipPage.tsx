@@ -9,7 +9,8 @@ export default function TipPage({
   meta: TipMeta;
   children: React.ReactNode;
 }) {
-  const others = TIPS.filter((t) => t.slug !== meta.slug);
+  // 목록 전체를 나열하면 길어져 세 편만 노출한다.
+  const others = TIPS.filter((t) => t.slug !== meta.slug).slice(0, 3);
 
   return (
     <article className="max-w-md mx-auto px-5 pt-6">
