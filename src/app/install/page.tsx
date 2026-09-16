@@ -162,11 +162,6 @@ export default function InstallPage() {
             '"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif',
         }}
       >
-        <div style={{ border: `1px solid ${DIVIDER}`, borderRadius: 16, overflow: "hidden", marginBottom: 16 }}>
-          <p style={{ textAlign: "center", fontSize: 10, color: SUB, padding: "4px 0", background: "#ECEAE4", borderBottom: `1px solid ${DIVIDER}`, margin: 0 }}>광고</p>
-          <KakaoAd unit="DAN-oYPaMtfocTonepcI" width={320} height={50} />
-        </div>
-
         <div
           style={{
             background: WHITE,
@@ -347,6 +342,67 @@ export default function InstallPage() {
           </div>
         </div>
 
+        {/* 설치가 왜 필요한지에 대한 본문 */}
+        <section
+          style={{
+            marginTop: 20,
+            background: WHITE,
+            borderRadius: 24,
+            padding: "22px 20px",
+            boxShadow: "0 12px 40px rgba(64,52,46,0.08)",
+          }}
+        >
+          <h2 style={{ fontSize: 16, fontWeight: 800, color: BROWN, margin: "0 0 10px", letterSpacing: "-0.02em" }}>
+            왜 홈 화면에 설치해야 하나요?
+          </h2>
+          <p style={{ fontSize: 13, color: SUB, lineHeight: 1.75, margin: "0 0 14px" }}>
+            몇층은 앱스토어를 거치지 않는 웹앱(PWA)입니다. 브라우저 주소창으로 들어와도 기능은
+            똑같이 동작하지만, 주차 기록이 <b style={{ color: BROWN }}>브라우저의 저장 공간</b>에
+            들어간다는 점이 문제가 됩니다. 브라우저 저장 공간은 생각보다 쉽게 비워집니다.
+          </p>
+
+          <h3 style={{ fontSize: 14, fontWeight: 700, color: BROWN, margin: "0 0 8px" }}>
+            설치하지 않으면 생기는 일
+          </h3>
+          <ul style={{ margin: "0 0 16px", padding: 0, listStyle: "none" }}>
+            {[
+              "카카오톡에서 받은 공유 링크를 그대로 열면, 카카오톡 내부 브라우저의 별도 저장 공간이 쓰입니다. 등록해 둔 차량이 하나도 보이지 않습니다.",
+              "브라우저에서 '인터넷 사용 기록 삭제'를 하면 주차 기록도 함께 지워집니다. 서버에 사본이 없어 복구가 불가능합니다.",
+              "아이폰 Safari는 오래 방문하지 않은 사이트의 저장 데이터를 자동으로 정리합니다.",
+              "충전 알림(푸시)은 브라우저 탭 상태에서는 수신되지 않습니다. 특히 아이폰은 홈 화면에 추가한 경우에만 알림이 도착합니다.",
+            ].map((text) => (
+              <li
+                key={text}
+                style={{ display: "flex", gap: 8, fontSize: 13, color: SUB, lineHeight: 1.7, marginBottom: 8 }}
+              >
+                <span style={{ color: GREEN, flexShrink: 0, fontWeight: 700 }}>·</span>
+                <span>{text}</span>
+              </li>
+            ))}
+          </ul>
+
+          <h3 style={{ fontSize: 14, fontWeight: 700, color: BROWN, margin: "0 0 8px" }}>
+            설치하면 달라지는 점
+          </h3>
+          <p style={{ fontSize: 13, color: SUB, lineHeight: 1.75, margin: "0 0 14px" }}>
+            홈 화면 아이콘으로 실행하면 브라우저와 분리된 전용 저장 공간을 쓰게 되어 기록이 훨씬
+            안정적으로 유지됩니다. 주소창과 탭 바가 사라져 화면도 넓어지고, 주차장처럼 신호가 약한
+            곳에서도 저장해 둔 층수를 바로 확인할 수 있습니다. 앱 용량을 거의 차지하지 않으며
+            업데이트는 자동으로 반영됩니다.
+          </p>
+
+          <h3 style={{ fontSize: 14, fontWeight: 700, color: BROWN, margin: "0 0 8px" }}>
+            설치가 안 될 때
+          </h3>
+          <p style={{ fontSize: 13, color: SUB, lineHeight: 1.75, margin: 0 }}>
+            아이폰에서 &lsquo;홈 화면에 추가&rsquo; 항목이 보이지 않는다면 Chrome이나 카카오톡
+            내부 브라우저를 쓰고 있을 가능성이 높습니다. 아이폰은 <b style={{ color: BROWN }}>Safari
+            에서만</b> 홈 화면 추가가 가능하니, 주소를 복사해 Safari에서 다시 열어주세요.
+            안드로이드에서 메뉴에 항목이 없다면 Chrome을 최신 버전으로 업데이트한 뒤 다시
+            시도하면 대부분 해결됩니다.
+          </p>
+        </section>
+
         {/* 뒤로가기 */}
         <div style={{ marginTop: 20 }}>
           <Suspense fallback={null}>
@@ -357,7 +413,6 @@ export default function InstallPage() {
         <div style={{ marginTop: 16, border: `1px solid ${DIVIDER}`, borderRadius: 16, overflow: "hidden" }}>
           <p style={{ textAlign: "center", fontSize: 10, color: SUB, padding: "4px 0", background: "#ECEAE4", borderBottom: `1px solid ${DIVIDER}`, margin: 0 }}>광고</p>
           <KakaoAd unit="DAN-FtUdPgq37o1OxLht" width={320} height={100} />
-          <KakaoAd unit="DAN-9slwEqjwC1yDXbJL" width={320} height={480} />
         </div>
       </div>
     </>

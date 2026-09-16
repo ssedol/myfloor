@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { isAdAllowedPath } from "@/lib/adPolicy";
 
 interface Props {
   unit: string;
@@ -26,10 +28,16 @@ function scheduleScriptLoad() {
 
 export default function KakaoAd({ unit, width, height }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const allowed = isAdAllowedPath(pathname);
 
   useEffect(() => {
+    if (!allowed) return;
     scheduleScriptLoad();
-  }, []);
+  }, [allowed]);
+
+  // 콘텐츠 없는 화면(전환·완료·내부 도구)에는 광고를 붙이지 않는다.
+  if (!allowed) return null;
 
   return (
     <div ref={containerRef} className="w-full">

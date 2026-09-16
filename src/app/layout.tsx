@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import SiteFooter from "@/components/SiteFooter";
+import AdSenseScript from "@/components/AdSenseScript";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -63,11 +64,6 @@ export default function RootLayout({
           crossOrigin="anonymous"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
         />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4773298245322018"
-          crossOrigin="anonymous"
-        />
       </head>
       <body className="bg-app-bg font-pretendard antialiased">
         <script
@@ -78,6 +74,7 @@ export default function RootLayout({
           {children}
           <SiteFooter />
         </div>
+        <AdSenseScript />
         <Analytics />
       </body>
     </html>

@@ -136,11 +136,6 @@ export default function GuidePage() {
           fontFamily: '"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif',
         }}
       >
-        <div style={{ border: `1px solid ${DIVIDER}`, borderRadius: 16, overflow: "hidden", marginBottom: 16 }}>
-          <p style={{ textAlign: "center", fontSize: 10, color: SUB, padding: "4px 0", background: "#ECEAE4", borderBottom: `1px solid ${DIVIDER}`, margin: 0 }}>광고</p>
-          <KakaoAd unit="DAN-Dhyb259IAundNvL3" width={320} height={50} />
-        </div>
-
         {/* 한 장의 포스터 카드 */}
         <div
           style={{
@@ -378,10 +373,82 @@ export default function GuidePage() {
         >
           ← 메인으로 돌아가기
         </a>
+
+        {/* 그림만으로는 전달되지 않는 설명 본문 */}
+        <section
+          style={{
+            background: WHITE,
+            borderRadius: 24,
+            padding: "22px 20px",
+            marginBottom: 16,
+            boxShadow: "0 12px 40px rgba(64,52,46,0.08)",
+          }}
+        >
+          <h2 style={{ fontSize: 16, fontWeight: 800, color: BROWN, margin: "0 0 10px", letterSpacing: "-0.02em" }}>
+            몇층을 처음 쓰신다면
+          </h2>
+          <p style={{ fontSize: 13, color: SUB, lineHeight: 1.75, margin: "0 0 16px" }}>
+            몇층은 주차한 층수를 저장해 두었다가 차를 찾을 때 확인하는 웹앱입니다. 회원가입도,
+            앱 설치도 필요 없습니다. 아래 순서대로 한 번만 따라 해 보시면 그다음부터는 5초면
+            끝납니다.
+          </p>
+
+          <h3 style={{ fontSize: 14, fontWeight: 700, color: BROWN, margin: "0 0 8px" }}>
+            1. 차량 등록하기
+          </h3>
+          <p style={{ fontSize: 13, color: SUB, lineHeight: 1.75, margin: "0 0 14px" }}>
+            메인 화면의 <b style={{ color: BROWN }}>차량 추가</b> 버튼을 누르고 이름을 지어주세요.
+            차량 번호를 넣을 필요는 없습니다. &lsquo;아빠차&rsquo;, &lsquo;흰차&rsquo;처럼 본인이
+            알아볼 수 있으면 충분합니다. 가족 차량까지 최대 3대를 따로 관리할 수 있습니다.
+          </p>
+
+          <h3 style={{ fontSize: 14, fontWeight: 700, color: BROWN, margin: "0 0 8px" }}>
+            2. 주차하고 층수 저장하기
+          </h3>
+          <p style={{ fontSize: 13, color: SUB, lineHeight: 1.75, margin: "0 0 14px" }}>
+            차량 카드에서 <b style={{ color: BROWN }}>층수가 표시되는 부분을 탭</b>하면 층 선택
+            화면이 올라옵니다. 지하 B1~B8과 지상 1F~8F 중에 고르면 바로 저장됩니다. 저장 버튼을
+            따로 누를 필요는 없습니다. 층수를 잘못 골랐다면 같은 자리를 다시 탭해서 고치면 됩니다.
+          </p>
+          <p style={{ fontSize: 13, color: SUB, lineHeight: 1.75, margin: "0 0 14px" }}>
+            습관을 붙이는 요령은 <b style={{ color: BROWN }}>엘리베이터 버튼을 누르기 직전</b>을
+            저장 시점으로 정하는 것입니다. 주차 직후는 짐을 챙기느라 잊기 쉽지만, 엘리베이터 앞은
+            매번 반드시 거치는 지점이라 습관이 잘 붙습니다.
+          </p>
+
+          <h3 style={{ fontSize: 14, fontWeight: 700, color: BROWN, margin: "0 0 8px" }}>
+            3. 전기차라면 충전 알림 걸기
+          </h3>
+          <p style={{ fontSize: 13, color: SUB, lineHeight: 1.75, margin: "0 0 14px" }}>
+            층수를 저장할 때 완속·급속을 함께 고르면 알림이 예약됩니다. 완속은 13시간 후, 급속은
+            45분 후에 알림이 와서 다음 사람을 위해 자리를 비워줄 시점을 놓치지 않게 해줍니다.
+            알림은 홈 화면에 설치한 경우에만 안정적으로 도착합니다.
+          </p>
+
+          <h3 style={{ fontSize: 14, fontWeight: 700, color: BROWN, margin: "0 0 8px" }}>
+            4. 가족과 위치 공유하기
+          </h3>
+          <p style={{ fontSize: 13, color: SUB, lineHeight: 1.75, margin: "0 0 14px" }}>
+            차량 카드의 공유 버튼을 누르면 링크가 만들어집니다. 가족이 그 링크를 열면 같은 층수가
+            자동으로 저장되므로, 내가 세운 차를 가족이 찾으러 갈 때 편합니다. 받는 쪽도 가입이나
+            설치가 필요 없습니다.
+          </p>
+
+          <h3 style={{ fontSize: 14, fontWeight: 700, color: BROWN, margin: "0 0 8px" }}>
+            알아두면 좋은 점
+          </h3>
+          <p style={{ fontSize: 13, color: SUB, lineHeight: 1.75, margin: 0 }}>
+            주차 기록은 서버가 아니라 <b style={{ color: BROWN }}>사용 중인 기기 안에만</b>
+            저장됩니다. 그래서 개인정보가 쌓이지 않는 대신, 브라우저 데이터를 지우거나 다른
+            브라우저로 접속하면 기록이 보이지 않습니다. 카카오톡에서 받은 링크를 그대로 열었을 때
+            차량이 안 보이는 것도 같은 이유입니다. 홈 화면에 설치해 그 아이콘으로만 쓰시는 편이
+            가장 안전합니다.
+          </p>
+        </section>
+
         <div style={{ border: `1px solid ${DIVIDER}`, borderRadius: 16, overflow: "hidden" }}>
           <p style={{ textAlign: "center", fontSize: 10, color: SUB, padding: "4px 0", background: "#ECEAE4", borderBottom: `1px solid ${DIVIDER}`, margin: 0 }}>광고</p>
           <KakaoAd unit="DAN-JwOmuArA1LxX5DZJ" width={320} height={100} />
-          <KakaoAd unit="DAN-Oc5pL3jNKiN9BTff" width={320} height={480} />
         </div>
       </div>
     </>

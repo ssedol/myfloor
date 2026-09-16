@@ -195,12 +195,15 @@ export default function Home() {
     <div className="max-w-md mx-auto min-h-[100dvh] flex flex-col">
       <InAppBrowserGuide />
       <div className="px-5 flex flex-col flex-1">
-        <div className="rounded-2xl border border-divider overflow-hidden mt-3">
-          <p className="text-center text-sub text-[10px] py-1 bg-surface border-b border-divider">광고</p>
-          <KakaoAd unit="DAN-Rfsmw2Cumar7lRX2" width={320} height={50} />
-        </div>
-
-        <header className="pt-3 pb-2" />
+        <header className="pt-5 pb-3">
+          <h1 className="text-main text-xl font-bold leading-tight">
+            몇층<span className="text-sub text-sm font-medium ml-1.5">MyFloor</span>
+          </h1>
+          <p className="text-sub text-xs leading-relaxed mt-1">
+            주차한 층수를 저장해 두고 차를 찾을 때 확인하세요. 가입 없이 무료이고,
+            기록은 이 기기에만 저장됩니다.
+          </p>
+        </header>
 
         <div className="grid grid-cols-2 gap-2 mb-1">
           <a
