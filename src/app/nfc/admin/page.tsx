@@ -7,6 +7,16 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+/**
+ * 요청 시점에 렌더한다.
+ *
+ * 이 페이지는 NFC_TAG_SECRET 으로 층별 서명을 만든다. 빌드 때 미리 렌더하면
+ * 그 비밀키가 없는 빌드(미리보기 배포 등)가 통째로 실패하고, 서명 값이 빌드
+ * 산출물에 그대로 박힌다. 접속자가 거의 없는 내부 도구라 요청마다 렌더해도
+ * 비용이 없다.
+ */
+export const dynamic = "force-dynamic";
+
 
 const BASE_URL = "https://myfloor.website";
 
