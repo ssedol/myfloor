@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import TipPage from "@/components/TipPage";
-import { Section, Sub, Bullets, Callout } from "@/components/DocPage";
+import {
+  Section,
+  Sub,
+  Bullets,
+  Callout,
+  DataTable,
+  KeyPoints,
+  Checklist,
+  Sources,
+} from "@/components/DocPage";
 import { getTip } from "@/content/tips";
 
 const meta = getTip("apartment-parking-conflict")!;
@@ -12,16 +21,34 @@ export const metadata: Metadata = {
   alternates: { canonical: `/tips/${meta.slug}` },
 };
 
+const TOC = [
+  { id: "blocked", label: "1. 이중주차로 차가 막혔을 때" },
+  { id: "overline", label: "2. 옆 차가 선을 넘어 세웠을 때" },
+  { id: "doording", label: "3. 문콕을 당했을 때 / 했을 때" },
+  { id: "note", label: "쪽지 문장 만들기" },
+  { id: "office", label: "관리사무소와 입주자대표회의를 쓰는 법" },
+  { id: "structural", label: "분쟁을 줄이는 구조적인 방법" },
+];
+
 export default function Page() {
   return (
-    <TipPage meta={meta}>
+    <TipPage meta={meta} toc={TOC}>
+      <KeyPoints
+        items={[
+          "분쟁의 실제 원인은 자리가 아니라 '무시당했다'는 기분이다. 쪽지의 톤이 결과를 가른다.",
+          "이중주차 차를 밀기 전에 경사와 전자식 파킹브레이크를 먼저 본다. 전기차는 대개 밀리지 않는다.",
+          "선을 넘은 차 옆은 그냥 피하는 것이 가장 싸다. 억지로 대면 내가 문콕의 가해자가 된다.",
+          "반복되는 문제는 개인 간 쪽지가 아니라 관리규약으로 풀어야 끝난다.",
+        ]}
+      />
+
       <p className="text-sub text-sm leading-relaxed">
         아파트 주차 분쟁의 본질은 주차 자리가 아니라 &lsquo;무시당했다는 기분&rsquo;입니다. 같은
         상황이라도 쪽지 한 줄을 어떻게 쓰느냐에 따라 조용히 끝나기도 하고 몇 달을 끄는 감정 싸움이
         되기도 합니다. 자주 생기는 세 가지를 순서대로 보겠습니다.
       </p>
 
-      <Section heading="1. 이중주차로 차가 막혔을 때">
+      <Section id="blocked" heading="1. 이중주차로 차가 막혔을 때">
         <Sub heading="먼저 밀어보기 전에 확인할 것">
           <p>
             이중주차한 차는 원칙적으로 기어를 중립(N)에 두고 사이드브레이크를 풀어 둡니다. 밀리는
@@ -55,7 +82,7 @@ export default function Page() {
         </Callout>
       </Section>
 
-      <Section heading="2. 옆 차가 선을 넘어 세웠을 때">
+      <Section id="overline" heading="2. 옆 차가 선을 넘어 세웠을 때">
         <p>
           선을 넘은 차 옆에 억지로 대면 내 차 문도 못 열고, 결국 내가 문콕의 가해자가 됩니다. 자리가
           있다면 <strong className="text-main">그냥 다른 자리에 대는 것이 가장 이득</strong>입니다.
@@ -85,7 +112,7 @@ export default function Page() {
         </p>
       </Section>
 
-      <Section heading="3. 문콕을 당했을 때 / 했을 때">
+      <Section id="doording" heading="3. 문콕을 당했을 때 / 했을 때">
         <Sub heading="당했을 때">
           <p>
             상대 차가 이미 떠난 뒤 발견하는 경우가 대부분입니다. 순서는 이렇습니다.
@@ -112,7 +139,69 @@ export default function Page() {
         </p>
       </Section>
 
-      <Section heading="분쟁을 줄이는 구조적인 방법">
+      <Section id="note" heading="쪽지 문장 만들기">
+        <p>
+          쪽지는 짧을수록 좋지만, 아래 네 조각이 들어가면 거의 싸움이 되지 않습니다. 순서대로 한 문장씩
+          이어 붙이면 그대로 완성됩니다.
+        </p>
+        <DataTable
+          head={["조각", "역할", "예시"]}
+          rows={[
+            ["나는 누구", "익명의 비난이 아니게 만듭니다", "같은 단지 주민입니다"],
+            ["무슨 일이", "사실만 적습니다", "문을 열 공간이 부족했습니다"],
+            ["무엇을 부탁", "요구가 아니라 부탁으로", "조금만 안쪽으로 부탁드립니다"],
+            ["여지 남기기", "상대에게 사정이 있었을 수 있습니다", "사정이 있으셨다면 죄송합니다"],
+          ]}
+        />
+        <p>
+          반대로 넣는 순간 대화가 끝나는 표현들이 있습니다. &lsquo;기본&rsquo;, &lsquo;상식&rsquo;,
+          &lsquo;매너&rsquo; 같은 단어는 상대의 인격을 평가하는 말로 읽힙니다. 느낌표와 밑줄, 빨간 펜도
+          마찬가지입니다. 내용이 같아도 그 순간부터 상대는 사과가 아니라 반격을 준비합니다.
+        </p>
+        <Checklist
+          title="쪽지를 붙이기 전에"
+          items={[
+            "지금 화가 난 상태라면 한 시간 뒤에 쓴다. 감정은 문장에 반드시 남습니다.",
+            "인격이 아니라 상황만 적었는지 다시 읽는다.",
+            "와이퍼가 아니라 운전석 창유리에 붙인다. 젖은 종이는 도장을 상하게 합니다.",
+            "같은 문제가 세 번째라면 쪽지 대신 관리사무소로 간다.",
+          ]}
+        />
+      </Section>
+
+      <Section id="office" heading="관리사무소와 입주자대표회의를 쓰는 법">
+        <p>
+          개인 대 개인으로 주고받는 쪽지는 한두 번이 한계입니다. 같은 문제가 반복된다면 그것은 사람
+          문제가 아니라 단지의 규칙 문제일 가능성이 큽니다. 아파트에는 이미 그 규칙을 정하는 절차가
+          있습니다.
+        </p>
+        <Bullets
+          items={[
+            <>
+              <strong className="text-main">관리사무소</strong> — 차량 조회, 안내방송, CCTV 확인 요청처럼
+              지금 당장 필요한 조치를 맡습니다. 감정이 개입되지 않은 제3자를 통하면 같은 요구도 훨씬
+              부드럽게 전달됩니다.
+            </>,
+            <>
+              <strong className="text-main">입주자대표회의</strong> — 세대당 주차 대수 제한, 이중주차
+              구역 지정, 방문 차량 등록, 전기차 충전구역 운영 시간처럼 규칙 자체를 바꾸는 곳입니다.
+              반복되는 분쟁은 여기서만 끝납니다.
+            </>,
+            <>
+              <strong className="text-main">관리규약</strong> — 우리 단지의 주차 규칙이 실제로 어떻게
+              정해져 있는지는 관리규약에 적혀 있습니다. 한 번도 읽어보지 않은 분이 대부분인데, 민원을
+              넣기 전에 읽어두면 근거를 들어 말할 수 있습니다.
+            </>,
+          ]}
+        />
+        <p>
+          안건을 올릴 때는 &ldquo;불편하다&rdquo;보다 <strong className="text-main">언제·어디서·몇
+          번</strong>을 적은 기록이 훨씬 강합니다. 날짜와 시각, 위치를 적어둔 메모 몇 줄이 회의에서는
+          감정적인 호소보다 힘이 셉니다.
+        </p>
+      </Section>
+
+      <Section id="structural" heading="분쟁을 줄이는 구조적인 방법">
         <Bullets
           items={[
             "가능하면 기둥 옆자리를 고르세요. 한쪽이 벽이나 기둥이면 문콕 위험이 절반으로 줄고, 차를 찾기도 쉽습니다.",
@@ -135,6 +224,26 @@ export default function Page() {
         </Link>
         에 정리해 두었습니다.
       </Callout>
+
+      <Sources
+        items={[
+          {
+            name: "국가법령정보센터",
+            url: "https://www.law.go.kr",
+            note: "「공동주택관리법」과 시행령에서 관리규약·입주자대표회의 관련 조항 확인",
+          },
+          {
+            name: "공동주택관리정보시스템 (K-apt)",
+            url: "https://www.k-apt.go.kr",
+            note: "우리 단지의 관리 현황과 관리규약 준칙 자료",
+          },
+          {
+            name: "국토교통부",
+            url: "https://www.molit.go.kr",
+            note: "공동주택 관리 제도와 분쟁 조정 절차 안내",
+          },
+        ]}
+      />
     </TipPage>
   );
 }

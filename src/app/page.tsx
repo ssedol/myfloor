@@ -28,6 +28,7 @@ import FaqSection from "@/components/FaqSection";
 import AlarmInfoPopup from "@/components/AlarmInfoPopup";
 import InstallPrompt from "@/components/InstallPrompt";
 import InAppBrowserGuide from "@/components/InAppBrowserGuide";
+import { TIPS } from "@/content/tips";
 
 export default function Home() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -288,30 +289,53 @@ export default function Home() {
             <FaqSection />
           </div>
 
-          <a
-            href="/tips"
-            className="mt-3 flex items-center justify-between gap-3 bg-surface rounded-2xl px-4 py-3 active:opacity-70 transition-opacity"
-          >
-            <div className="min-w-0">
-              <p className="text-main text-xs font-semibold leading-snug">주차 정보</p>
-              <p className="text-sub text-[10px] leading-snug mt-0.5">
-                차 못 찾을 때, 전기차 충전, 주차 분쟁 대처 등
-              </p>
+          <section className="mt-4" aria-labelledby="home-tips-heading">
+            <div className="flex items-end justify-between gap-3 mb-2">
+              <div className="min-w-0">
+                <h2 id="home-tips-heading" className="text-main text-sm font-bold leading-snug">
+                  주차 정보
+                </h2>
+                <p className="text-sub text-[11px] leading-snug mt-0.5">
+                  지하주차장을 쓰면서 겪는 문제들을 직접 정리한 글 {TIPS.length}편
+                </p>
+              </div>
+              <a
+                href="/tips"
+                className="flex-shrink-0 text-sub text-[11px] underline underline-offset-2 active:opacity-60"
+              >
+                전체 보기
+              </a>
             </div>
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-sub flex-shrink-0"
-            >
-              <path d="M6 4l4 4-4 4" />
-            </svg>
-          </a>
+
+            <ul className="space-y-2">
+              {TIPS.slice(0, 4).map((t) => (
+                <li key={t.slug}>
+                  <a
+                    href={`/tips/${t.slug}`}
+                    className="flex items-center justify-between gap-3 bg-surface rounded-2xl px-4 py-3 active:opacity-70 transition-opacity"
+                  >
+                    <div className="min-w-0">
+                      <p className="text-main text-xs font-semibold leading-snug">{t.title}</p>
+                      <p className="text-sub text-[10px] leading-snug mt-0.5">{t.summary}</p>
+                    </div>
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-sub flex-shrink-0"
+                    >
+                      <path d="M6 4l4 4-4 4" />
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
       </div>
 

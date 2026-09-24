@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import TipPage from "@/components/TipPage";
-import { Section, Sub, Bullets, Callout, DataTable } from "@/components/DocPage";
+import {
+  Section,
+  Sub,
+  Bullets,
+  Callout,
+  DataTable,
+  KeyPoints,
+  Checklist,
+  Sources,
+} from "@/components/DocPage";
 import { getTip } from "@/content/tips";
 
 const meta = getTip("blackbox-parking-mode")!;
@@ -12,15 +21,34 @@ export const metadata: Metadata = {
   alternates: { canonical: `/tips/${meta.slug}` },
 };
 
+const TOC = [
+  { id: "power", label: "먼저 — 상시전원이 연결돼 있어야 합니다" },
+  { id: "cutoff", label: "저전압 차단값 — 가장 중요한 설정" },
+  { id: "mode", label: "녹화 방식 선택 — 충격 감지 vs 타임랩스" },
+  { id: "season", label: "계절에 따라 설정을 바꾼다" },
+  { id: "battery", label: "방전을 줄이는 현실적인 방법" },
+  { id: "evidence", label: "사고 영상, 실제로 쓰려면" },
+  { id: "ev", label: "전기차·하이브리드는 다릅니다" },
+];
+
 export default function Page() {
   return (
-    <TipPage meta={meta}>
+    <TipPage meta={meta} toc={TOC}>
+      <KeyPoints
+        items={[
+          "시거잭에만 꽂혀 있으면 주차 녹화는 아예 동작하지 않는다. 상시전원이나 보조배터리가 필요하다.",
+          "방전을 막는 유일한 안전장치는 저전압 차단 설정이다. 12V 승용차는 대개 11.8~12.0V 범위를 쓴다.",
+          "겨울에는 같은 잔량에서도 전압이 낮게 나온다. 차단값을 조금 높여두는 편이 안전하다.",
+          "정작 필요할 때 파일이 깨져 있는 일이 흔하다. 메모리카드는 소모품으로 보고 주기적으로 교체한다.",
+        ]}
+      />
+
       <p className="text-sub text-sm leading-relaxed">
         주차 녹화는 문콕과 뺑소니의 유일한 증거입니다. 그런데 켜두면 시동이 꺼진 상태에서 차 배터리를
         계속 씁니다. 방전되면 증거도 없고 차도 안 걸립니다. 이 둘의 균형을 잡는 게 전부입니다.
       </p>
 
-      <Section heading="먼저 — 상시전원이 연결돼 있어야 합니다">
+      <Section id="power" heading="먼저 — 상시전원이 연결돼 있어야 합니다">
         <p>
           시거잭(12V 소켓)에만 꽂혀 있으면 시동을 끄는 순간 전원이 끊기는 차가 대부분입니다. 이
           상태로는 주차 녹화가 아예 동작하지 않습니다. 주차 녹화를 쓰려면 둘 중 하나가 필요합니다.
@@ -42,7 +70,7 @@ export default function Page() {
         />
       </Section>
 
-      <Section heading="저전압 차단값 — 가장 중요한 설정">
+      <Section id="cutoff" heading="저전압 차단값 — 가장 중요한 설정">
         <p>
           상시전원 방식이라면 <strong className="text-main">배터리가 일정 전압 아래로 떨어지면
           블랙박스가 스스로 꺼지는</strong> 기능이 반드시 켜져 있어야 합니다. 이게 방전을 막는
@@ -67,7 +95,7 @@ export default function Page() {
         </p>
       </Section>
 
-      <Section heading="녹화 방식 선택 — 충격 감지 vs 타임랩스">
+      <Section id="mode" heading="녹화 방식 선택 — 충격 감지 vs 타임랩스">
         <Sub heading="충격 감지 (이벤트 녹화)">
           <p>
             평소에는 대기하다가 충격이 감지되면 그 전후를 저장합니다. 전력 소모가 적어 오래 버팁니다.
@@ -87,7 +115,46 @@ export default function Page() {
         </p>
       </Section>
 
-      <Section heading="방전을 줄이는 현실적인 방법">
+      <Section id="season" heading="계절에 따라 설정을 바꾼다">
+        <p>
+          블랙박스 설정을 한 번 잡아두고 몇 년을 그대로 쓰는 분이 대부분입니다. 그런데 배터리가 버티는
+          정도는 계절에 따라 크게 달라집니다. 일 년에 두 번, 여름과 겨울 들어갈 때만 손봐도 방전 사고가
+          눈에 띄게 줄어듭니다.
+        </p>
+        <DataTable
+          head={["계절", "무엇이 문제인가", "설정 방향"]}
+          rows={[
+            [
+              "한여름",
+              "실내 온도가 높아 기기가 과열되고 배터리 수명이 빨리 닳습니다",
+              "타임랩스보다 충격 감지 위주로. 지하 주차를 우선합니다",
+            ],
+            [
+              "한겨울",
+              "같은 잔량에서도 전압이 낮게 측정되고 시동에 더 큰 전류가 필요합니다",
+              "차단값을 0.1~0.2V 높이고, 녹화 시간도 짧게 잡습니다",
+            ],
+            [
+              "장마철",
+              "습기로 렌즈에 김이 서리고 결로가 생깁니다",
+              "설정보다 거치 위치 점검이 중요합니다",
+            ],
+          ]}
+        />
+        <p>
+          여름에 지하 주차를 권하는 이유는 온도 때문만이 아닙니다. 천장 배관에서 물이 떨어지는 자리만
+          피하면, 지하는 자외선과 우박이 없어 차에 훨씬 유리합니다. 자세한 기준은{" "}
+          <Link
+            href="/tips/parking-damage-prevention"
+            className="text-main underline underline-offset-2"
+          >
+            문콕 없는 자리 고르는 법
+          </Link>
+          에 정리해 두었습니다.
+        </p>
+      </Section>
+
+      <Section id="battery" heading="방전을 줄이는 현실적인 방법">
         <Bullets
           items={[
             "짧은 거리만 반복 운행하면 배터리가 충분히 충전되지 않습니다. 주 1회는 20~30분 이상 연속 주행해 주세요.",
@@ -99,7 +166,29 @@ export default function Page() {
         />
       </Section>
 
-      <Section heading="전기차·하이브리드는 다릅니다">
+      <Section id="evidence" heading="사고 영상, 실제로 쓰려면">
+        <p>
+          주차 녹화를 켜두는 이유는 결국 영상을 쓰기 위해서입니다. 그런데 막상 일이 터지면{" "}
+          <strong className="text-main">파일이 이미 덮어써진 뒤</strong>인 경우가 많습니다. 블랙박스는
+          메모리가 차면 오래된 파일부터 지우기 때문입니다. 발견 즉시 해야 할 일이 정해져 있습니다.
+        </p>
+        <Checklist
+          title="손상을 발견한 직후"
+          items={[
+            "블랙박스 전원을 끄거나 메모리카드를 즉시 빼둔다 — 계속 켜두면 증거가 덮어써집니다.",
+            "해당 시각의 파일을 휴대폰이나 PC로 먼저 복사한다 — 원본은 손대지 않고 사본으로 봅니다.",
+            "이벤트 폴더와 일반 녹화 폴더를 모두 확인한다 — 충격이 약하면 이벤트로 분류되지 않습니다.",
+            "영상 속 시각이 실제 시각과 맞는지 확인한다 — 시간이 틀어져 있으면 증거로서 힘이 약해집니다.",
+          ]}
+        />
+        <p>
+          블랙박스 영상에는 다른 사람의 차량번호와 얼굴이 함께 찍힙니다. 사고 처리나 신고 목적으로
+          경찰·보험사에 제출하는 것과, 인터넷 커뮤니티에 그대로 올리는 것은 전혀 다른 문제입니다.
+          공개할 때는 번호판과 얼굴을 가리는 편이 안전합니다.
+        </p>
+      </Section>
+
+      <Section id="ev" heading="전기차·하이브리드는 다릅니다">
         <p>
           전기차에도 12V 보조배터리가 따로 있고, 블랙박스는 이 배터리를 씁니다. 구동용 대용량
           배터리와는 별개라 <strong className="text-main">&ldquo;전기차니까 방전 걱정
@@ -121,6 +210,21 @@ export default function Page() {
         </Link>
         에 정리했습니다.
       </Callout>
+
+      <Sources
+        items={[
+          {
+            name: "개인정보보호위원회",
+            url: "https://www.pipc.go.kr",
+            note: "차량 영상(개인영상정보)을 촬영·제공·공개할 때의 기준 안내",
+          },
+          {
+            name: "경찰청",
+            url: "https://www.police.go.kr",
+            note: "블랙박스 영상 제출과 교통사고·물피도주 신고 절차",
+          },
+        ]}
+      />
     </TipPage>
   );
 }

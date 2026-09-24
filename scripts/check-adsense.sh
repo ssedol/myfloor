@@ -5,6 +5,7 @@
 #   bash scripts/check-adsense.sh http://localhost:3000
 #
 # 기대 결과: 콘텐츠 페이지는 전부 HEAD, /park·/nfc·/nfc/admin 은 전부 없음(정상).
+# 아울러 전역 내비게이션과 아티클 구조화 데이터(Article/BreadcrumbList)도 함께 확인한다.
 
 BASE="${1:-https://myfloor.website}"
 CLIENT="ca-pub-4773298245322018"
@@ -72,6 +73,37 @@ for p in / /about /privacy; do
     printf '%-34s %-8s %s\n' "$p" "있음" "정상"
   else
     printf '%-34s %-8s %s\n' "$p" "없음" "실패 — 이메일 미노출"; fail=1
+  fi
+done
+
+echo
+echo "[ 전역 내비게이션 (콘텐츠 화면에만 있어야 함) ]"
+for p in / /tips /about /faq; do
+  if curl -sS -L -m 20 -A "$UA" "$BASE$p" 2>/dev/null | grep -q 'aria-label="주요 메뉴"'; then
+    printf '%-34s %-8s %s\n' "$p" "있음" "정상"
+  else
+    printf '%-34s %-8s %s\n' "$p" "없음" "실패 — 상단 메뉴 미노출"; fail=1
+  fi
+done
+for p in "/park?floor=B3" "/nfc?floor=B3"; do
+  if curl -sS -L -m 20 -A "$UA" "$BASE$p" 2>/dev/null | grep -q 'aria-label="주요 메뉴"'; then
+    printf '%-34s %-8s %s\n' "$p" "있음" "실패 — 진입 화면엔 없어야 함"; fail=1
+  else
+    printf '%-34s %-8s %s\n' "$p" "없음" "정상"
+  fi
+done
+
+echo
+echo "[ 아티클 구조화 데이터 ]"
+for p in "${WITH_AD[@]}"; do
+  case "$p" in /tips/*) ;; *) continue ;; esac
+  body=$(curl -sS -L -m 25 -A "$UA" "$BASE$p" 2>/dev/null)
+  has_article=$(echo "$body" | grep -c '"@type":"Article"')
+  has_crumb=$(echo "$body" | grep -c "BreadcrumbList")
+  if [ "$has_article" -gt 0 ] && [ "$has_crumb" -gt 0 ]; then
+    printf '%-34s %-8s %s\n' "$p" "OK" "Article + BreadcrumbList"
+  else
+    printf '%-34s %-8s %s\n' "$p" "누락" "실패 — Article:$has_article Breadcrumb:$has_crumb"; fail=1
   fi
 done
 

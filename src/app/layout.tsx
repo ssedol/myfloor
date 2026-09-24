@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import JsonLd from "@/components/JsonLd";
 import AdSenseScript from "@/components/AdSenseScript";
 import "./globals.css";
 
@@ -66,11 +68,9 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-app-bg font-pretendard antialiased">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
-        />
+        <JsonLd data={siteJsonLd} />
         <div className="overflow-x-hidden">
+          <SiteHeader />
           {children}
           <SiteFooter />
         </div>

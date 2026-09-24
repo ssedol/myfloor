@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import TipPage from "@/components/TipPage";
-import { Section, Sub, Bullets, Callout, DataTable } from "@/components/DocPage";
+import {
+  Section,
+  Sub,
+  Bullets,
+  Callout,
+  DataTable,
+  KeyPoints,
+  Checklist,
+  Sources,
+} from "@/components/DocPage";
 import { getTip } from "@/content/tips";
 
 const meta = getTip("ev-charging-time")!;
@@ -12,16 +21,35 @@ export const metadata: Metadata = {
   alternates: { canonical: `/tips/${meta.slug}` },
 };
 
+const TOC = [
+  { id: "speed", label: "완속과 급속의 차이" },
+  { id: "calc", label: "내 차는 몇 시간 걸릴까 — 계산법" },
+  { id: "table", label: "배터리 용량별 완속 충전 시간" },
+  { id: "after", label: "충전이 끝난 뒤가 진짜 문제" },
+  { id: "manner", label: "아파트 충전기를 함께 쓰는 법" },
+  { id: "law", label: "과태료 규정은 단지·지자체별로 확인하세요" },
+  { id: "battery", label: "배터리 수명을 생각한다면" },
+];
+
 export default function Page() {
   return (
-    <TipPage meta={meta}>
+    <TipPage meta={meta} toc={TOC}>
+      <KeyPoints
+        items={[
+          "충전 시간은 배터리 용량 ÷ 충전기 출력으로 거의 결정된다. 아파트 완속(7kW)은 하룻밤이 기본이다.",
+          "급속이 80%부터 느려지는 것은 고장이 아니라 배터리를 보호하는 정상 동작이다.",
+          "갈등의 실제 원인은 충전 속도가 아니라 '충전이 끝난 뒤에도 자리를 지키는 시간'이다.",
+          "과태료 기준은 법령 개정과 지자체 조례에 따라 달라져 왔다. 금액은 반드시 최신 고지를 확인한다.",
+        ]}
+      />
+
       <p className="text-sub text-sm leading-relaxed">
         아파트 지하주차장에 충전기가 생기면서 가장 자주 나오는 갈등이 &ldquo;충전 다 됐는데 왜 안
         빼요&rdquo;입니다. 그런데 정작 본인 차가 몇 시에 충전이 끝나는지 정확히 아는 사람은 많지
         않습니다. 충전 시간을 어림잡는 법부터 정리해 보겠습니다.
       </p>
 
-      <Section heading="완속과 급속의 차이">
+      <Section id="speed" heading="완속과 급속의 차이">
         <p>
           충전 시간을 결정하는 건 충전기의 <strong className="text-main">출력(kW)</strong>입니다. 출력이
           2배면 시간은 대략 절반이 됩니다.
@@ -37,9 +65,17 @@ export default function Page() {
           아파트 지하주차장에 설치된 것은 대부분 완속입니다. 급속을 설치하려면 수전 설비 증설이 필요해
           비용이 크기 때문입니다. 간혹 &lsquo;중속&rsquo;이라 불리는 11~20kW급이 들어오기도 합니다.
         </p>
+        <Sub heading="콘센트형(3.5kW)을 만났다면">
+          <p>
+            벽에 붙은 작은 상자에 케이블을 꽂는 이동형 충전기는 출력이 3.5kW 안팎입니다. 7kW 완속의 절반
+            속도라, 60kWh 배터리를 20%에서 80%까지 채우는 데 열 시간을 훌쩍 넘깁니다. 주말 내내 세워 둘
+            때가 아니면 실질적인 충전 수단으로 보기 어렵습니다. 대신 자리 경쟁이 덜하다는 장점이 있어,
+            장기 주차 중 배터리를 유지하는 용도로는 쓸 만합니다.
+          </p>
+        </Sub>
       </Section>
 
-      <Section heading="내 차는 몇 시간 걸릴까 — 계산법">
+      <Section id="calc" heading="내 차는 몇 시간 걸릴까 — 계산법">
         <p>
           완속 충전은 계산이 단순합니다. 충전해야 할 전력량을 충전기 출력으로 나누면 됩니다.
         </p>
@@ -69,9 +105,37 @@ export default function Page() {
             더 떨어지므로 예상보다 오래 걸립니다.
           </p>
         </Sub>
+        <Sub heading="충전기 출력이 그대로 나오지 않는 경우">
+          <p>
+            350kW 충전기에 꽂았는데 150kW밖에 안 나온다면 대개 충전기 문제가 아닙니다. 차량이 받아들일
+            수 있는 최대 출력이 정해져 있고, 배터리 온도·잔량·동시 사용 대수에 따라 더 낮아집니다. 한
+            충전기를 두 대가 나눠 쓰는 구조에서는 옆 차가 꽂는 순간 내 출력이 절반으로 떨어지기도 합니다.
+            &lsquo;충전기 출력&rsquo;은 상한값이지 보장값이 아니라고 생각하는 편이 정확합니다.
+          </p>
+        </Sub>
       </Section>
 
-      <Section heading="충전이 끝난 뒤가 진짜 문제">
+      <Section id="table" heading="배터리 용량별 완속 충전 시간">
+        <p>
+          위 식을 7kW 완속 기준으로 계산해 둔 표입니다. 20%에서 80%까지(=60%) 채울 때와, 10%에서
+          100%까지(=90%) 채울 때를 나눠 적었습니다. 실제 시간은 온도와 차량 설정에 따라 달라집니다.
+        </p>
+        <DataTable
+          head={["배터리 용량", "20 → 80%", "10 → 100%"]}
+          rows={[
+            ["40kWh (소형)", "약 3.8시간", "약 5.7시간"],
+            ["60kWh (준중형)", "약 5.7시간", "약 8.5시간"],
+            ["77kWh (중형)", "약 7.3시간", "약 10.9시간"],
+            ["99kWh (대형·SUV)", "약 9.3시간", "약 14.0시간"],
+          ]}
+        />
+        <p className="text-[12px]">
+          표의 값은 7kW × 손실 보정 1.1을 적용한 어림값입니다. 3.5kW 콘센트형이라면 두 배, 11kW
+          중속이라면 약 0.64배로 환산하시면 됩니다.
+        </p>
+      </Section>
+
+      <Section id="after" heading="충전이 끝난 뒤가 진짜 문제">
         <p>
           완속으로 밤새 충전하면 새벽 어느 시점에 충전이 끝납니다. 문제는 그 뒤로 출근 시간까지 몇
           시간 동안 충전기 자리를 차가 막고 있다는 점입니다. 충전기가 2대뿐인 단지에서는 이것만으로
@@ -85,9 +149,41 @@ export default function Page() {
             "충전기 앞에 내연기관차를 세우는 것은 단지 내 갈등의 가장 큰 원인입니다. 잠깐이라도 피해주세요.",
           ]}
         />
+        <p>
+          차량 앱에 충전 예약 기능이 있다면 &lsquo;출차 시각에 맞춰 충전 완료&rsquo;로 설정하는 것이
+          가장 깔끔합니다. 기능이 없다면 위 표로 계산한 시간만큼 알림을 걸어두세요.
+        </p>
       </Section>
 
-      <Section heading="과태료 규정은 단지·지자체별로 확인하세요">
+      <Section id="manner" heading="아파트 충전기를 함께 쓰는 법">
+        <p>
+          충전 자리를 둘러싼 갈등은 대부분 &lsquo;누가 잘못했나&rsquo;보다 &lsquo;서로 상황을 모른다&rsquo;에서
+          생깁니다. 내 차가 언제 끝나는지 남이 알 방법이 없으면, 기다리는 쪽은 무한정 기다리게 됩니다.
+          아래는 실제로 마찰을 줄이는 방법들입니다.
+        </p>
+        <Checklist
+          title="충전 자리에서 지킬 것"
+          items={[
+            "대시보드에 출차 예정 시각과 연락처를 적어 둡니다. 쪽지 한 장이 항의 쪽지 열 장을 막습니다.",
+            "충전이 끝났는데 바로 뺄 수 없다면, 다음 사람이 쓸 수 있도록 케이블을 정리해 둡니다.",
+            "케이블을 통로에 늘어뜨리지 않습니다. 보행자가 걸려 넘어지면 책임 문제가 생깁니다.",
+            "남의 차 충전 케이블을 임의로 뽑지 않습니다. 차량에 따라 잠금이 걸려 있어 억지로 빼면 커넥터가 손상됩니다.",
+            "충전이 급하다면 관리사무소를 통해 연락하는 편이, 직접 항의 쪽지를 붙이는 것보다 갈등이 덜합니다.",
+          ]}
+        />
+        <p>
+          충전 자리 문제가 이미 감정 싸움으로 번졌다면{" "}
+          <Link
+            href="/tips/apartment-parking-conflict"
+            className="text-main underline underline-offset-2"
+          >
+            아파트 주차 분쟁을 푸는 법
+          </Link>
+          의 접근이 그대로 적용됩니다.
+        </p>
+      </Section>
+
+      <Section id="law" heading="과태료 규정은 단지·지자체별로 확인하세요">
         <p>
           한국에서는 「환경친화적 자동차의 개발 및 보급 촉진에 관한 법률」에 따라 전기차 충전구역에
           일반 차량을 주차하거나, 충전이 끝난 뒤 정해진 시간을 넘겨 계속 주차하는 행위(충전 방해 행위)에
@@ -102,7 +198,7 @@ export default function Page() {
         </p>
       </Section>
 
-      <Section heading="배터리 수명을 생각한다면">
+      <Section id="battery" heading="배터리 수명을 생각한다면">
         <Bullets
           items={[
             "일상적으로는 20~80% 구간에서 쓰는 것이 리튬이온 배터리에 유리합니다. 장거리 출발 전날에만 100%로 채우세요.",
@@ -116,20 +212,39 @@ export default function Page() {
           쓰는 차량은 제조사가 주기적인 100% 충전을 권장하기도 하므로, 최종적으로는 차량 설명서를
           따르세요.
         </p>
+        <Callout>
+          <Link href="/" className="underline underline-offset-2 font-semibold">
+            몇층
+          </Link>
+          에는 주차 층수를 저장할 때 충전 알림을 함께 예약하는 기능이 있습니다. 완속은 13시간 후, 급속은
+          45분 후에 푸시 알림이 와서 차를 빼야 할 시점을 놓치지 않게 해줍니다. 알림을 받으려면 홈 화면에
+          설치가 필요합니다 —{" "}
+          <Link href="/install" className="underline underline-offset-2 font-semibold">
+            설치 방법 보기
+          </Link>
+          .
+        </Callout>
       </Section>
 
-      <Callout>
-        <Link href="/" className="underline underline-offset-2 font-semibold">
-          몇층
-        </Link>
-        에는 주차 층수를 저장할 때 충전 알림을 함께 예약하는 기능이 있습니다. 완속은 13시간 후, 급속은
-        45분 후에 푸시 알림이 와서 차를 빼야 할 시점을 놓치지 않게 해줍니다. 알림을 받으려면 홈 화면에
-        설치가 필요합니다 —{" "}
-        <Link href="/install" className="underline underline-offset-2 font-semibold">
-          설치 방법 보기
-        </Link>
-        .
-      </Callout>
+      <Sources
+        items={[
+          {
+            name: "무공해차 통합누리집 (환경부)",
+            url: "https://ev.or.kr",
+            note: "전기차 충전소 위치, 충전 방식과 요금, 보급 사업 안내",
+          },
+          {
+            name: "국가법령정보센터",
+            url: "https://www.law.go.kr",
+            note: "「환경친화적 자동차의 개발 및 보급 촉진에 관한 법률」 원문과 개정 이력",
+          },
+          {
+            name: "한국에너지공단",
+            url: "https://www.energy.or.kr",
+            note: "전기차 충전 요금 체계와 에너지 효율 관련 자료",
+          },
+        ]}
+      />
     </TipPage>
   );
 }

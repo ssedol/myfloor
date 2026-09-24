@@ -16,3 +16,11 @@
 * {
   -webkit-tap-highlight-color: transparent;
 }
+
+/* 상단 내비게이션의 가로 스크롤 바를 감춘다 (모바일 폭에서 메뉴가 넘칠 때) */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

@@ -8,6 +8,9 @@ export interface TipMeta {
   /** 검색 결과용 설명 (summary보다 조금 길게) */
   description: string;
   readMinutes: number;
+  /** 최초 발행일 */
+  published: string;
+  /** 최종 수정일 */
   updated: string;
 }
 
@@ -20,8 +23,9 @@ export const TIPS: TipMeta[] = [
       "지하주차장에서 차를 잃어버렸을 때 무작정 헤매지 않고 층과 구역을 체계적으로 좁혀 나가는 방법, 스마트키·블랙박스 앱·관리사무소를 활용하는 순서를 정리했습니다.",
     blurb:
       "무작정 걷기 시작하면 이미 지나온 구역을 다시 걷게 됩니다. 걷기 전에 후보 층을 2~3개로 줄이는 방법, 스마트키 도달 거리를 늘리는 요령, 블랙박스 앱과 걸음 수 기록에서 단서를 찾는 법, 마지막으로 관리사무소 CCTV를 요청하는 절차까지 순서대로 정리했습니다.",
-    readMinutes: 4,
-    updated: "2026-09-15",
+    readMinutes: 7,
+    published: "2026-09-15",
+    updated: "2026-09-24",
   },
   {
     slug: "remember-parking-floor",
@@ -31,8 +35,9 @@ export const TIPS: TipMeta[] = [
       "지하주차장 층수를 매번 잊어버리는 이유와, 기억력이 아니라 습관과 도구로 해결하는 7가지 방법을 정리했습니다. 기둥 번호 읽는 법, 엘리베이터 앞 규칙, 기록 도구 선택 기준까지 다룹니다.",
     blurb:
       "층수를 잊는 건 기억력 문제가 아니라 어제의 기억과 오늘의 기억이 겹치기 때문입니다. 더 열심히 외우는 대신 기억하지 않아도 되게 만드는 쪽으로 접근합니다. 기록 시점을 엘리베이터 앞으로 고정하는 규칙부터 도구를 고르는 세 가지 기준까지 담았습니다.",
-    readMinutes: 5,
-    updated: "2026-09-15",
+    readMinutes: 6,
+    published: "2026-09-15",
+    updated: "2026-09-24",
   },
   {
     slug: "ev-charging-time",
@@ -43,7 +48,8 @@ export const TIPS: TipMeta[] = [
     blurb:
       "충전 시간은 배터리 용량과 충전기 출력으로 계산됩니다. 완속과 급속의 차이, 손실을 감안한 간단한 계산식, 급속이 80%부터 느려지는 이유를 설명합니다. 충전이 끝난 뒤 자리를 비워주는 문제와 배터리 수명을 지키는 습관도 함께 다룹니다.",
     readMinutes: 6,
-    updated: "2026-09-15",
+    published: "2026-09-15",
+    updated: "2026-09-24",
   },
   {
     slug: "nfc-tag-parking",
@@ -54,7 +60,8 @@ export const TIPS: TipMeta[] = [
     blurb:
       "기록하는 행동 자체를 없애는 방법입니다. NFC 태그의 동작 원리, NTAG213 스티커 고르는 기준, URL을 써넣고 잠그는 절차, iOS와 안드로이드의 인식 차이, 아파트 공용부에 설치할 때 관리사무소 협의와 위조 대비까지 설명합니다.",
     readMinutes: 6,
-    updated: "2026-09-15",
+    published: "2026-09-15",
+    updated: "2026-09-24",
   },
   {
     slug: "apartment-parking-conflict",
@@ -64,8 +71,9 @@ export const TIPS: TipMeta[] = [
       "아파트 지하주차장에서 가장 자주 생기는 이중주차, 주차선 침범, 문콕 분쟁을 감정 싸움으로 키우지 않고 처리하는 방법과, 쪽지·관리사무소·보험을 쓰는 순서를 정리했습니다.",
     blurb:
       "주차 분쟁의 본질은 자리가 아니라 무시당했다는 기분입니다. 이중주차한 차를 밀기 전에 확인할 것, 선을 넘은 차에 남기는 쪽지의 톤 차이, 문콕을 당했을 때와 냈을 때의 처리 순서를 다룹니다. 분쟁 자체를 줄이는 자리 선택법도 함께 정리했습니다.",
-    readMinutes: 5,
-    updated: "2026-09-16",
+    readMinutes: 6,
+    published: "2026-09-16",
+    updated: "2026-09-24",
   },
   {
     slug: "mechanical-parking-lot",
@@ -76,7 +84,8 @@ export const TIPS: TipMeta[] = [
     blurb:
       "잘못 넣으면 차가 찌그러지고 사람이 다칠 수 있는 설비입니다. 진입 전 반드시 확인할 전폭·전장·전고·중량 네 가지, 차를 올리고 내리는 정확한 순서, 사이드미러 파손처럼 흔한 사고의 예방법, 사고 시 책임 주체를 확인하는 방법을 안내합니다.",
     readMinutes: 5,
-    updated: "2026-09-16",
+    published: "2026-09-16",
+    updated: "2026-09-24",
   },
   {
     slug: "beginner-parking-tips",
@@ -87,7 +96,8 @@ export const TIPS: TipMeta[] = [
     blurb:
       "주차가 어려운 건 실력이 아니라 기준점이 없어서입니다. 주차용 사이드미러 각도부터, 후면주차에서 핸들을 꺾는 정확한 시점, 평행주차의 두 번 꺾기, 초보가 자주 놓치는 앞바퀴 궤적까지 감이 아닌 기준으로 설명합니다.",
     readMinutes: 6,
-    updated: "2026-09-16",
+    published: "2026-09-16",
+    updated: "2026-09-24",
   },
   {
     slug: "parking-damage-prevention",
@@ -98,7 +108,8 @@ export const TIPS: TipMeta[] = [
     blurb:
       "주차장에서 생기는 손상은 대부분 자리를 고르는 순간에 결정됩니다. 문콕과 접촉 사고가 적은 자리의 조건, 피해야 할 위치, 차 안에 두면 안 되는 물건, 장기 주차 전 점검할 것들을 정리했습니다.",
     readMinutes: 5,
-    updated: "2026-09-16",
+    published: "2026-09-16",
+    updated: "2026-09-24",
   },
   {
     slug: "blackbox-parking-mode",
@@ -108,8 +119,9 @@ export const TIPS: TipMeta[] = [
       "블랙박스 주차 녹화를 쓰면서 배터리 방전을 막는 방법. 저전압 차단 설정 기준, 상시전원과 보조배터리의 차이, 충격 감지와 타임랩스 선택, 전기차에서 달라지는 점을 설명합니다.",
     blurb:
       "주차 녹화를 켜두면 증거는 남지만 배터리가 방전됩니다. 저전압 차단 설정값을 정하는 기준, 상시전원과 보조배터리의 차이, 충격 감지와 타임랩스 중 무엇을 쓸지, 전기차·하이브리드에서 달라지는 점을 설명합니다.",
-    readMinutes: 6,
-    updated: "2026-09-16",
+    readMinutes: 5,
+    published: "2026-09-16",
+    updated: "2026-09-24",
   },
   {
     slug: "underground-parking-safety",
@@ -119,8 +131,9 @@ export const TIPS: TipMeta[] = [
       "지하주차장 침수와 화재에 대비하는 방법. 호우 예보 시 차를 옮기는 판단 기준, 물이 차기 시작했을 때의 행동 원칙, 화재 시 대피 원칙을 안내합니다.",
     blurb:
       "지하주차장은 물과 연기가 빠져나갈 곳이 없는 구조입니다. 호우 예보가 떴을 때 차를 언제 어디로 옮길지 판단하는 기준, 이미 물이 차기 시작했을 때의 행동 원칙, 화재 시 대피 원칙을 정리했습니다.",
-    readMinutes: 5,
-    updated: "2026-09-16",
+    readMinutes: 6,
+    published: "2026-09-16",
+    updated: "2026-09-24",
   },
 ];
 

@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import TipPage from "@/components/TipPage";
-import { Section, Sub, Bullets, Callout } from "@/components/DocPage";
+import {
+  Section,
+  Sub,
+  Bullets,
+  Callout,
+  DataTable,
+  KeyPoints,
+  Checklist,
+  Sources,
+} from "@/components/DocPage";
 import { getTip } from "@/content/tips";
 
 const meta = getTip("underground-parking-safety")!;
@@ -12,9 +21,17 @@ export const metadata: Metadata = {
   alternates: { canonical: `/tips/${meta.slug}` },
 };
 
+const TOC = [
+  { id: "flood", label: "침수 — 판단은 물이 차기 전에 끝나야 합니다" },
+  { id: "alert", label: "호우 특보 단계별로 무엇을 할까" },
+  { id: "fire", label: "화재 — 지하에서는 연기가 더 위험합니다" },
+  { id: "ev-fire", label: "전기차 화재는 무엇이 다른가" },
+  { id: "prepare", label: "평소에 해둘 수 있는 것" },
+];
+
 export default function Page() {
   return (
-    <TipPage meta={meta}>
+    <TipPage meta={meta} toc={TOC}>
       <Callout>
         이 글은 평소 대비를 위한 일반적인 안내입니다. 실제 상황에서는{" "}
         <strong>차량보다 사람이 먼저</strong>이며, 관리사무소 안내와 소방 당국의 지시를 최우선으로
@@ -28,7 +45,16 @@ export default function Page() {
         <strong className="text-main">어디로 대피할 것인가</strong>입니다.
       </p>
 
-      <Section heading="침수 — 판단은 물이 차기 전에 끝나야 합니다">
+      <KeyPoints
+        items={[
+          "물이 차오르는 지하주차장에 차를 빼러 들어가지 않는다. 차는 보험으로 되지만 사람은 되지 않는다.",
+          "차를 옮기는 기준은 비가 오기 전에 정해둔다. 방송이 나온 뒤에 움직이면 이미 늦다.",
+          "지하 화재의 인명 피해는 대부분 불이 아니라 연기 때문이다. 몸을 낮추고 벽을 짚고 계단으로 나간다.",
+          "내가 늘 대는 자리에서 가장 가까운 비상계단이 어느 쪽인지 오늘 한 번만 확인해 둔다.",
+        ]}
+      />
+
+      <Section id="flood" heading="침수 — 판단은 물이 차기 전에 끝나야 합니다">
         <Sub heading="차를 옮기는 기준을 미리 정해두세요">
           <p>
             비가 오기 시작한 뒤에 고민하면 늦습니다. 아래 중 하나라도 해당하면 옮긴다, 정도로 단순한
@@ -74,7 +100,44 @@ export default function Page() {
         </Sub>
       </Section>
 
-      <Section heading="화재 — 지하에서는 연기가 더 위험합니다">
+      <Section id="alert" heading="호우 특보 단계별로 무엇을 할까">
+        <p>
+          기상 특보는 이름만 봐서는 얼마나 급한 상황인지 감이 잘 오지 않습니다. 아래는 단계별로 미리
+          정해두면 좋은 행동입니다. 저지대이거나 과거 침수 이력이 있는 단지라면 한 단계씩 앞당겨
+          움직이세요.
+        </p>
+        <DataTable
+          head={["단계", "이때 할 일"]}
+          rows={[
+            [
+              "호우 예보 (며칠 전)",
+              "차를 옮길 곳을 정해 둡니다. 보험 증권에서 자기차량손해 담보를 확인합니다",
+            ],
+            [
+              "호우주의보",
+              "지하 깊은 층에 세워뒀다면 위층이나 지상으로 미리 옮깁니다",
+            ],
+            [
+              "호우경보",
+              "저지대·하천 인접 단지라면 지하에서 빼서 고지대로 옮깁니다",
+            ],
+            [
+              "관리사무소 이동 방송",
+              "이미 늦은 편입니다. 즉시 움직이되, 물이 보이기 시작하면 차를 포기합니다",
+            ],
+            [
+              "물이 들어오는 중",
+              "지하로 내려가지 않습니다. 지하에 있었다면 차를 두고 계단으로 올라옵니다",
+            ],
+          ]}
+        />
+        <p className="text-[12px]">
+          특보 기준과 발령 지역은 기상청이 정하며, 단지별 대응 요령은 관리주체의 안내를 따릅니다. 위
+          표는 개인이 미리 정해두면 좋은 행동의 예시입니다.
+        </p>
+      </Section>
+
+      <Section id="fire" heading="화재 — 지하에서는 연기가 더 위험합니다">
         <Sub heading="대피가 우선입니다">
           <p>
             지하주차장 화재에서 인명 피해는 대부분 불이 아니라 연기 때문에 생깁니다. 밀폐된 공간이라
@@ -102,7 +165,41 @@ export default function Page() {
         </Sub>
       </Section>
 
-      <Section heading="평소에 해둘 수 있는 것">
+      <Section id="ev-fire" heading="전기차 화재는 무엇이 다른가">
+        <p>
+          아파트 지하주차장에 충전기가 늘면서 자주 나오는 걱정입니다. 발생 빈도를 두고는 여러 통계가
+          엇갈리지만, <strong className="text-main">일단 불이 붙었을 때의 성격이 다르다</strong>는 점은
+          비교적 분명합니다. 이용자 입장에서 알아둘 것은 세 가지입니다.
+        </p>
+        <Bullets
+          items={[
+            <>
+              <strong className="text-main">끄기 어렵다</strong> — 배터리 내부에서 열이 스스로 이어지는
+              형태라, 겉불이 꺼진 것처럼 보여도 다시 붙을 수 있습니다. 차량용 소화기로 대응할 수 있는
+              단계가 매우 짧습니다.
+            </>,
+            <>
+              <strong className="text-main">연기가 독하다</strong> — 지하처럼 밀폐된 공간에서는 특히
+              위험합니다. 대피 원칙은 일반 화재와 같지만, 더 빨리 움직여야 합니다.
+            </>,
+            <>
+              <strong className="text-main">주변으로 옮겨붙기 쉽다</strong> — 그래서 단지에 따라 충전
+              구역을 지상이나 출입구 가까운 쪽에 두거나, 소화 설비를 추가로 두기도 합니다.
+            </>,
+          ]}
+        />
+        <p>
+          이용자가 할 수 있는 현실적인 대비는 단순합니다. 충전 중 차에서 타는 냄새나 평소와 다른 소리가
+          나면 즉시 충전을 멈추고 관리사무소에 알리는 것, 그리고 충전 구역 근처에서 소화 설비와 비상구
+          위치를 한 번 봐두는 것입니다.
+        </p>
+        <p className="text-[12px]">
+          전기차 화재의 위험도와 대응 장비는 기관·연구마다 평가가 갈리는 영역입니다. 이 글은 이용자
+          입장의 행동 요령만 다루며, 단지의 구체적인 대응은 관리주체와 소방 당국의 안내를 따르세요.
+        </p>
+      </Section>
+
+      <Section id="prepare" heading="평소에 해둘 수 있는 것">
         <Bullets
           items={[
             "자동차보험에 자기차량손해 담보가 들어 있는지 확인해 두세요. 침수 보상의 전제가 됩니다.",
@@ -122,6 +219,36 @@ export default function Page() {
         으로 그때그때 층수를 저장해 두세요. 가족에게 링크로 공유해 두면 급한 상황에서 누구든 차를
         찾을 수 있습니다.
       </Callout>
+
+      <Checklist
+        title="오늘 한 번만 해두면 되는 것"
+        items={[
+          "내가 늘 대는 자리에서 가장 가까운 비상계단 위치 확인",
+          "관리사무소 전화번호를 휴대폰에 저장",
+          "보험 증권에서 자기차량손해 담보 가입 여부 확인",
+          "호우 때 차를 옮길 고지대 주차 장소 한 곳 정해두기",
+        ]}
+      />
+
+      <Sources
+        items={[
+          {
+            name: "국민재난안전포털 (행정안전부)",
+            url: "https://www.safekorea.go.kr",
+            note: "호우·침수 국민행동요령과 대피소 정보",
+          },
+          {
+            name: "소방청",
+            url: "https://www.nfa.go.kr",
+            note: "지하 공간 화재 시 대피 요령과 차량 화재 통계",
+          },
+          {
+            name: "기상청",
+            url: "https://www.weather.go.kr",
+            note: "호우주의보·호우경보 발령 기준과 지역별 특보 현황",
+          },
+        ]}
+      />
     </TipPage>
   );
 }

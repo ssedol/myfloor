@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import TipPage from "@/components/TipPage";
-import { Section, Sub, Bullets, Callout, DataTable } from "@/components/DocPage";
+import {
+  Section,
+  Sub,
+  Bullets,
+  Callout,
+  DataTable,
+  KeyPoints,
+  Checklist,
+  Sources,
+} from "@/components/DocPage";
 import { getTip } from "@/content/tips";
 
 const meta = getTip("mechanical-parking-lot")!;
@@ -12,9 +21,27 @@ export const metadata: Metadata = {
   alternates: { canonical: `/tips/${meta.slug}` },
 };
 
+const TOC = [
+  { id: "numbers", label: "진입 전에 확인할 네 가지 숫자" },
+  { id: "types", label: "설비 종류에 따라 달라지는 것" },
+  { id: "order", label: "차를 올리는 순서" },
+  { id: "accident", label: "흔한 사고와 예방" },
+  { id: "after", label: "사고가 났다면" },
+  { id: "avoid", label: "애초에 피하는 것도 방법입니다" },
+];
+
 export default function Page() {
   return (
-    <TipPage meta={meta}>
+    <TipPage meta={meta} toc={TOC}>
+      <KeyPoints
+        items={[
+          "전폭·전장·전고·중량 네 가지 중 하나라도 넘으면 들어가지 않는다. 기준은 주차장마다 다르다.",
+          "가장 흔한 사고는 사이드미러 파손이다. 내리기 전에 양쪽이 접혔는지 눈으로 확인한다.",
+          "기어는 P에 놓고 사이드브레이크를 채운다. 중립에 두면 안 된다.",
+          "사람이 설비 안에 있는 상태에서는 어떤 경우에도 작동시키지 않는다.",
+        ]}
+      />
+
       <p className="text-sub text-sm leading-relaxed">
         기계식 주차장은 철판 위에 차를 올리면 기계가 알아서 자리로 옮겨 주는 설비입니다. 좁은 땅에
         많은 차를 넣을 수 있어 도심 상가와 오피스텔에 흔합니다. 문제는{" "}
@@ -22,7 +49,7 @@ export default function Page() {
         있다</strong>는 점입니다. 들어가기 전에 확인할 것부터 보겠습니다.
       </p>
 
-      <Section heading="진입 전에 확인할 네 가지 숫자">
+      <Section id="numbers" heading="진입 전에 확인할 네 가지 숫자">
         <p>
           입구에 반드시 제원 제한이 붙어 있습니다. 네 가지 중 하나라도 넘으면 들어가면 안 됩니다.
         </p>
@@ -47,7 +74,53 @@ export default function Page() {
         </p>
       </Section>
 
-      <Section heading="차를 올리는 순서">
+      <Section id="types" heading="설비 종류에 따라 달라지는 것">
+        <p>
+          &lsquo;기계식 주차장&rsquo;은 하나의 물건이 아니라 여러 방식의 총칭입니다. 어떤 방식인지에
+          따라 대기 시간도, 조심할 지점도 달라집니다. 입구에서 설비 생김새만 봐도 대충 구분됩니다.
+        </p>
+        <DataTable
+          head={["방식", "생김새", "이용자가 주의할 점"]}
+          rows={[
+            [
+              "2단·다단식",
+              "철판이 위아래로 겹쳐 있고 차가 그대로 보임",
+              "아래 칸 차를 빼려면 위 칸을 먼저 내려야 해 대기가 생깁니다",
+            ],
+            [
+              "승강기식(엘리베이터식)",
+              "입구 한 곳에 차를 넣으면 안으로 사라짐",
+              "안이 보이지 않아 제원 초과를 스스로 확인해야 합니다",
+            ],
+            [
+              "수직순환식",
+              "관람차처럼 칸이 돌아가는 구조",
+              "내 차가 돌아올 때까지 대기가 길고, 중량 제한이 빡빡합니다",
+            ],
+            [
+              "평면왕복식",
+              "지하 여러 층으로 차를 옮겨 세움",
+              "입출차 절차가 길어 출차 요청을 미리 해두는 편이 낫습니다",
+            ],
+          ]}
+        />
+        <p>
+          공통적으로 <strong className="text-main">안이 보이지 않는 방식일수록 위험</strong>합니다. 2단식은
+          문제가 생기면 눈에 바로 보이지만, 승강기식은 차가 들어간 뒤에야 걸린 것을 알게 됩니다. 처음
+          가는 건물에서 승강기식을 만났다면 제원 확인을 한 번 더 하세요.
+        </p>
+        <Checklist
+          title="내 차 제원, 한 번만 적어두면 평생 씁니다"
+          items={[
+            "전장(길이) — 제조사 제원표의 '전장' 항목",
+            "전폭(너비) — 사이드미러를 접은 상태 기준인지 확인",
+            "전고(높이) — 루프랙·안테나·루프박스를 단 상태의 실제 높이",
+            "공차중량 — 사람과 짐을 뺀 차 자체의 무게",
+          ]}
+        />
+      </Section>
+
+      <Section id="order" heading="차를 올리는 순서">
         <Bullets
           items={[
             "팔레트(철판)가 완전히 멈춘 것을 눈으로 확인하고 진입합니다. 움직이는 중에 올리면 안 됩니다.",
@@ -60,7 +133,7 @@ export default function Page() {
         />
       </Section>
 
-      <Section heading="흔한 사고와 예방">
+      <Section id="accident" heading="흔한 사고와 예방">
         <Sub heading="사이드미러 파손">
           <p>
             가장 흔합니다. 접었다고 생각했는데 한쪽만 접힌 경우, 또는 전동 접이가 작동 중에 다시
@@ -88,7 +161,7 @@ export default function Page() {
         </Sub>
       </Section>
 
-      <Section heading="사고가 났다면">
+      <Section id="after" heading="사고가 났다면">
         <Bullets
           items={[
             "즉시 관리인에게 알리고 설비를 멈춥니다. 혼자 해결하려다 손상이 커지는 경우가 많습니다.",
@@ -104,7 +177,7 @@ export default function Page() {
         </p>
       </Section>
 
-      <Section heading="애초에 피하는 것도 방법입니다">
+      <Section id="avoid" heading="애초에 피하는 것도 방법입니다">
         <p>
           차가 크거나, 루프박스를 달았거나, 시간 여유가 없다면 기계식 주차장은 건너뛰는 편이
           낫습니다. 입출차에 한 대당 2~3분이 걸려서 앞에 서너 대만 밀려도 10분이 사라집니다. 근처
@@ -123,6 +196,26 @@ export default function Page() {
         </Link>
         에 있습니다.
       </Callout>
+
+      <Sources
+        items={[
+          {
+            name: "한국교통안전공단",
+            url: "https://www.kotsa.or.kr",
+            note: "기계식 주차장치 검사와 안전 관리 업무를 맡는 기관",
+          },
+          {
+            name: "국가법령정보센터",
+            url: "https://www.law.go.kr",
+            note: "「주차장법」과 시행규칙에서 기계식 주차장 관리인·검사 관련 조항 확인",
+          },
+          {
+            name: "국토교통부",
+            url: "https://www.molit.go.kr",
+            note: "주차장 제도 전반과 기계식 주차장 안전 정책 안내",
+          },
+        ]}
+      />
     </TipPage>
   );
 }

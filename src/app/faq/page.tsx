@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import DocPage from "@/components/DocPage";
 import { FaqEntry } from "@/components/FaqSection";
+import JsonLd from "@/components/JsonLd";
 import { FAQS } from "@/content/faq";
 
 export const metadata: Metadata = {
@@ -27,10 +28,7 @@ const faqJsonLd = {
 export default function FaqPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      <JsonLd data={faqJsonLd} />
       <DocPage
         title="자주 묻는 질문"
         lead="몇층을 쓰면서 가장 많이 받은 질문을 모았습니다. 답을 찾지 못하셨다면 아래 문의처로 연락 주세요."

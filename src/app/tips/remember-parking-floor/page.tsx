@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import TipPage from "@/components/TipPage";
-import { Section, Bullets, Callout } from "@/components/DocPage";
+import {
+  Section,
+  Sub,
+  Bullets,
+  Callout,
+  KeyPoints,
+  Checklist,
+  DataTable,
+} from "@/components/DocPage";
 import { getTip } from "@/content/tips";
 
 const meta = getTip("remember-parking-floor")!;
@@ -12,9 +20,31 @@ export const metadata: Metadata = {
   alternates: { canonical: `/tips/${meta.slug}` },
 };
 
+const TOC = [
+  { id: "why", label: "왜 하필 주차 층수만 잊을까" },
+  { id: "rule1", label: "1. 엘리베이터 버튼을 누르기 전에 기록한다" },
+  { id: "rule2", label: "2. 기둥 번호를 층수보다 우선한다" },
+  { id: "rule3", label: "3. 소리 내어 한 번 말한다" },
+  { id: "rule4", label: "4. 사진은 '찾을 수 있게' 찍는다" },
+  { id: "rule5", label: "5. 매번 같은 구역에 대는 규칙을 만든다" },
+  { id: "rule6", label: "6. 가족과 같은 방식을 쓴다" },
+  { id: "rule7", label: "7. 기억 대신 도구에 맡긴다" },
+  { id: "compare", label: "기록 방법 비교" },
+  { id: "start", label: "오늘부터 하나만 고른다면" },
+];
+
 export default function Page() {
   return (
-    <TipPage meta={meta}>
+    <TipPage meta={meta} toc={TOC}>
+      <KeyPoints
+        items={[
+          "층수를 잊는 건 기억력 문제가 아니라, 매일 반복되는 기억끼리 겹치기 때문이다.",
+          "기록 시점을 '엘리베이터 버튼을 누르기 직전'으로 고정하는 규칙 하나가 가장 효과가 크다.",
+          "어차피 하나를 남길 거라면 층수보다 정보량이 많은 기둥 번호(B3-24)를 남긴다.",
+          "습관이 안 잡히면 도구로 넘어간다. 조건은 지하에서 동작할 것, 3초 안에 끝날 것, 덮어쓰기가 될 것.",
+        ]}
+      />
+
       <p className="text-sub text-sm leading-relaxed">
         주차 층수를 잊는 건 기억력이 나빠서가 아닙니다. 주차는 매일 반복되는 행동이라 어제의 기억과 오늘의
         기억이 겹쳐버리고(간섭), 주차하는 순간에는 이미 머릿속이 다른 생각으로 가득하기 때문입니다.
@@ -22,7 +52,35 @@ export default function Page() {
         합니다.
       </p>
 
-      <Section heading="1. 엘리베이터 버튼을 누르기 전에 기록한다">
+      <Section id="why" heading="왜 하필 주차 층수만 잊을까">
+        <p>
+          전화번호나 비밀번호는 잘 외우는 사람도 주차 층수는 매번 놓칩니다. 주차 층수라는 정보가 특별히
+          어려워서가 아니라, 기억하기에 최악인 조건을 세 개나 갖추고 있기 때문입니다.
+        </p>
+        <Bullets
+          items={[
+            <>
+              <strong className="text-main">매번 비슷하지만 매번 다르다</strong> — 어제는 B3, 오늘은 B5.
+              완전히 새로운 정보라면 오히려 남지만, 비슷한 값이 계속 덮어써지면 어느 것이 오늘 것인지
+              구분이 사라집니다. 이것이 간섭입니다.
+            </>,
+            <>
+              <strong className="text-main">기억할 의도 없이 지나간다</strong> — 주차하는 순간 머릿속은
+              장보기 목록이나 회사 일로 차 있습니다. 주의를 주지 않은 정보는 애초에 저장되지 않습니다.
+            </>,
+            <>
+              <strong className="text-main">쓰기까지의 간격이 길다</strong> — 아침에 저장한 정보를 저녁에
+              꺼내 씁니다. 그사이 수백 가지 일이 지나갑니다.
+            </>,
+          ]}
+        />
+        <p>
+          그래서 대책도 &lsquo;더 집중해서 외운다&rsquo;가 아니라, 세 조건 중 하나를 깨는 방향이어야
+          합니다. 아래 일곱 가지는 모두 그중 하나를 겨냥합니다.
+        </p>
+      </Section>
+
+      <Section id="rule1" heading="1. 엘리베이터 버튼을 누르기 전에 기록한다">
         <p>
           가장 중요한 규칙 하나만 고르라면 이것입니다. 주차 직후가 아니라{" "}
           <strong className="text-main">엘리베이터 버튼을 누르기 직전</strong>을 기록 시점으로 정하세요.
@@ -31,11 +89,14 @@ export default function Page() {
         </p>
         <p>
           &lsquo;주차하면 기록&rsquo;은 실패합니다. 주차 후 짐을 챙기고 아이를 내리고 문을 잠그는 사이에
-          기록이라는 행동이 끼어들 틈이 없기 때문입니다.
+          기록이라는 행동이 끼어들 틈이 없기 때문입니다. 새 습관은 의지가 아니라{" "}
+          <strong className="text-main">이미 굳어진 행동에 붙일 때</strong> 자리를 잡습니다. 계단으로
+          다니신다면 계단실 문을 여는 순간을, 지상으로 바로 나가신다면 출입문 비밀번호를 누르는 순간을
+          같은 방식으로 쓰면 됩니다.
         </p>
       </Section>
 
-      <Section heading="2. 기둥 번호를 층수보다 우선한다">
+      <Section id="rule2" heading="2. 기둥 번호를 층수보다 우선한다">
         <p>
           대부분의 주차장 기둥에는 &lsquo;B3-24&rsquo;처럼 층과 구역이 함께 적혀 있습니다. 층수만 외우면
           그 넓은 한 층을 다시 훑어야 하지만, 기둥 번호까지 있으면 도착 즉시 차를 찾습니다. 외울 게
@@ -46,17 +107,30 @@ export default function Page() {
           기둥에 번호가 없는 주차장이라면 가장 가까운 고정물(소화전, 출구 표지, 장애인 주차구역, 엘리베이터
           번호)을 대신 쓰세요.
         </p>
+        <Sub heading="기둥 번호를 읽는 법">
+          <p>
+            표기 방식은 단지마다 다르지만 대개 &lsquo;층-구역&rsquo; 또는 &lsquo;구역-열&rsquo; 구조입니다.
+            B3-24라면 지하 3층 24번 구역, 3-B-12라면 3층 B구역 12열인 식입니다. 한 번만 규칙을 파악해
+            두면 이후로는 숫자 하나로 위치가 특정됩니다. 앞자리가 층과 일치하는지만 확인해 두세요. 지상과
+            지하가 섞인 건물에서는 앞자리가 층이 아니라 동을 뜻하는 경우도 있습니다.
+          </p>
+        </Sub>
       </Section>
 
-      <Section heading="3. 소리 내어 한 번 말한다">
+      <Section id="rule3" heading="3. 소리 내어 한 번 말한다">
         <p>
-          눈으로만 본 정보보다 입으로 말한 정보가 더 오래 남습니다(생성 효과). 차 문을 닫으면서
-          &ldquo;B3, 24번&rdquo;이라고 한 번만 소리 내어 말해 보세요. 동승자가 있으면 동승자에게
+          눈으로만 본 정보보다 입으로 말한 정보가 더 오래 남는다고 알려져 있습니다(생성 효과). 차 문을
+          닫으면서 &ldquo;B3, 24번&rdquo;이라고 한 번만 소리 내어 말해 보세요. 동승자가 있으면 동승자에게
           말하는 형태가 되어 더 효과적입니다.
+        </p>
+        <p>
+          효과를 더 키우고 싶다면 숫자에 의미를 붙이세요. &ldquo;B3 — 삼겹살&rdquo;처럼 억지스러울수록
+          잘 남습니다. 다만 매일 같은 연상을 쓰면 다시 간섭이 생기므로, 그날그날 다른 말을 붙이는 편이
+          낫습니다. 이 방법은 가끔 주차하는 낯선 건물에서 특히 잘 통합니다.
         </p>
       </Section>
 
-      <Section heading="4. 사진은 &lsquo;찍는 것&rsquo;이 아니라 &lsquo;찾을 수 있게&rsquo; 찍는다">
+      <Section id="rule4" heading="4. 사진은 &lsquo;찍는 것&rsquo;이 아니라 &lsquo;찾을 수 있게&rsquo; 찍는다">
         <p>
           기둥 번호를 사진으로 찍는 방법은 널리 쓰이지만 치명적인 약점이 있습니다. 며칠 지나면 사진첩에
           비슷한 기둥 사진이 수십 장 쌓여서, 어제 것인지 오늘 것인지 구분이 안 됩니다. 사진으로 하려면
@@ -67,11 +141,12 @@ export default function Page() {
             "찍고 나서 바로 '즐겨찾기(하트)'를 눌러 두고, 다음에 찍을 때 이전 즐겨찾기를 해제한다.",
             "잠금화면 배경으로 지정한다. 폰을 켜는 순간 보이므로 찾으러 갈 때 확실하다.",
             "사진첩 대신 메모 앱 하나에 덮어쓰기로 저장한다. 항상 최신 한 장만 남는다.",
+            "기둥만 찍지 말고 한 걸음 물러나 내 차와 기둥이 한 화면에 들어오게 찍는다. 나중에 봤을 때 '이게 내 차 옆 기둥이 맞나'를 의심하지 않게 됩니다.",
           ]}
         />
       </Section>
 
-      <Section heading="5. 매번 같은 구역에 대는 규칙을 만든다">
+      <Section id="rule5" heading="5. 매번 같은 구역에 대는 규칙을 만든다">
         <p>
           가능하다면 &lsquo;우리 집은 항상 B3, 자리가 없으면 B4&rsquo;처럼 우선순위를 정해 두세요.
           선택지가 8개에서 2개로 줄면 잊어버려도 손해가 크지 않습니다. 출퇴근 시간이 일정한 분들은
@@ -79,20 +154,30 @@ export default function Page() {
         </p>
         <p>
           단점은 원하는 자리가 없을 때 몇 바퀴를 더 돌게 된다는 점입니다. 만차가 잦은 단지라면 이
-          방법보다 기록하는 쪽이 낫습니다.
+          방법보다 기록하는 쪽이 낫습니다. 또 하나, 늘 같은 자리에 대면 문콕이나 접촉 위험이 높은 자리를
+          매일 쓰게 될 수도 있습니다. 규칙을 정하기 전에{" "}
+          <Link href="/tips/parking-damage-prevention" className="text-main underline underline-offset-2">
+            문콕 없는 자리 고르는 법
+          </Link>
+          을 함께 보시길 권합니다.
         </p>
       </Section>
 
-      <Section heading="6. 가족과 같은 방식을 쓴다">
+      <Section id="rule6" heading="6. 가족과 같은 방식을 쓴다">
         <p>
           차 한 대를 여러 명이 쓰는 가정에서는 &lsquo;누가 마지막으로 어디에 댔는가&rsquo;가 더 큰
           문제입니다. 각자 자기 방식대로 메모하면 서로 확인할 수 없습니다. 가족이 모두 볼 수 있는 곳
           하나에 기록을 모으는 것이 핵심입니다. 단톡방에 매번 보내는 방법도 있지만 대화에 묻히기
           쉽습니다.
         </p>
+        <p>
+          차가 두 대 이상이면 문제가 한 단계 더 복잡해집니다. &lsquo;아빠차는 B3, 엄마차는 B5&rsquo;를
+          한 화면에서 볼 수 없으면 결국 서로 전화를 하게 됩니다. 차량별로 위치가 따로 보이는 방식을
+          쓰세요.
+        </p>
       </Section>
 
-      <Section heading="7. 기억 대신 도구에 맡긴다">
+      <Section id="rule7" heading="7. 기억 대신 도구에 맡긴다">
         <p>습관을 만들기 어렵다면 도구를 쓰는 편이 현실적입니다. 선택 기준은 세 가지입니다.</p>
         <Bullets
           items={[
@@ -113,18 +198,58 @@ export default function Page() {
         />
       </Section>
 
-      <Callout>
-        <Link href="/" className="underline underline-offset-2 font-semibold">
-          몇층
-        </Link>
-        은 위 세 조건에 맞춰 만든 무료 웹앱입니다. 지하에서도 동작하고(수동 입력), 앱을 열면 바로 층
-        선택 화면이 뜨며, 항상 마지막 위치 하나만 보여줍니다. 가족과는 링크 하나로 공유할 수 있고,
-        NFC 태그를 붙이면{" "}
-        <Link href="/tips/nfc-tag-parking" className="underline underline-offset-2 font-semibold">
-          기록하는 행동 자체
-        </Link>
-        도 없앨 수 있습니다.
-      </Callout>
+      <Section id="compare" heading="기록 방법 비교">
+        <p>
+          위 방법들을 한 표로 정리하면 아래와 같습니다. &lsquo;가장 좋은 방법&rsquo;은 없고, 본인이
+          실제로 매번 하게 되는 방법이 가장 좋은 방법입니다.
+        </p>
+        <DataTable
+          head={["방법", "장점", "약점"]}
+          rows={[
+            ["머릿속으로 외우기", "도구가 필요 없음", "어제 기억과 겹쳐 가장 자주 실패"],
+            ["기둥 사진 찍기", "정보량이 많고 빠름", "사진첩에 쌓이면 최신 것을 못 고름"],
+            ["메모 앱에 덮어쓰기", "항상 한 줄만 남아 확실", "앱을 열고 지우고 쓰는 단계가 많음"],
+            ["가족 단톡방에 보내기", "가족이 함께 확인 가능", "대화에 묻히고 매번 타이핑해야 함"],
+            ["전용 앱에 저장", "열자마자 저장·확인, 덮어쓰기 기본", "앱 하나를 더 두어야 함"],
+            ["NFC 태그 자동 저장", "기록하는 행동 자체가 사라짐", "층마다 태그를 붙여야 함"],
+          ]}
+        />
+      </Section>
+
+      <Section id="start" heading="오늘부터 하나만 고른다면">
+        <p>
+          일곱 가지를 한꺼번에 시작하면 하나도 남지 않습니다. 오늘은 아래에서 하나만 고르세요. 2주쯤
+          지나 그 하나가 몸에 붙은 다음에 다음 것을 더하면 됩니다.
+        </p>
+        <Checklist
+          title="한 가지만 고르기"
+          items={[
+            "매일 같은 시간에 주차한다 → 5번(같은 구역 규칙)부터",
+            "주차 시간과 층이 매번 다르다 → 1번(엘리베이터 앞 기록)부터",
+            "가족이 차를 함께 쓴다 → 6번(공유되는 기록)부터",
+            "지금까지 무엇을 해도 실패했다 → 7번(도구)으로 바로 넘어가기",
+          ]}
+        />
+        <Callout>
+          <Link href="/" className="underline underline-offset-2 font-semibold">
+            몇층
+          </Link>
+          은 위 세 조건에 맞춰 만든 무료 웹앱입니다. 지하에서도 동작하고(수동 입력), 앱을 열면 바로 층
+          선택 화면이 뜨며, 항상 마지막 위치 하나만 보여줍니다. 가족과는 링크 하나로 공유할 수 있고,
+          NFC 태그를 붙이면{" "}
+          <Link href="/tips/nfc-tag-parking" className="underline underline-offset-2 font-semibold">
+            기록하는 행동 자체
+          </Link>
+          도 없앨 수 있습니다. 이미 차를 못 찾고 계신다면{" "}
+          <Link
+            href="/tips/find-car-in-parking-lot"
+            className="underline underline-offset-2 font-semibold"
+          >
+            5분 안에 찾는 순서
+          </Link>
+          를 먼저 보세요.
+        </Callout>
+      </Section>
     </TipPage>
   );
 }

@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import TipPage from "@/components/TipPage";
-import { Section, Sub, Bullets, Callout } from "@/components/DocPage";
+import {
+  Section,
+  Sub,
+  Bullets,
+  Callout,
+  DataTable,
+  KeyPoints,
+  Checklist,
+  Sources,
+} from "@/components/DocPage";
 import { getTip } from "@/content/tips";
 
 const meta = getTip("beginner-parking-tips")!;
@@ -12,16 +21,35 @@ export const metadata: Metadata = {
   alternates: { canonical: `/tips/${meta.slug}` },
 };
 
+const TOC = [
+  { id: "mirror", label: "시작하기 전에 — 사이드미러부터 맞추세요" },
+  { id: "direction", label: "전면주차와 후면주차, 무엇을 고를까" },
+  { id: "back-in", label: "후면주차 — 사이드미러 기준법" },
+  { id: "parallel", label: "평행주차 — 두 번의 꺾기" },
+  { id: "miss", label: "초보가 자주 놓치는 것들" },
+  { id: "assist", label: "주차 보조 기능의 한계" },
+  { id: "practice", label: "연습은 어디서, 어떻게" },
+];
+
 export default function Page() {
   return (
-    <TipPage meta={meta}>
+    <TipPage meta={meta} toc={TOC}>
+      <KeyPoints
+        items={[
+          "주차가 어려운 건 실력이 아니라 기준점이 없어서다. 감이 아니라 '여기서 꺾는다'를 외운다.",
+          "미러를 주차용으로 내려 뒷바퀴와 주차선이 보이게 맞추는 것이 첫 단계다.",
+          "후진할 때 옆 차와 부딪히는 곳은 뒤가 아니라 앞 펜더다. 앞바퀴는 바깥으로 크게 돈다.",
+          "한 번에 안 들어가면 다시 나와서 처음부터. 비집는 것보다 빠르고 안전하다.",
+        ]}
+      />
+
       <p className="text-sub text-sm leading-relaxed">
         주차가 어려운 이유는 운전 실력이 아니라 <strong className="text-main">기준점이
         없어서</strong>입니다. 베테랑도 처음 타는 차에서는 헤맵니다. 반대로 &lsquo;여기서 꺾는다&rsquo;는
         기준 하나만 몸에 익으면 초보도 한 번에 들어갑니다. 감을 익히려 하지 말고 기준점을 외우세요.
       </p>
 
-      <Section heading="시작하기 전에 — 사이드미러부터 맞추세요">
+      <Section id="mirror" heading="시작하기 전에 — 사이드미러부터 맞추세요">
         <p>
           주차를 못 하는 사람의 절반은 미러가 잘못 맞춰져 있습니다. 주차용 각도는 주행용과 다릅니다.
         </p>
@@ -34,7 +62,27 @@ export default function Page() {
         />
       </Section>
 
-      <Section heading="후면주차 (직각주차) — 사이드미러 기준법">
+      <Section id="direction" heading="전면주차와 후면주차, 무엇을 고를까">
+        <p>
+          초보일수록 앞으로 쑥 넣는 전면주차가 쉬워 보입니다. 실제로 넣기는 쉽습니다. 문제는 뺄 때입니다.
+          좁은 통로에서 시야가 막힌 채 후진해 나와야 하고, 그때 지나가는 사람과 차를 볼 수 없습니다.
+        </p>
+        <DataTable
+          head={["구분", "넣을 때", "뺄 때", "적합한 곳"]}
+          rows={[
+            ["후면주차", "어렵다 (기준점 필요)", "쉽고 안전하다", "아파트·마트 등 대부분의 주차장"],
+            ["전면주차", "쉽다", "시야가 막혀 위험하다", "배기가스 규제 구역, 벽면 충전기 앞"],
+          ]}
+        />
+        <p>
+          연습이 필요한 쪽은 후면주차이고, 시간을 들일 가치도 후면주차에 있습니다. 다만{" "}
+          <strong className="text-main">&lsquo;전면주차 요망&rsquo; 표지가 붙은 곳</strong>에서는 반드시
+          전면으로 대야 합니다. 벽 너머가 주거 공간이거나 환기구가 있어 배기가스가 문제 되는 자리이기
+          때문입니다. 전기차 충전기 앞도 케이블 길이 때문에 지정된 방향이 있습니다.
+        </p>
+      </Section>
+
+      <Section id="back-in" heading="후면주차 (직각주차) — 사이드미러 기준법">
         <Sub heading="1. 자리 옆을 지나며 간격 만들기">
           <p>
             들어갈 자리와 <strong className="text-main">내 차 옆면 사이를 약 1m</strong> 띄우고
@@ -74,7 +122,7 @@ export default function Page() {
         </Callout>
       </Section>
 
-      <Section heading="평행주차 — 두 번의 꺾기">
+      <Section id="parallel" heading="평행주차 — 두 번의 꺾기">
         <Bullets
           items={[
             "앞차와 나란히, 약 50~80cm 띄우고 섭니다. 내 차 뒷바퀴가 앞차 뒷범퍼와 비슷한 선에 오게 합니다.",
@@ -91,7 +139,7 @@ export default function Page() {
         </p>
       </Section>
 
-      <Section heading="초보가 자주 놓치는 것들">
+      <Section id="miss" heading="초보가 자주 놓치는 것들">
         <Bullets
           items={[
             <>
@@ -117,11 +165,59 @@ export default function Page() {
         />
       </Section>
 
-      <Section heading="연습은 어디서">
+      <Section id="assist" heading="주차 보조 기능의 한계">
+        <p>
+          요즘 차에는 주차를 돕는 장치가 여럿 달려 있습니다. 편리하지만 각각 못 보는 것이 분명히
+          있습니다. 무엇을 못 보는지 알고 쓰는 것과 모르고 믿는 것은 결과가 크게 다릅니다.
+        </p>
+        <Bullets
+          items={[
+            <>
+              <strong className="text-main">후방 카메라</strong> — 광각이라 실제보다 멀어 보입니다. 또
+              렌즈에 물방울이나 먼지가 묻으면 그대로 왜곡됩니다. 비 오는 날에는 특히 믿지 마세요.
+            </>,
+            <>
+              <strong className="text-main">후방 센서</strong> — 초음파라 얇은 기둥, 철망, 낮은 턱,
+              경사진 벽을 놓칩니다. 삑 소리가 안 난다고 비어 있는 것이 아닙니다.
+            </>,
+            <>
+              <strong className="text-main">서라운드 뷰</strong> — 위에서 내려다보는 합성 영상이라
+              차체 높이보다 위에 있는 물체(주차장 배관, 낮은 천장, 열린 트렁크 문)는 표현되지 않습니다.
+            </>,
+            <>
+              <strong className="text-main">자동 주차</strong> — 주차선이 뚜렷하고 양옆에 차가 있어야
+              자리를 인식합니다. 선이 지워진 오래된 주차장에서는 대부분 동작하지 않습니다.
+            </>,
+          ]}
+        />
+        <p>
+          보조 장치는 <strong className="text-main">눈으로 본 것을 확인하는 용도</strong>지, 눈을
+          대신하는 용도가 아닙니다. 애매하면 내려서 보는 습관이 어떤 장비보다 낫습니다.
+        </p>
+      </Section>
+
+      <Section id="practice" heading="연습은 어디서, 어떻게">
         <p>
           주말 이른 아침의 대형마트 지하주차장이 가장 좋습니다. 차가 거의 없고, 조명이 일정하고,
           주차선 규격이 표준이라 기준점을 익히기 좋습니다. 빈 자리 하나를 정해두고 열 번 반복해
           보세요. 열 번이면 기준점이 몸에 붙습니다.
+        </p>
+        <p>
+          다만 그냥 열 번 하는 것과 아래처럼 하는 것은 차이가 큽니다. 매번 같은 자리에서, 한 번에 하나만
+          바꿔가며 하세요.
+        </p>
+        <Checklist
+          title="같은 자리에서 열 번"
+          items={[
+            "1~3회 — 멈추는 지점(어깨가 주차선을 지나는 순간)만 정확히 맞춰 본다.",
+            "4~6회 — 핸들을 끝까지 감은 뒤, 미러 속 주차선이 나란해지는 순간을 눈에 익힌다.",
+            "7~8회 — 한 번에 안 들어왔을 때 다시 나와서 처음부터 하는 절차를 연습한다.",
+            "9~10회 — 옆에 차가 있다고 가정하고, 앞 펜더가 지나는 궤적을 확인하며 넣는다.",
+          ]}
+        />
+        <p>
+          연습할 때 동승자가 있다면 밖에서 봐달라고 하세요. 본인은 절대 볼 수 없는 각도에서 무엇이
+          닿을 뻔했는지 알려줄 수 있습니다.
         </p>
       </Section>
 
@@ -136,6 +232,21 @@ export default function Page() {
         </Link>
         를 보세요.
       </Callout>
+
+      <Sources
+        items={[
+          {
+            name: "도로교통공단",
+            url: "https://www.koroad.or.kr",
+            note: "운전면허 교육 과정과 주차·후진 관련 안전운전 자료",
+          },
+          {
+            name: "한국교통안전공단",
+            url: "https://www.kotsa.or.kr",
+            note: "차량 제원과 주차 보조 장치(첨단 안전장치) 관련 자료",
+          },
+        ]}
+      />
     </TipPage>
   );
 }

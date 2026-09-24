@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import TipPage from "@/components/TipPage";
-import { Section, Sub, Bullets, Callout } from "@/components/DocPage";
+import {
+  Section,
+  Sub,
+  Bullets,
+  Callout,
+  KeyPoints,
+  Checklist,
+  DataTable,
+  Sources,
+} from "@/components/DocPage";
 import { getTip } from "@/content/tips";
 
 const meta = getTip("find-car-in-parking-lot")!;
@@ -12,16 +21,35 @@ export const metadata: Metadata = {
   alternates: { canonical: `/tips/${meta.slug}` },
 };
 
+const TOC = [
+  { id: "step1", label: "1단계 — 층부터 좁힌다 (걷기 전에)" },
+  { id: "step2", label: "2단계 — 스마트키를 제대로 쓴다" },
+  { id: "step3", label: "3단계 — 휴대폰에 남은 흔적을 뒤진다" },
+  { id: "step4", label: "4단계 — 관리사무소와 CCTV" },
+  { id: "sweep", label: "한 층을 훑을 때의 요령" },
+  { id: "place", label: "주차장 종류별로 달라지는 것" },
+  { id: "next", label: "다음번을 위해 지금 해둘 것" },
+];
+
 export default function Page() {
   return (
-    <TipPage meta={meta}>
+    <TipPage meta={meta} toc={TOC}>
+      <KeyPoints
+        items={[
+          "걷기 전에 후보 층을 2~3개로 줄이는 것이 가장 크게 시간을 아낀다.",
+          "스마트키가 안 먹히는 이유는 대부분 고장이 아니라 거리다. 20m씩 이동하며 다시 눌러본다.",
+          "지하에서 GPS는 무력하지만 블랙박스 앱 연결·걸음 수·제조사 앱 기록은 단서를 남긴다.",
+          "한 층은 반드시 'ㄹ' 자로 한 방향으로만 훑는다. 왔다 갔다 하면 빠뜨리는 구역이 생긴다.",
+        ]}
+      />
+
       <p className="text-sub text-sm leading-relaxed">
         지하주차장에서 차를 잃어버렸을 때 가장 나쁜 선택은 무작정 걷는 것입니다. B1부터 B8까지 한 층씩
         훑으면 30분이 넘게 걸리고, 이미 지나온 구역을 다시 걷게 됩니다. 아래 순서대로 하면 대부분 5분
         안에 끝납니다.
       </p>
 
-      <Section heading="1단계 — 층부터 좁힌다 (걷기 전에)">
+      <Section id="step1" heading="1단계 — 층부터 좁힌다 (걷기 전에)">
         <p>
           가장 먼저 할 일은 &lsquo;후보 층 개수를 줄이는 것&rsquo;입니다. 걷기 시작하면 판단력이 흐려지므로
           엘리베이터 앞에 선 채로 아래를 떠올려 보세요.
@@ -50,9 +78,17 @@ export default function Page() {
           이 네 가지만으로도 후보가 8개 층에서 2~3개 층으로 줄어듭니다. 확신이 서는 층 하나를 먼저
           정하세요.
         </p>
+        <Sub heading="애매하면 '아래에서 위로'가 낫다">
+          <p>
+            후보가 B2와 B4처럼 떨어져 있어 도저히 못 고르겠다면, 더 깊은 층부터 확인하세요. 두 가지
+            이유가 있습니다. 하나는 사람은 자기가 내려간 깊이를 실제보다 얕게 기억하는 경향이 있다는 점,
+            다른 하나는 아래층에서 위층으로 올라오는 동선이 램프를 따라 자연스럽다는 점입니다. 위에서
+            아래로 내려가면 못 찾았을 때 다시 올라와야 합니다.
+          </p>
+        </Sub>
       </Section>
 
-      <Section heading="2단계 — 스마트키를 제대로 쓴다">
+      <Section id="step2" heading="2단계 — 스마트키를 제대로 쓴다">
         <p>
           스마트키의 도달 거리는 개활지에서 20~50m 정도지만, 콘크리트 기둥과 차체가 빽빽한 지하주차장에서는
           체감상 10~20m로 줄어듭니다. 그래서 &ldquo;눌러봤는데 안 되네&rdquo;는 대부분 거리 문제입니다.
@@ -65,9 +101,14 @@ export default function Page() {
             "주차장 내 기둥 사이 통로(주행로) 한가운데에서 누르는 편이 차 사이에 끼어서 누르는 것보다 잘 닿습니다.",
           ]}
         />
+        <Callout>
+          한밤중이나 이른 아침이라면 비상등 버튼은 자제하는 편이 좋습니다. 지하주차장은 소리가 울려
+          위층 세대까지 들립니다. 이때는 소리 없이 방향지시등만 깜빡이는 잠금 버튼을 반복해서 누르며
+          불빛을 찾는 쪽이 낫습니다.
+        </Callout>
       </Section>
 
-      <Section heading="3단계 — 휴대폰에 남은 흔적을 뒤진다">
+      <Section id="step3" heading="3단계 — 휴대폰에 남은 흔적을 뒤진다">
         <p>지하에서는 GPS가 잡히지 않지만, 아래 기록들은 의외로 단서를 남깁니다.</p>
         <Bullets
           items={[
@@ -90,23 +131,51 @@ export default function Page() {
               <strong className="text-main">사진첩</strong> — 무의식적으로 기둥 번호를 찍어둔 적이 없는지
               확인해 보세요. 사진의 촬영 시각이 주차 시각과 맞으면 그게 답입니다.
             </>,
+            <>
+              <strong className="text-main">블루투스 연결 기록</strong> — 휴대폰 설정의 블루투스 목록에서
+              차량 오디오가 &lsquo;연결됨&rsquo;으로 잡히면 통상 10m 안쪽입니다. 목록을 띄워둔 채 걸으며
+              연결 상태가 바뀌는 지점을 보면 방향을 좁힐 수 있습니다.
+            </>,
+          ]}
+        />
+        <p>
+          위 다섯 가지 중 무엇이 먼저 통하는지는 차와 휴대폰 조합에 따라 다릅니다. 아래 표는 상황별로
+          어떤 수단을 먼저 꺼내는 것이 빠른지 정리한 것입니다.
+        </p>
+        <DataTable
+          head={["상황", "먼저 쓸 수단"]}
+          rows={[
+            ["커넥티드 서비스 가입 차량", "제조사 앱의 원격 경적·비상등 — 가장 확실합니다"],
+            ["Wi-Fi 블랙박스 장착", "블랙박스 앱 연결 여부로 근처인지 판정"],
+            ["구형 차·장비 없음", "비상등 버튼 + 20m 이동 반복"],
+            ["휴대폰 배터리가 얼마 없음", "층부터 확정하고 한 층만 'ㄹ' 자로 훑기"],
           ]}
         />
       </Section>
 
-      <Section heading="4단계 — 그래도 못 찾으면 관리사무소">
+      <Section id="step4" heading="4단계 — 관리사무소와 CCTV">
         <p>
           대부분의 아파트와 대형 건물 주차장에는 차량번호 인식 카메라(LPR)가 입출차 지점에 설치되어
           있습니다. 관리사무소에 차량번호를 말하면 <strong className="text-main">입차 시각</strong>을
           확인해 줄 수 있고, 일부 단지는 층별 카메라 영상으로 진입한 층까지 특정해 줍니다.
         </p>
         <p>
-          다만 개인정보 보호 문제로 영상 열람은 차주 본인 확인을 거쳐야 하고, 야간에는 당직자만 있어
-          제한될 수 있습니다. 신분증과 차량 등록증을 준비해 가면 절차가 빠릅니다.
+          다만 영상은 개인정보 보호법상 &lsquo;영상정보처리기기&rsquo;로 관리되는 개인정보라, 열람에는
+          본인 확인 절차가 따릅니다. 내 차가 찍힌 영상이라도 화면에 다른 차량과 사람이 함께 나오기
+          때문입니다. 야간에는 당직자만 있어 열람이 다음 날로 미뤄질 수 있습니다.
         </p>
+        <Checklist
+          title="CCTV 열람을 요청할 때 챙겨 갈 것"
+          items={[
+            "신분증 — 본인 확인용으로 거의 항상 요구됩니다.",
+            "차량 등록증 또는 보험 가입 증명서 — 그 차가 내 차임을 보이는 서류입니다.",
+            "입차 추정 시각 — '오후 7시 전후'처럼 범위를 좁혀 가면 검색이 빨라집니다.",
+            "차량번호 전체 — 뒷자리 네 자리만으로는 조회가 안 되는 단지가 많습니다.",
+          ]}
+        />
       </Section>
 
-      <Section heading="한 층을 훑을 때의 요령">
+      <Section id="sweep" heading="한 층을 훑을 때의 요령">
         <Sub heading="지그재그가 아니라 한 방향으로">
           <p>
             통로를 왔다 갔다 하면 반드시 빠뜨리는 구역이 생깁니다. 한쪽 끝에서 시작해 통로를 따라
@@ -125,20 +194,95 @@ export default function Page() {
             &lsquo;20번대까지는 봤다&rsquo;라고 끊어서 기억하면 같은 곳을 두 번 걷지 않습니다.
           </p>
         </Sub>
+        <Sub heading="한 층에 쓸 시간을 정해둔다">
+          <p>
+            한 층을 훑는 데는 보통 3~5분이면 충분합니다. 그 이상 걸리고 있다면 층을 잘못 고른 것이므로,
+            미련을 두지 말고 다음 후보 층으로 넘어가세요. &ldquo;조금만 더&rdquo;를 반복하다 한 층에서
+            15분을 쓰는 것이 가장 흔한 실패입니다.
+          </p>
+        </Sub>
       </Section>
 
-      <Callout>
-        다음부터 이 상황을 만들지 않는 가장 확실한 방법은, 주차하고 엘리베이터 버튼을 누르기 전에 층수를
-        기록하는 것입니다.{" "}
-        <Link href="/" className="underline underline-offset-2 font-semibold">
-          몇층
-        </Link>
-        은 그 과정을 탭 두 번으로 줄이기 위해 만든 무료 웹앱입니다. 습관을 만드는 다른 방법은{" "}
-        <Link href="/tips/remember-parking-floor" className="underline underline-offset-2 font-semibold">
-          주차 층수를 잊지 않는 습관 7가지
-        </Link>
-        에 정리해 두었습니다.
-      </Callout>
+      <Section id="place" heading="주차장 종류별로 달라지는 것">
+        <Sub heading="아파트 지하주차장">
+          <p>
+            동 번호와 엘리베이터 위치가 좌표 역할을 합니다. &lsquo;103동 엘리베이터에서 왼쪽&rsquo;처럼
+            건물 기준으로 기억해 두면 층만 맞히면 거의 바로 찾습니다. 같은 단지라도 지하가 동끼리
+            이어져 있는 구조면 엉뚱한 동 밑을 헤맬 수 있으니, 층보다 먼저 &lsquo;어느 동 밑인지&rsquo;를
+            확정하세요.
+          </p>
+        </Sub>
+        <Sub heading="대형마트 · 백화점">
+          <p>
+            구역이 색이나 과일·동물 이름으로 나뉘어 있습니다. 숫자보다 기억에 오래 남는 편이라 오히려
+            유리합니다. 다만 층마다 같은 구조가 반복되므로 &lsquo;노란 구역&rsquo;만 기억하고 층을
+            놓치면 소용이 없습니다. 층과 구역은 반드시 한 쌍으로 기억하세요. 대부분 주차 정산기 근처에
+            차량번호로 위치를 조회해 주는 키오스크가 있으니, 헤매기 전에 먼저 찾아보는 편이 빠릅니다.
+          </p>
+        </Sub>
+        <Sub heading="공항 · 장기 주차장">
+          <p>
+            며칠 뒤에 돌아오기 때문에 기억이 거의 남지 않는 곳입니다. 여기서만큼은 기록이 유일한
+            해법입니다. 주차 직후 기둥 번호와 구역 표지판을 사진으로 찍어두고, 영수증이나 주차권에
+            위치를 적어두세요. 공항 주차장은 대부분 차량번호로 위치를 조회하는 서비스를 운영하므로,
+            출국 전에 그 방법을 확인해 두면 귀국 후 헤매지 않습니다.
+          </p>
+        </Sub>
+      </Section>
+
+      <Section id="next" heading="다음번을 위해 지금 해둘 것">
+        <p>
+          차를 찾은 직후가 습관을 바꾸기 가장 좋은 순간입니다. 방금 겪은 불편이 아직 생생하기 때문입니다.
+          아래 셋 중 하나만 정해서 오늘부터 적용해 보세요.
+        </p>
+        <Bullets
+          items={[
+            <>
+              <strong className="text-main">기록 시점을 고정한다</strong> — &lsquo;엘리베이터 버튼을
+              누르기 전에 기록&rsquo;처럼 행동에 묶어두면 잊지 않습니다.
+            </>,
+            <>
+              <strong className="text-main">늘 같은 구역에 댄다</strong> — 자리가 없으면 어쩔 수 없지만,
+              가능한 한 같은 층·같은 방향을 고수하면 기억할 일 자체가 줄어듭니다.
+            </>,
+            <>
+              <strong className="text-main">기둥 번호를 찍는다</strong> — 사진 한 장이면 되지만, 나중에
+              사진첩에서 찾아야 하는 것이 단점입니다.
+            </>,
+          ]}
+        />
+        <Callout>
+          다음부터 이 상황을 만들지 않는 가장 확실한 방법은, 주차하고 엘리베이터 버튼을 누르기 전에 층수를
+          기록하는 것입니다.{" "}
+          <Link href="/" className="underline underline-offset-2 font-semibold">
+            몇층
+          </Link>
+          은 그 과정을 탭 두 번으로 줄이기 위해 만든 무료 웹앱입니다. 습관을 만드는 다른 방법은{" "}
+          <Link href="/tips/remember-parking-floor" className="underline underline-offset-2 font-semibold">
+            주차 층수를 잊지 않는 습관 7가지
+          </Link>
+          에, 기록하는 행동 자체를 없애는 방법은{" "}
+          <Link href="/tips/nfc-tag-parking" className="underline underline-offset-2 font-semibold">
+            NFC 태그 자동 저장
+          </Link>
+          에 정리해 두었습니다.
+        </Callout>
+      </Section>
+
+      <Sources
+        items={[
+          {
+            name: "개인정보보호위원회",
+            url: "https://www.pipc.go.kr",
+            note: "주차장 CCTV(영상정보처리기기) 운영 기준과 정보주체의 열람 요구권 안내",
+          },
+          {
+            name: "국가법령정보센터",
+            url: "https://www.law.go.kr",
+            note: "개인정보 보호법에서 영상정보처리기기 설치·운영 조항 원문 확인",
+          },
+        ]}
+      />
     </TipPage>
   );
 }
