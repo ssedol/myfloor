@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    android:background="#F5F3EF">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="위젯 설정"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#40342E"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="차량 이름을 입력하세요"
+        android:textSize="14sp"
+        android:textColor="#8B7B72"
+        android:layout_marginBottom="24dp" />
+
+    <EditText
+        android:id="@+id/config_edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="예: 내 차, 아빠 차"
+        android:inputType="text"
+        android:textSize="16sp"
+        android:textColor="#40342E"
+        android:background="#ECEAE4"
+        android:padding="16dp"
+        android:maxLines="1"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/config_btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="위젯 추가"
+        android:textSize="15sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:background="@drawable/widget_btn_primary_bg" />
+
+</LinearLayout>
