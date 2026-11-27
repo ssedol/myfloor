@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 안드로이드 11 이하 자동 백업: 차량·기록 DB와 설정을 백업해 기기를 바꿔도 유지한다. -->
+<full-backup-content>
+    <include domain="database" path="myfloor.db" />
+    <include domain="file" path="datastore/settings.preferences_pb" />
+</full-backup-content>

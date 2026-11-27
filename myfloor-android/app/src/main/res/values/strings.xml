@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">몇층</string>
+
+    <!-- 공통 -->
+    <string name="add">추가</string>
+    <string name="save">저장</string>
+    <string name="delete">삭제</string>
+    <string name="cancel">취소</string>
+    <string name="close">닫기</string>
+    <string name="back">뒤로</string>
+    <string name="next">다음</string>
+    <string name="open_settings">설정 열기</string>
+
+    <!-- 메인 -->
+    <string name="home_add_vehicle">차량 추가 (%1$d/%2$d)</string>
+    <string name="home_bt_badge">블루투스 연결됨</string>
+    <string name="home_no_floor">아직 저장 안 함</string>
+    <string name="home_tap_to_save">여기를 눌러 층을 저장하세요</string>
+    <string name="home_saved_at">%1$s 저장</string>
+    <string name="home_empty_title">등록된 차량이 없어요</string>
+    <string name="home_empty_desc">차량을 등록하면 주차한 층을 저장할 수 있어요.</string>
+    <string name="widget_tip_title">홈 화면에 위젯을 추가해보세요</string>
+    <string name="widget_tip_desc">앱을 열지 않고 층을 보고 저장할 수 있어요.</string>
+    <string name="widget_tip_add">위젯 추가</string>
+    <string name="a11y_vehicle">%1$s, %2$s, %3$s 저장. 눌러서 층 변경</string>
+    <string name="a11y_memo">메모 %1$s</string>
+    <string name="a11y_vehicle_empty">%1$s, 저장된 층 없음. 눌러서 층 저장</string>
+
+    <!-- 차량 -->
+    <string name="vehicle_add_title">차량 등록</string>
+    <string name="vehicle_rename_title">차량 이름 바꾸기</string>
+    <string name="vehicle_name_label">차량 이름</string>
+    <string name="vehicle_name_hint">예: 아빠차, 엄마차</string>
+
+    <!-- 층 선택 -->
+    <string name="picker_title">%1$s, 몇 층에 주차하셨나요?</string>
+    <string name="picker_add_memo">+ 메모 추가 (예: C구역 12번 기둥)</string>
+    <string name="picker_memo_label">메모</string>
+    <string name="picker_memo_hint">C구역 12번 기둥</string>
+    <string name="picker_choose_floor">층을 먼저 고르세요</string>
+    <string name="picker_save_with_memo">%1$s 저장</string>
+    <string name="range_basement">지하</string>
+    <string name="range_above">지상</string>
+    <string name="range_none">사용 안 함</string>
+    <string name="range_decrease">%1$s 층 줄이기</string>
+    <string name="range_increase">%1$s 층 늘리기</string>
+
+    <!-- 차량 상세 -->
+    <string name="detail_current">현재 위치</string>
+    <string name="detail_save_floor">층 저장</string>
+    <string name="detail_history">주차 기록 (%1$d/%2$d)</string>
+    <string name="detail_clear_history">전체 삭제</string>
+    <string name="detail_history_empty">아직 기록이 없어요.</string>
+    <string name="detail_swipe_hint">기록을 왼쪽으로 밀면 삭제돼요.</string>
+    <string name="detail_delete_vehicle">차량 삭제</string>
+    <string name="detail_delete_title">%1$s을(를) 삭제할까요?</string>
+    <string name="detail_delete_message">이 차량의 주차 기록도 모두 지워지고 되돌릴 수 없어요.</string>
+    <string name="detail_clear_title">주차 기록을 모두 지울까요?</string>
+    <string name="detail_clear_message">%1$s의 주차 기록이 모두 지워지고 되돌릴 수 없어요.</string>
+
+    <!-- 블루투스 -->
+    <string name="bt_section_title">블루투스 끊김 알림</string>
+    <string name="bt_section_desc">차의 블루투스를 연결해두면 시동을 끌 때 \"몇 층에 주차하셨나요?\" 알림이 와요. 알림의 층 버튼을 누르면 바로 저장돼요.</string>
+    <string name="bt_link">블루투스 기기 연결</string>
+    <string name="bt_linked_to">연결된 기기: %1$s</string>
+    <string name="bt_notify_toggle">끊기면 알림 받기</string>
+    <string name="bt_need_bt_permission">블루투스 권한이 없어 끊김을 감지할 수 없어요.</string>
+    <string name="bt_need_notification">알림이 꺼져 있어 알림을 보낼 수 없어요.</string>
+    <string name="bt_change">다른 기기로 변경</string>
+    <string name="bt_unlink">연결 해제</string>
+    <string name="bt_pick_title">차 블루투스 고르기</string>
+    <string name="bt_pick_desc">휴대폰과 이미 페어링된 기기예요. 차 이름을 골라주세요.</string>
+    <string name="bt_pick_empty">페어링된 기기가 없어요. 휴대폰 설정에서 차와 먼저 블루투스로 연결해주세요.</string>
+    <string name="bt_unavailable">이 기기는 블루투스를 지원하지 않아요.</string>
+    <string name="bt_permission_denied">블루투스 권한이 필요해요. 설정에서 \'근처 기기\' 권한을 허용해주세요.</string>
+
+    <!-- 설정 -->
+    <string name="settings_title">설정</string>
+    <string name="settings_floors">층 범위</string>
+    <string name="settings_floors_desc">주차하는 건물의 층에 맞춰 고르세요. 범위를 줄여도 기존 기록은 그대로 남아요.</string>
+    <string name="settings_theme">화면 테마</string>
+    <string name="theme_system">시스템 설정 따르기</string>
+    <string name="theme_light">밝게</string>
+    <string name="theme_dark">어둡게</string>
+    <string name="settings_about">앱 정보</string>
+    <string name="settings_version">버전 %1$s</string>
+    <string name="settings_privacy_note">차량과 주차 기록은 이 휴대폰에만 저장되고 밖으로 보내지 않아요. 메인 화면의 광고에는 Google AdMob이 쓰여요.</string>
+    <string name="settings_privacy">개인정보처리방침</string>
+
+    <!-- 온보딩 -->
+    <string name="onboarding_step">%1$d / %2$d</string>
+    <string name="onboarding_intro_title">새로워진 몇층</string>
+    <string name="onboarding_intro_body">주차한 층을 홈 화면 위젯, 블루투스 알림, 빠른 설정에서 바로 저장하세요. 인터넷이 없는 지하 주차장에서도 동작해요.</string>
+    <string name="onboarding_migration_note">이전 버전(웹 앱)을 쓰셨다면 차량을 한 번만 다시 등록해주세요. 이전 데이터는 옮겨지지 않아요.</string>
+    <string name="onboarding_floors_title">주차장 층 범위</string>
+    <string name="onboarding_floors_body">자주 주차하는 건물에 맞춰 층 범위를 정하세요. 설정에서 언제든 바꿀 수 있어요.</string>
+    <string name="onboarding_vehicle_title">차량 등록</string>
+    <string name="onboarding_vehicle_body">차량을 최대 3대까지 등록할 수 있어요.</string>
+    <string name="onboarding_register">등록</string>
+    <string name="onboarding_bt_title">블루투스 끊김 알림 (선택)</string>
+    <string name="onboarding_bt_body">차의 블루투스를 연결해두면 시동을 끌 때 층을 묻는 알림이 와요. 나중에 차량 화면에서 설정해도 돼요.</string>
+    <string name="onboarding_done">시작하기</string>
+    <string name="onboarding_skip">나중에 하기</string>
+
+    <!-- 메시지 -->
+    <string name="msg_vehicle_added">%1$s 등록됨</string>
+    <string name="msg_vehicle_limit">차량은 최대 3대까지 등록할 수 있어요.</string>
+    <string name="msg_vehicle_invalid">차량 이름을 1~20자로 입력해주세요.</string>
+    <string name="msg_vehicle_deleted">%1$s 삭제됨</string>
+    <string name="saved_toast">%1$s → %2$s 저장됨</string>
+    <string name="saved_toast_memo">%1$s → %2$s (%3$s) 저장됨</string>
+    <string name="msg_bt_linked">%1$s 연결됨</string>
+    <string name="msg_bt_already_linked">이 기기는 이미 %1$s에 연결돼 있어요.</string>
+    <string name="msg_bt_unlinked">블루투스 연결을 해제했어요.</string>
+    <string name="msg_history_cleared">주차 기록을 모두 지웠어요.</string>
+
+    <!-- 팝업 -->
+    <string name="quick_pick_vehicle">어떤 차를 주차하셨나요?</string>
+    <string name="quick_current">현재 %1$s · %2$s</string>
+    <string name="quick_other_vehicle">다른 차량 고르기</string>
+
+    <!-- 위젯 -->
+    <string name="widget_description">차량별 주차 층을 보고 바로 저장해요</string>
+    <string name="widget_empty">눌러서 차량을 등록하세요</string>
+    <string name="widget_tap_to_save">눌러서 층 저장</string>
+
+    <!-- 알림 -->
+    <string name="notif_channel_name">주차 층 묻기</string>
+    <string name="notif_channel_desc">차 블루투스가 끊기면 몇 층에 주차했는지 물어봐요.</string>
+    <string name="notif_title">%1$s, 몇 층에 주차하셨나요?</string>
+    <string name="notif_text">층을 누르면 바로 저장돼요. 다른 층이면 알림을 눌러주세요.</string>
+
+    <!-- 빠른 설정 타일 -->
+    <string name="tile_label">몇층</string>
+    <string name="tile_no_vehicle">차량 등록 필요</string>
+    <string name="tile_subtitle_empty">%1$s · 저장 안 함</string>
+    <string name="tile_subtitle">%1$s · %2$s</string>
+
+    <!-- 바로가기 -->
+    <string name="shortcut_short">%1$s 저장</string>
+    <string name="shortcut_long">%1$s 층 저장</string>
+</resources>
