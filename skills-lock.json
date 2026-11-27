@@ -1,0 +1,85 @@
+{
+  "version": 2,
+  "skills": {
+    "android-clean-architecture": {
+      "source": "affaan-m/ECC",
+      "commit": "4adeee6732a12d1540f49a4d50a38ce8c97f9a53",
+      "sourceType": "github",
+      "skillPath": "skills/android-clean-architecture/SKILL.md",
+      "computedHash": "b5513d6cf5102d341e1aa93337752a4bcf4862d67cf4570dc1ae746df366c6ba",
+      "installMode": "copy"
+    },
+    "android-cli": {
+      "source": "android/skills",
+      "commit": "7f7b21730a605d112ca9f79b6e40105ce7b670ee",
+      "sourceType": "github",
+      "skillPath": "devtools/android-cli/SKILL.md",
+      "computedHash": "8a982e9380aaa40ae06c955308c156942f4937071cd1e12c3d1cf2310d7c00c2",
+      "installMode": "copy"
+    },
+    "android-intent-security": {
+      "source": "android/skills",
+      "commit": "7f7b21730a605d112ca9f79b6e40105ce7b670ee",
+      "sourceType": "github",
+      "skillPath": "security/android-intent-security/SKILL.md",
+      "computedHash": "41a3b30d26f74c13b6b0471eb750b7a866244a6bd2774e2af5ccbe1ae5cf385f",
+      "installMode": "copy"
+    },
+    "edge-to-edge": {
+      "source": "android/skills",
+      "commit": "7f7b21730a605d112ca9f79b6e40105ce7b670ee",
+      "sourceType": "github",
+      "skillPath": "system/edge-to-edge/SKILL.md",
+      "computedHash": "954c391ab845f97ce160c04c3944d6c6da3c7ad0385970353b314ee2a3aabea2",
+      "installMode": "copy"
+    },
+    "glance-canonical-layouts": {
+      "source": "android/skills",
+      "commit": "7f7b21730a605d112ca9f79b6e40105ce7b670ee",
+      "sourceType": "github",
+      "skillPath": "system/glance-canonical-layouts/SKILL.md",
+      "computedHash": "31a368af42eee0214ddff2f191c5e14f68bdb8eb7eccf8e7c6f57212ff68f7ae",
+      "installMode": "copy"
+    },
+    "grill-me": {
+      "source": "mattpocock/skills",
+      "commit": "6f7f7831a625f040a8e06a0e7954826b87ce775a",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/grill-me/SKILL.md",
+      "computedHash": "ab1acb9fbd9eaee03da254abb8a8de228d1e7a07475fe959da4a5eefa34ea4b9",
+      "installMode": "copy"
+    },
+    "grilling": {
+      "source": "mattpocock/skills",
+      "commit": "6f7f7831a625f040a8e06a0e7954826b87ce775a",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/grilling/SKILL.md",
+      "computedHash": "485451958784497cd4c4dbea13cb5bbb579da58fac0d0e45f3bcb310fab68ac7",
+      "installMode": "copy"
+    },
+    "mobile-android-design": {
+      "source": "wshobson/agents",
+      "commit": "c96b5f6552dba32e4492307493ee613581430715",
+      "sourceType": "github",
+      "skillPath": "plugins/ui-design/skills/mobile-android-design/SKILL.md",
+      "computedHash": "55efd53301a7dedb208b426587aa66672e3450449c59f4729340f5fa1b96f7ff",
+      "installMode": "copy"
+    },
+    "navigation-3": {
+      "source": "android/skills",
+      "commit": "7f7b21730a605d112ca9f79b6e40105ce7b670ee",
+      "sourceType": "github",
+      "skillPath": "navigation/navigation-3/SKILL.md",
+      "computedHash": "29532dc2b5daea88d61257a215628cecdb2f0d621ecb3e42adb8b760e3733ed8",
+      "installMode": "copy"
+    },
+    "to-spec": {
+      "source": "mattpocock/skills",
+      "commit": "6f7f7831a625f040a8e06a0e7954826b87ce775a",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/to-spec/SKILL.md",
+      "computedHash": "eb934b5eda9523c7853a2741544bd4721ee1bea471f5a04f8397827f67bdbdda",
+      "installMode": "copy"
+    }
+  }
+}
